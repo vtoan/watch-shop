@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Interfaces.DAOs;
+using Application.Interfaces.Services;
+using Application.Services;
+using Infrastructure.DAOs;
 using Infrastructure.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Web.Services;
 
 namespace Web
 {
@@ -23,15 +28,23 @@ namespace Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WatchContext>(op =>  op.UseSqlServer(Configuration.GetConnectionString("default")));
-            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<WatchContext>();
+            services.AddDbContext<WatchContext>(op => op.UseSqlServer(Configuration.GetConnectionString("default")));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<WatchContext>();
+            //
+            services.AddScoped<IProductDAO, ProductDAO>();
+
+            services.AddScoped<IProductService, ProductService>();
+            //
+            services.AddScoped<ICache, CacheService>();
+            // services.AddAppServices();
+
+            //Framework use
+            services.AddControllers();
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -55,6 +68,7 @@ namespace Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }

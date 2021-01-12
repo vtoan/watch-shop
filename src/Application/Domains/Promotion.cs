@@ -8,9 +8,9 @@ namespace Application.Domains
         public string Name { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
-        public bool isShow { get; set; }
+        public bool? isShow { get; set; }
         public byte? Type { get; set; }
-        public bool isAlways { get; set; }
+        public bool? isAlways { get; set; }
         //Nav property
     }
 }

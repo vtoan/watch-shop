@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "60C20iTxazYO+Hw6Jkf8KK4iaCticu39jsGM1nF2ssQEaIIh18Bf1J+KZNKU4qn4mzlyGVr6PXPxEGcLUrxgGQ==",
+  "dgSpecHash": "7i20QmCcRuiJFsXox2VMtkNIH3/jSrKzsYL4BMCW4EaAJmidDxMdP826ouachk6HfCFXrqvo/Zl39M4Sbm8MHg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Toan\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\3.1.0\\microsoft.entityframeworkcore.abstractions.3.1.0.nupkg.sha512",
-    "C:\\Users\\Toan\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Toan\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\Toan\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\3.1.0\\microsoft.entityframeworkcore.abstractions.3.1.0.nupkg.sha512"
   ],
   "logs": []
 }
