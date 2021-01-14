@@ -25,6 +25,11 @@ namespace Application.Services
             return false;
         }
 
+        public bool MarkManyChanged(string[] keys, TimeSpan? span = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool RemoveData(string key)
         {
             return false;

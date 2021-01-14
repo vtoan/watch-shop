@@ -5,17 +5,17 @@ using System.Linq;
 
 namespace Application.Services
 {
-    public class BaseService<T> : IBaseService<T>
+    public class AbstractService<T> : IBaseService<T>
     {
         private readonly IBaseDAO<T> _db;
         protected readonly ICache _cache;
-        private string _CACHEKEY;
+        private readonly string _CACHEKEY;
 
-        public BaseService(IBaseDAO<T> db, ICache cache, string cacheKey = null)
+        public AbstractService(IBaseDAO<T> db, ICache cache, string cacheKey = null)
         {
             _db = db;
             _cache = cache;
-            if (cacheKey != null) _CACHEKEY = cacheKey;
+            _CACHEKEY = cacheKey ?? null;
         }
 
         public T AddItem(T newObject)
@@ -36,6 +36,7 @@ namespace Application.Services
         {
             if (id <= 0 || modifiedObject == null) return false;
             var modified = GetPropChangedOf(modifiedObject);
+            if (modified.Count <= 0) return true;
             bool re = _db.Update(id, modified);
             if (_CACHEKEY != null && re) _cache.MarkChanged(_CACHEKEY);
             return re;

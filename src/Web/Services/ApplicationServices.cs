@@ -2,7 +2,6 @@ using Application.Interfaces.DAOs;
 using Application.Interfaces.Services;
 using Application.Services;
 using Infrastructure.DAOs;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Web.Services

@@ -8,6 +8,7 @@ namespace Application.Interfaces.Services
     {
         bool IsChanged(string key);
         bool MarkChanged(string key, TimeSpan? span = null);
+        bool MarkManyChanged(string[] keys, TimeSpan? span = null);
         bool AddData(string key, object data, TimeSpan? span = null);
         bool RemoveData(string key);
         T GetData<T>(string key);

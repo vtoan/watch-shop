@@ -41,6 +41,16 @@ namespace Infrastructure.DAOs
             }
         }
 
+        public ICollection<Product> GetByBand(int bandId, int catId, int wireId, bool isAdmin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Product> GetByCate(int catId, int bandId, int wireId, bool isAdmin)
+        {
+            throw new NotImplementedException();
+        }
+
         public ProductDetail GetDetail(int id)
         {
             if (!this.CheckConnect()) return null;
@@ -84,6 +94,16 @@ namespace Infrastructure.DAOs
                 Console.WriteLine(ex.Message);
                 return null;
             }
+        }
+
+        public ICollection<Product> GetListFeatured()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateDetail(int id, Dictionary<string, object> newObject)
+        {
+            throw new NotImplementedException();
         }
     }
 }

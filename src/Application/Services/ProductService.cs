@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using Application.Domains;
 using Application.Interfaces.DAOs;
 using Application.Interfaces.Services;
-using System.Linq;
 
 namespace Application.Services
 {
-    public class ProductService : BaseService<Product>, IProductService
+    public class ProductService : AbstractService<Product>, IProductService
     {
         private readonly IProductDAO _db;
+        private const string _CACHE_PROP = "_PRODUCT";
+        private const string _CACHE_CATE = "_CATE_";
+        private const string _CACHE_BAND = "_BAND_";
+        private const string _CACHE_FEATURED = "_PROP_FEATURED";
 
-        private const string _CACHEKEY = "_PRODUCT";
-
-        public ProductService(IProductDAO dao, ICache cache) : base(dao, cache, _CACHEKEY)
+        public ProductService(IProductDAO dao, ICache cache) : base(dao, cache, _CACHE_PROP)
         {
             _db = dao;
         }
@@ -24,44 +25,80 @@ namespace Application.Services
             return _db.FindItem(query);
         }
 
-        public ProductDetail GetDetail(int id)
+        public ICollection<Product> GetListById(int[] arrayId)
         {
-            if (id <= 0) return null;
-            return _db.GetDetail(id);
+            if (arrayId == null || arrayId?.Length <= 0) return null;
+            return _db.GetListByIds(arrayId);
+        }
+
+        public ICollection<Product> GetListFeatured()
+        {
+            var re = _cache.GetData<List<Product>>(_CACHE_FEATURED);
+            if (re == null || re?.Count <= 0)
+            {
+                re = (List<Product>)_db.GetListFeatured();
+                if (re?.Count > 0) _cache.AddData(_CACHE_FEATURED, re, TimeSpan.FromDays(1));
+            }
+            return re;
         }
 
         public ICollection<Product> GetListItems(bool isAdmin = false)
         {
-            if (isAdmin == true) return _db.GetList(true);
+            if (isAdmin == true) return _db.GetList(isAdmin);
             else
             {
-                var re = _cache.GetData<List<Product>>(_CACHEKEY);
+                var re = _cache.GetData<List<Product>>(_CACHE_PROP);
                 if (re == null || re?.Count <= 0)
                 {
                     re = (List<Product>)_db.GetList();
-                    if (re?.Count > 0) _cache.AddData(_CACHEKEY, re);
+                    if (re?.Count > 0) _cache.AddData(_CACHE_PROP, re);
                 }
                 return re;
             };
         }
 
-        public ICollection<Product> GetListByBand(int id)
+        public ICollection<Product> GetListByCate(int cateId, int bandId = 0, int wireId = 0, bool isAdmin = false)
         {
-            if (id <= 0) return null;
-            string CACHE_BAND = "_BAND_" + id;
-            var re = _cache.GetData<List<Product>>(CACHE_BAND);
+            if (bandId > 0 || wireId > 0 || isAdmin) return _db.GetByCate(cateId, bandId, wireId, isAdmin);
+            if (cateId <= 0) return null;
+            string keyCache = _CACHE_CATE + cateId;
+            var re = _cache.GetData<List<Product>>(keyCache);
             if (re == null || re?.Count <= 0)
             {
-                re = (List<Product>)_db.GetByBand(id);
-                if (re?.Count > 0) _cache.AddData(CACHE_BAND, re);
+                re = (List<Product>)_db.GetByCate(cateId, bandId, wireId, isAdmin);
+                if (re?.Count > 0) _cache.AddData(keyCache, re);
             }
             return re;
         }
 
-        public ICollection<Product> GetListById(int[] arrayId)
+        public ICollection<Product> GetListByBand(int bandId, int cateId = 0, int wireId = 0, bool isAdmin = false)
         {
-            if (arrayId == null || arrayId?.Length <= 0) return null;
-            return _db.GetListByIds(arrayId);
+            if (cateId > 0 || wireId > 0 || isAdmin) return _db.GetByBand(cateId, bandId, wireId, isAdmin);
+            if (bandId <= 0) return null;
+            string keyCache = _CACHE_BAND + bandId;
+            var re = _cache.GetData<List<Product>>(keyCache);
+            if (re == null || re?.Count <= 0)
+            {
+                re = (List<Product>)_db.GetByBand(bandId, cateId, wireId, isAdmin);
+                if (re?.Count > 0) _cache.AddData(keyCache, re);
+            }
+            return re;
+        }
+
+        public new Product AddItem(Product newObject)
+        {
+            var execResult = base.AddItem(newObject);
+            if (execResult == null) return null;
+            _cache.MarkManyChanged(new string[] { _CACHE_BAND, _CACHE_CATE, _CACHE_FEATURED });
+            return execResult;
+        }
+
+        public new bool UpdateItem(int id, Product modifiedObject)
+        {
+            var execResult = base.UpdateItem(id, modifiedObject);
+            if (execResult == false) return false;
+            _cache.MarkManyChanged(new string[] { _CACHE_BAND, _CACHE_CATE, _CACHE_FEATURED });
+            return execResult;
         }
 
         public bool UpdateStatus(int id, bool status)
@@ -70,21 +107,32 @@ namespace Application.Services
             var propModified = new Dictionary<string, object>();
             propModified.Add("status", status);
             var execResult = _db.Update(id, propModified);
-            if (execResult) _cache.MarkChanged(_CACHEKEY);
+            if (execResult) _cache.MarkManyChanged(new string[] { _CACHE_PROP, _CACHE_BAND, _CACHE_CATE, _CACHE_FEATURED });
             return execResult;
         }
 
-        //
-        public ICollection<Product> FilterByCate(ICollection<Product> listItems, int cateId)
+        public new bool DeleteItem(int id)
         {
-            if (listItems == null || listItems?.Count == 0 || cateId <= 0) return null;
-            return listItems.Where(item => item.CategoryId == cateId).ToList();
+            var execResult = base.DeleteItem(id);
+            if (execResult == false) return false;
+            _cache.MarkManyChanged(new string[] { _CACHE_BAND, _CACHE_CATE, _CACHE_FEATURED });
+            return execResult;
         }
 
-        public ICollection<Product> FilterByWire(ICollection<Product> listItems, int wireId)
+        //Product Detail
+
+        public ProductDetail GetDetail(int id)
         {
-            if (listItems == null || listItems?.Count == 0 || wireId <= 0) return null;
-            return listItems.Where(item => item.WireId == wireId).ToList();
+            if (id <= 0) return null;
+            return _db.GetDetail(id);
+        }
+
+        public bool UpdateDetail(int id, ProductDetail modifiedObject)
+        {
+            if (id <= 0) return false;
+            var propModified = base.GetPropChangedOf(modifiedObject);
+            if (propModified.Count < 0) return true;
+            return _db.UpdateDetail(id, propModified);
         }
     }
 }
