@@ -6,7 +6,7 @@ namespace Application.Services
 {
     public class PhoneService : AbstractService<Phone>, IPhoneService
     {
-        public PhoneService(IBaseDAO<Phone> db, ICache cache) : base(db, cache)
+        public PhoneService(IBaseDAO<Phone> db) : base(db)
         {
         }
     }

@@ -7,7 +7,7 @@ namespace Application.Domains
 
         public string OrderId { get; set; }
 
-        public int Status { get; set; }
+        public byte? Status { get; set; }
 
         public DateTime DateChanged { get; set; }
         //Nav

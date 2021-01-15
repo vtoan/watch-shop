@@ -16,7 +16,7 @@ namespace Application.Domains
         public string UnitTranspost { get; set; }
         public string Promotions { get; set; }
         public string Fees { get; set; }
-        public int? Status { get; set; }
+        public byte? Status { get; set; }
         public int? CustomerId { get; set; }
         //Nav property
         public List<OrderDetail> OrderDetails { get; set; }

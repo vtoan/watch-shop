@@ -104,8 +104,7 @@ namespace Application.Services
         public bool UpdateStatus(int id, bool status)
         {
             if (id <= 0) return false;
-            var propModified = new Dictionary<string, object>();
-            propModified.Add("status", status);
+            var propModified = CreatePropChanged("status", status);
             var execResult = _db.Update(id, propModified);
             if (execResult) _cache.MarkManyChanged(new string[] { _CACHE_PROP, _CACHE_BAND, _CACHE_CATE, _CACHE_FEATURED });
             return execResult;

@@ -10,4 +10,6 @@ namespace Application.Interfaces.DAOs
     public interface IBaseDAO<T> : IGet<T>, IGetList<T>, IAdd<T>, IUpdate<T>, IDelete<T>
     {
     }
+
+
 }

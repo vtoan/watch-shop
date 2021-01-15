@@ -6,7 +6,7 @@ namespace Application.Services
 {
     public class OrderStatusService : AbstractService<OrderStatus>, IOrderStatusService
     {
-        public OrderStatusService(IBaseDAO<OrderStatus> db, ICache cache) : base(db, cache)
+        public OrderStatusService(IBaseDAO<OrderStatus> db) : base(db)
         {
         }
     }

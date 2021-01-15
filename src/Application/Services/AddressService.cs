@@ -6,7 +6,7 @@ namespace Application.Services
 {
     public class AddressService : AbstractService<Address>, IAddressService
     {
-        public AddressService(IBaseDAO<Address> db, ICache cache) : base(db, cache)
+        public AddressService(IBaseDAO<Address> db) : base(db)
         {
         }
     }

@@ -7,7 +7,7 @@ namespace Application.Interfaces.DAOs
     {
         ICollection<BillProm> GetListBillProm(bool isAvailable);
         ICollection<ProductProm> GetListProductProm(bool isAvailable);
-        bool UpdateBillProm(int promId, BillProm billProm);
-        bool UpdateProductProm(int promId, ProductProm productProm);
+        bool UpdateBillProm(int promId, Dictionary<string, object> newObject);
+        bool UpdateProductProm(int promId, Dictionary<string, object> newObject);
     }
 }

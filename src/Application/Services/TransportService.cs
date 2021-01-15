@@ -6,7 +6,7 @@ namespace Application.Services
 {
     public class TransportService : AbstractService<UnitTransport>, ITransportService
     {
-        public TransportService(IBaseDAO<UnitTransport> db, ICache cache) : base(db, cache)
+        public TransportService(IBaseDAO<UnitTransport> db) : base(db)
         {
         }
     }

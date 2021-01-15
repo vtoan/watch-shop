@@ -8,7 +8,7 @@ namespace Application.Services
     {
         private const string _CACHE = "_LIST_CATE";
 
-        public CateService(IBaseDAO<Category> db, ICache cache, string cacheKey = null) : base(db, cache, _CACHE)
+        public CateService(IBaseDAO<Category> db, ICache cache) : base(db, cache, _CACHE)
         {
         }
     }

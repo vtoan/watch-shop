@@ -5,30 +5,30 @@ using System.Linq;
 
 namespace Application.Services
 {
-    public class AbstractService<T> : IBaseService<T>
+    public class AbstractService<T> : BaseService, IGetItem<T>, IAddItem<T>, IDeleteItem<T>, IUpdateItem<T>, IGetListItem<T>
     {
         private readonly IBaseDAO<T> _db;
         protected readonly ICache _cache;
         private readonly string _CACHEKEY;
 
-        public AbstractService(IBaseDAO<T> db, ICache cache, string cacheKey = null)
+        public AbstractService(IBaseDAO<T> db, ICache cache = null, string cacheKey = null)
         {
             _db = db;
-            _cache = cache;
+            _cache = cache ?? null;
             _CACHEKEY = cacheKey ?? null;
         }
 
         public T AddItem(T newObject)
         {
             var re = newObject == null ? default(T) : _db.Add(newObject);
-            if (_CACHEKEY != null && re != null) _cache.MarkChanged(_CACHEKEY);
+            if (_cache != null && _CACHEKEY != null && re != null) _cache.MarkChanged(_CACHEKEY);
             return re;
         }
 
         public bool DeleteItem(int id)
         {
             bool re = id <= 0 ? false : _db.Delete(id);
-            if (_CACHEKEY != null && re) _cache.MarkChanged(_CACHEKEY);
+            if (_cache != null && _CACHEKEY != null && re) _cache.MarkChanged(_CACHEKEY);
             return re;
         }
 
@@ -38,7 +38,7 @@ namespace Application.Services
             var modified = GetPropChangedOf(modifiedObject);
             if (modified.Count <= 0) return true;
             bool re = _db.Update(id, modified);
-            if (_CACHEKEY != null && re) _cache.MarkChanged(_CACHEKEY);
+            if (_cache != null && _CACHEKEY != null && re) _cache.MarkChanged(_CACHEKEY);
             return re;
         }
 
@@ -50,7 +50,7 @@ namespace Application.Services
 
         public ICollection<T> GetListItems()
         {
-            if (_CACHEKEY == null) return _db.GetList();
+            if (_cache == null && _CACHEKEY == null) return _db.GetList();
             else
             {
                 var re = _cache.GetData<List<T>>(_CACHEKEY);
@@ -63,23 +63,5 @@ namespace Application.Services
             };
         }
 
-        //Reflection Proprety
-        protected Dictionary<string, object> GetPropChangedOf(object target, string[] ignore = null)
-        {
-            Dictionary<string, object> modifiedProps = new Dictionary<string, object>();
-            if (target == null) return modifiedProps;
-            var srcProps = target.GetType().GetProperties();
-            foreach (var p in srcProps)
-            {
-                //Check ignore prop
-                string propName = p.Name;
-                if (propName == "Id") continue;
-                if (ignore == null || ignore?.Length > 0 && ignore.Contains(propName)) continue;
-                //Add val
-                if (p.GetValue(target) != null)
-                    modifiedProps.Add(p.Name, p.GetValue(target));
-            }
-            return modifiedProps;
-        }
     }
 }

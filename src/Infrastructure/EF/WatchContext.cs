@@ -8,6 +8,7 @@ namespace Infrastructure.EF
 {
     public class WatchContext : IdentityDbContext<IdentityUser>
     {
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Band> Bands { get; set; }
         public DbSet<BillProm> BillProms { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -15,11 +16,14 @@ namespace Infrastructure.EF
         public DbSet<InfoShop> InfoShops { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
+        public DbSet<Phone> Phones { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductDetail> ProductDetails { get; set; }
         public DbSet<ProductProm> ProductProms { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Social> Socials { get; set; }
+        public DbSet<UnitTransport> UnitTransports { get; set; }
         public DbSet<Wire> Wires { get; set; }
 
         public WatchContext(DbContextOptions<WatchContext> options) : base(options) { }
@@ -27,12 +31,18 @@ namespace Infrastructure.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //Address
+            modelBuilder.Entity<Address>().Property(p => p.AddressStore).HasMaxLength(750);
             //Band
             modelBuilder.Entity<Band>().Property(p => p.Name).HasMaxLength(100);
+            modelBuilder.Entity<Band>().Property(p => p.SeoImage).HasMaxLength(100);
+            modelBuilder.Entity<Band>().Property(p => p.SeoTitle).HasMaxLength(150);
+            modelBuilder.Entity<Band>().Property(p => p.SeoDescription).HasMaxLength(750);
             //Category
             modelBuilder.Entity<Category>().Property(p => p.Name).HasMaxLength(100);
             modelBuilder.Entity<Category>().Property(p => p.SeoImage).HasMaxLength(100);
             modelBuilder.Entity<Category>().Property(p => p.SeoTitle).HasMaxLength(150);
+            modelBuilder.Entity<Category>().Property(p => p.SeoDescription).HasMaxLength(750);
             //Wire
             modelBuilder.Entity<Wire>().Property(p => p.Name).HasMaxLength(100);
             //Fee
@@ -41,24 +51,34 @@ namespace Infrastructure.EF
             //InfoShop
             modelBuilder.Entity<InfoShop>().Property(p => p.Name).HasMaxLength(100);
             modelBuilder.Entity<InfoShop>().Property(p => p.WorkTime).HasMaxLength(100);
+            modelBuilder.Entity<InfoShop>().Property(p => p.Email).HasMaxLength(100);
             modelBuilder.Entity<InfoShop>().Property(p => p.SeoImage).HasMaxLength(100);
             modelBuilder.Entity<InfoShop>().Property(p => p.SeoTitle).HasMaxLength(150);
+            modelBuilder.Entity<InfoShop>().Property(p => p.SeoDescription).HasMaxLength(750);
             //Social
             modelBuilder.Entity<Social>().Property(p => p.Name).HasMaxLength(150);
             modelBuilder.Entity<Social>().Property(p => p.Link).HasMaxLength(250);
             //Order
+            modelBuilder.Entity<Order>().Property(o => o.Id).ValueGeneratedNever();
             modelBuilder.Entity<Order>().Property(o => o.DateCreated).HasColumnType("smalldatetime");
             modelBuilder.Entity<Order>().Property(o => o.CustomerName).HasMaxLength(250);
             modelBuilder.Entity<Order>().Property(o => o.CustomerPhone).HasMaxLength(50);
             modelBuilder.Entity<Order>().Property(o => o.CustomerProvince).HasMaxLength(100);
             modelBuilder.Entity<Order>().Property(o => o.CustomerEmail).HasMaxLength(150);
             modelBuilder.Entity<Order>().Property(o => o.CustomerAddress).HasMaxLength(500);
+            modelBuilder.Entity<Order>().Property(o => o.Note).HasMaxLength(750);
+            modelBuilder.Entity<Order>().Property(o => o.UnitTranspost).HasMaxLength(100);
             //OrderDetail
             modelBuilder.Entity<OrderDetail>().HasKey(od => new { od.OrderId, od.ProductId });
             modelBuilder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType("decimal(3,2)");
+            //OrderStatus
+            modelBuilder.Entity<OrderStatus>().Property(o => o.DateChanged).HasColumnType("smalldatetime");
+            //Phone
+            modelBuilder.Entity<Phone>().Property(p => p.PhoneNumber).HasMaxLength(50);
             //Product
             modelBuilder.Entity<Product>().Property(p => p.Name).HasMaxLength(250);
-            modelBuilder.Entity<Product>().Property(p => p.Image).HasMaxLength(100);
+            modelBuilder.Entity<Product>().Property(p => p.Image).HasMaxLength(150);
+            modelBuilder.Entity<Product>().Property(p => p.isDel).HasDefaultValue(false);
             //ProductDetail
             modelBuilder.Entity<ProductDetail>().Property(p => p.TypeGlass).HasMaxLength(250);
             modelBuilder.Entity<ProductDetail>().Property(p => p.TypeBorder).HasMaxLength(250);
@@ -69,7 +89,8 @@ namespace Infrastructure.EF
             modelBuilder.Entity<ProductDetail>().Property(p => p.Origin).HasMaxLength(250);
             modelBuilder.Entity<ProductDetail>().Property(p => p.Color).HasMaxLength(250);
             modelBuilder.Entity<ProductDetail>().Property(p => p.Func).HasMaxLength(500);
-            modelBuilder.Entity<ProductDetail>().Property(p => p.SeoTitle).HasMaxLength(150);
+            modelBuilder.Entity<ProductDetail>().Property(p => p.SeoTitle).HasMaxLength(250);
+            modelBuilder.Entity<ProductDetail>().Property(p => p.SeoDescription).HasMaxLength(750);
             //Config Promotion
             modelBuilder.Entity<Promotion>().Property(p => p.ToDate).HasColumnType("smalldatetime");
             modelBuilder.Entity<Promotion>().Property(p => p.FromDate).HasColumnType("smalldatetime");
@@ -78,6 +99,8 @@ namespace Infrastructure.EF
             modelBuilder.Entity<ProductProm>().Property(p => p.ProductIds).HasMaxLength(250);
             //Config ProductProm
             modelBuilder.Entity<BillProm>().Property(p => p.Discount).HasColumnType("decimal(3,2)");
+            //Tranport
+            modelBuilder.Entity<UnitTransport>().Property(p => p.Name).HasMaxLength(150);
             //Identity
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {

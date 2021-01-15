@@ -33,11 +33,7 @@ namespace Web
             services.AddDbContext<WatchContext>(op => op.UseSqlServer(Configuration.GetConnectionString("default")));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<WatchContext>();
             //
-            services.AddScoped<IProductDAO, ProductDAO>();
-
-            services.AddScoped<IProductService, ProductService>();
             //
-            services.AddScoped<ICache, CacheService>();
             // services.AddAppServices();
 
             //Framework use
