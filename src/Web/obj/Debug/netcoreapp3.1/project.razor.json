@@ -14417,8 +14417,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Pages\\Privacy.cshtml",
-      "TargetPath": "Pages\\Privacy.cshtml",
+      "FilePath": "c:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Pages\\Home\\Privacy.cshtml",
+      "TargetPath": "Pages\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
     },
     {

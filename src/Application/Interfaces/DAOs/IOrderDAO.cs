@@ -4,13 +4,15 @@ using Application.Domains;
 
 namespace Application.Interfaces.DAOs
 {
-    public interface IOrderDAO : IAdd<Order>
+    public interface IOrderDAO
     {
+        Order Add(Order newObject);
+        int GetStatus(string orderId);
         Order Get(string id);
-        bool Update(string id, Dictionary<string, object> newObject);
+        // bool Update(string id, Dictionary<string, object> newObject);
         ICollection<Order> GetList(DateTime start, DateTime end, int status);
         ICollection<OrderStatus> GetListStatusOf(string orderId);
-        OrderStatus AddLogStatus(string OrderId, int status);
+        OrderStatus AddLogStatus(OrderStatus newObject);
 
     }
 }

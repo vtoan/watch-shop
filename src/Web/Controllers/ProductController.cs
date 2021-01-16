@@ -18,7 +18,6 @@ namespace Web.Controllers
         [HttpGet]
         public ICollection<Product> GetList()
         {
-            var re = _service.AddItem(null);
             return null;
         }
     }

@@ -13,13 +13,13 @@ namespace Application.Domains
         public string CustomerEmail { get; set; }
         public string CustomerAddress { get; set; }
         public string Note { get; set; }
-        public string UnitTranspost { get; set; }
         public string Promotions { get; set; }
         public string Fees { get; set; }
-        public byte? Status { get; set; }
         public int? CustomerId { get; set; }
+        public int? UnitTransportId { get; set; }
         //Nav property
         public List<OrderDetail> OrderDetails { get; set; }
+        public List<UnitTransport> UnitTransports { get; set; }
         public List<OrderStatus> OrderStatuses { get; set; }
     }
 }

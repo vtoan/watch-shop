@@ -10,8 +10,8 @@ namespace Application.Interfaces.DAOs
         ICollection<Product> GetByBand(int bandId, int catId, int wireId, bool isAdmin);
         ICollection<Product> GetByCate(int catId, int bandId, int wireId, bool isAdmin);
         ICollection<Product> GetList(bool isAdmin);
-        ICollection<Product> GetListFeatured();
-        ProductDetail GetDetail(int id);
-        bool UpdateDetail(int id, Dictionary<string, object> newObject);
+        // ICollection<Product> GetListFeatured();
+        // ProductDetail GetDetail(int id);
+        // bool UpdateDetail(int id, Dictionary<string, object> newObject);
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EF.Migrations
 {
     [DbContext(typeof(WatchContext))]
-    [Migration("20210115115213_Update")]
-    partial class Update
+    [Migration("20210116112437_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,7 +85,7 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<int?>("PromotionId")
                         .HasColumnType("int");
@@ -128,6 +128,27 @@ namespace Infrastructure.EF.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Application.Domains.CodeProm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CodeCoupon")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("PromotionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PromotionId");
+
+                    b.ToTable("CodeProms");
+                });
+
             modelBuilder.Entity("Application.Domains.Fee", b =>
                 {
                     b.Property<int>("Id")
@@ -136,7 +157,7 @@ namespace Infrastructure.EF.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal?>("Cost")
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)")
@@ -224,12 +245,8 @@ namespace Infrastructure.EF.Migrations
                     b.Property<string>("Promotions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte?>("Status")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("UnitTranspost")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<int?>("UnitTransportId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -245,7 +262,7 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<int?>("Price")
                         .HasColumnType("int");
@@ -335,7 +352,9 @@ namespace Infrastructure.EF.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<bool?>("isShow")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.HasKey("Id");
 
@@ -425,7 +444,7 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<string>("ProductIds")
                         .HasColumnType("nvarchar(250)")
@@ -457,14 +476,15 @@ namespace Infrastructure.EF.Migrations
                     b.Property<DateTime?>("ToDate")
                         .HasColumnType("smalldatetime");
 
-                    b.Property<byte?>("Type")
-                        .HasColumnType("tinyint");
-
                     b.Property<bool?>("isAlways")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<bool?>("isShow")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.HasKey("Id");
 
@@ -502,7 +522,12 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("UnitTransports");
                 });
@@ -732,6 +757,13 @@ namespace Infrastructure.EF.Migrations
                         .HasForeignKey("PromotionId");
                 });
 
+            modelBuilder.Entity("Application.Domains.CodeProm", b =>
+                {
+                    b.HasOne("Application.Domains.Promotion", "Promotion")
+                        .WithMany()
+                        .HasForeignKey("PromotionId");
+                });
+
             modelBuilder.Entity("Application.Domains.OrderDetail", b =>
                 {
                     b.HasOne("Application.Domains.Order", "Order")
@@ -781,6 +813,13 @@ namespace Infrastructure.EF.Migrations
                     b.HasOne("Application.Domains.Promotion", "Promotion")
                         .WithMany()
                         .HasForeignKey("PromotionId");
+                });
+
+            modelBuilder.Entity("Application.Domains.UnitTransport", b =>
+                {
+                    b.HasOne("Application.Domains.Order", null)
+                        .WithMany("UnitTransports")
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

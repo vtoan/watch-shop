@@ -31,16 +31,16 @@ namespace Application.Services
             return _db.GetListByIds(arrayId);
         }
 
-        public ICollection<Product> GetListFeatured()
-        {
-            var re = _cache.GetData<List<Product>>(_CACHE_FEATURED);
-            if (re == null || re?.Count <= 0)
-            {
-                re = (List<Product>)_db.GetListFeatured();
-                if (re?.Count > 0) _cache.AddData(_CACHE_FEATURED, re, TimeSpan.FromDays(1));
-            }
-            return re;
-        }
+        // public ICollection<Product> GetListFeatured()
+        // {
+        //     var re = _cache.GetData<List<Product>>(_CACHE_FEATURED);
+        //     if (re == null || re?.Count <= 0)
+        //     {
+        //         re = (List<Product>)_db.GetListFeatured();
+        //         if (re?.Count > 0) _cache.AddData(_CACHE_FEATURED, re, TimeSpan.FromDays(1));
+        //     }
+        //     return re;
+        // }
 
         public ICollection<Product> GetListItems(bool isAdmin = false)
         {
@@ -123,7 +123,7 @@ namespace Application.Services
         public ProductDetail GetDetail(int id)
         {
             if (id <= 0) return null;
-            return _db.GetDetail(id);
+            return _db.Get<ProductDetail>(id);
         }
 
         public bool UpdateDetail(int id, ProductDetail modifiedObject)
@@ -131,7 +131,7 @@ namespace Application.Services
             if (id <= 0) return false;
             var propModified = base.GetPropChangedOf(modifiedObject);
             if (propModified.Count < 0) return true;
-            return _db.UpdateDetail(id, propModified);
+            return _db.Update<ProductDetail>(id, propModified);
         }
     }
 }

@@ -17,19 +17,17 @@ namespace Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        private readonly IProductService _service;
 
-        public IndexModel(ILogger<IndexModel> logger, IProductService service)
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-            _service = service;
 
             // db.AddItem(null);
         }
 
         public void OnGet()
         {
-            var s = _service.GetListItems();
+            // var s = _service.GetListItems();
         }
     }
 }

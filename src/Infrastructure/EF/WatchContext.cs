@@ -12,6 +12,7 @@ namespace Infrastructure.EF
         public DbSet<Band> Bands { get; set; }
         public DbSet<BillProm> BillProms { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CodeProm> CodeProms { get; set; }
         public DbSet<Fee> Fees { get; set; }
         public DbSet<InfoShop> InfoShops { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -43,11 +44,13 @@ namespace Infrastructure.EF
             modelBuilder.Entity<Category>().Property(p => p.SeoImage).HasMaxLength(100);
             modelBuilder.Entity<Category>().Property(p => p.SeoTitle).HasMaxLength(150);
             modelBuilder.Entity<Category>().Property(p => p.SeoDescription).HasMaxLength(750);
+            //coupon
+            modelBuilder.Entity<CodeProm>().Property(p => p.CodeCoupon).HasMaxLength(100);
             //Wire
             modelBuilder.Entity<Wire>().Property(p => p.Name).HasMaxLength(100);
             //Fee
             modelBuilder.Entity<Fee>().Property(p => p.Name).HasMaxLength(100);
-            modelBuilder.Entity<Fee>().Property(p => p.Cost).HasColumnType("decimal(3,2)");
+            modelBuilder.Entity<Fee>().Property(p => p.Cost).HasColumnType("decimal(2,2)");
             //InfoShop
             modelBuilder.Entity<InfoShop>().Property(p => p.Name).HasMaxLength(100);
             modelBuilder.Entity<InfoShop>().Property(p => p.WorkTime).HasMaxLength(100);
@@ -67,10 +70,9 @@ namespace Infrastructure.EF
             modelBuilder.Entity<Order>().Property(o => o.CustomerEmail).HasMaxLength(150);
             modelBuilder.Entity<Order>().Property(o => o.CustomerAddress).HasMaxLength(500);
             modelBuilder.Entity<Order>().Property(o => o.Note).HasMaxLength(750);
-            modelBuilder.Entity<Order>().Property(o => o.UnitTranspost).HasMaxLength(100);
             //OrderDetail
             modelBuilder.Entity<OrderDetail>().HasKey(od => new { od.OrderId, od.ProductId });
-            modelBuilder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType("decimal(3,2)");
+            modelBuilder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType("decimal(2,2)");
             //OrderStatus
             modelBuilder.Entity<OrderStatus>().Property(o => o.DateChanged).HasColumnType("smalldatetime");
             //Phone
@@ -79,6 +81,7 @@ namespace Infrastructure.EF
             modelBuilder.Entity<Product>().Property(p => p.Name).HasMaxLength(250);
             modelBuilder.Entity<Product>().Property(p => p.Image).HasMaxLength(150);
             modelBuilder.Entity<Product>().Property(p => p.isDel).HasDefaultValue(false);
+            modelBuilder.Entity<Product>().Property(p => p.isShow).HasDefaultValue(true);
             //ProductDetail
             modelBuilder.Entity<ProductDetail>().Property(p => p.TypeGlass).HasMaxLength(250);
             modelBuilder.Entity<ProductDetail>().Property(p => p.TypeBorder).HasMaxLength(250);
@@ -94,11 +97,13 @@ namespace Infrastructure.EF
             //Config Promotion
             modelBuilder.Entity<Promotion>().Property(p => p.ToDate).HasColumnType("smalldatetime");
             modelBuilder.Entity<Promotion>().Property(p => p.FromDate).HasColumnType("smalldatetime");
+            modelBuilder.Entity<Promotion>().Property(p => p.isShow).HasDefaultValue(true);
+            modelBuilder.Entity<Promotion>().Property(p => p.isAlways).HasDefaultValue(false);
             //Config ProductProm
-            modelBuilder.Entity<ProductProm>().Property(p => p.Discount).HasColumnType("decimal(3,2)");
+            modelBuilder.Entity<ProductProm>().Property(p => p.Discount).HasColumnType("decimal(2,2)");
             modelBuilder.Entity<ProductProm>().Property(p => p.ProductIds).HasMaxLength(250);
             //Config ProductProm
-            modelBuilder.Entity<BillProm>().Property(p => p.Discount).HasColumnType("decimal(3,2)");
+            modelBuilder.Entity<BillProm>().Property(p => p.Discount).HasColumnType("decimal(2,2)");
             //Tranport
             modelBuilder.Entity<UnitTransport>().Property(p => p.Name).HasMaxLength(150);
             //Identity
