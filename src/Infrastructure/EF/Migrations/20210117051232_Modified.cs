@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.EF.Migrations
 {
-    public partial class init : Migration
+    public partial class Modified : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -132,7 +132,8 @@ namespace Infrastructure.EF.Migrations
                     FromDate = table.Column<DateTime>(type: "smalldatetime", nullable: true),
                     ToDate = table.Column<DateTime>(type: "smalldatetime", nullable: true),
                     isShow = table.Column<bool>(nullable: true, defaultValue: true),
-                    isAlways = table.Column<bool>(nullable: true, defaultValue: false)
+                    isAlways = table.Column<bool>(nullable: true, defaultValue: false),
+                    TypeProm = table.Column<byte>(nullable: true)
                 },
                 constraints: table =>
                 {

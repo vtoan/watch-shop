@@ -18,9 +18,16 @@ namespace Application.Services
             _dao = dao;
         }
 
+        public Promotion AddItem(Promotion newObject, EPromo promType)
+        {
+            newObject.TypeProm = (byte?)promType.GetTypeCode();
+            return base.AddItem(newObject);
+        }
+
         public CodeProm GetCodeProm(string coupon)
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(coupon)) return null;
+            return _dao.GetCodeProm(coupon);
         }
 
         public ICollection<BillProm> GetListBillProm(bool isAvailable = false)
@@ -59,30 +66,6 @@ namespace Application.Services
             return re;
         }
 
-        // public bool UpdateBillProm(int promId, BillProm billProm)
-        // {
-        //     if (promId == 0 || billProm == null) return false;
-        //     var propModifed = GetPropChangedOf(billProm);
-        //     if (propModifed?.Count == 0) return true;
-        //     return _dao.UpdateBillProm(promId, propModifed);
-        // }
-
-        // public bool UpdateCodeProm(int promId, CodeProm codeProm)
-        // {
-        //     if (promId == 0 || codeProm == null) return false;
-        //     var propModifed = GetPropChangedOf(codeProm);
-        //     if (propModifed?.Count == 0) return true;
-        //     return _dao.UpdateCodeProm(promId, propModifed);
-        // }
-
-        // public bool UpdateProductProm(int promId, ProductProm productProm)
-        // {
-        //     if (promId == 0 || productProm == null) return false;
-        //     var propModifed = GetPropChangedOf(productProm);
-        //     if (propModifed?.Count == 0) return true;
-        //     return _dao.UpdateProductProm(promId, propModifed);
-        // }
-
         public bool UpdateStatus(int id, bool status)
         {
             if (id <= 0) return false;
@@ -91,7 +74,8 @@ namespace Application.Services
             if (execResult) _cache.MarkManyChanged(new string[] { _CACHE_BILL, _CACHE_PROD });
             return execResult;
         }
-        public bool UpdatePromDetail(int promId, object objectProm, EPromo promType)
+
+        public bool UpdatePromItem(int promId, object objectProm, EPromo promType)
         {
             if (promId == 0 || objectProm == null) return false;
             var propModifed = GetPropChangedOf(objectProm);
@@ -107,6 +91,27 @@ namespace Application.Services
                 default:
                     return false;
             }
+        }
+
+        public BillProm AddBillItem(int promId, BillProm newObject)
+        {
+            if (promId <= 0 || newObject == null) return null;
+            newObject.PromotionId = promId;
+            return _dao.Add<BillProm>(newObject);
+        }
+
+        public CodeProm AddCodeItem(int promId, CodeProm newObject)
+        {
+            if (promId <= 0 || newObject == null) return null;
+            newObject.PromotionId = promId;
+            return _dao.Add<CodeProm>(newObject);
+        }
+
+        public ProductProm AddProducttem(int promId, ProductProm newObject)
+        {
+            if (promId <= 0 || newObject == null) return null;
+            newObject.PromotionId = promId;
+            return _dao.Add<ProductProm>(newObject);
         }
     }
 }

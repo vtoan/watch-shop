@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EF.Migrations
 {
     [DbContext(typeof(WatchContext))]
-    [Migration("20210116112437_init")]
-    partial class init
+    [Migration("20210117051232_Modified")]
+    partial class Modified
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -475,6 +475,9 @@ namespace Infrastructure.EF.Migrations
 
                     b.Property<DateTime?>("ToDate")
                         .HasColumnType("smalldatetime");
+
+                    b.Property<byte?>("TypeProm")
+                        .HasColumnType("tinyint");
 
                     b.Property<bool?>("isAlways")
                         .ValueGeneratedOnAdd()

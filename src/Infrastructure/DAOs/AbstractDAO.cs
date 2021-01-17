@@ -6,13 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.DAOs
 {
-    public class AbstractDAO
+    public abstract class AbstractDAO
     {
         protected readonly ILogger<string> _logger;
-
         protected WatchContext _context;
-
-
         public AbstractDAO(ILogger<string> logger, WatchContext context)
         {
             _logger = logger;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Domains;
 using Application.Interfaces.DAOs;
 using Application.Interfaces.Services;
 using Application.Services;
@@ -36,7 +37,7 @@ namespace Web
             //
             //
             // services.AddAppServices();
-            services.AddScoped<IFileService, FileService>();
+            // services.AddScoped<IBaseDAO<Category>, BaseDAO<Category>>();
             //Framework use
             services.AddControllers();
             services.AddRazorPages();

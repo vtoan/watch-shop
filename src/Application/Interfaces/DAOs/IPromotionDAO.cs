@@ -9,9 +9,5 @@ namespace Application.Interfaces.DAOs
         ICollection<BillProm> GetListBillProm(bool isAvailable);
         ICollection<ProductProm> GetListProductProm(bool isAvailable);
         ICollection<CodeProm> GetListCodeProm(bool isAvailable);
-
-        // bool UpdateBillProm(int promId, Dictionary<string, object> newObject);
-        // bool UpdateProductProm(int promId, Dictionary<string, object> newObject);
-        // bool UpdateCodeProm(int promId, Dictionary<string, object> newObject);
     }
 }

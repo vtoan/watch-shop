@@ -65,41 +65,5 @@ namespace Infrastructure.DAOs
         //         return false;
         //     }
         // }
-
-        // public bool UpdateCodeProm(int promId, Dictionary<string, object> newObject)
-        // {
-        //     if (!this.CheckConnect()) return false;
-        //     try
-        //     {
-        //         ProductDetail obj = _context.Find<ProductDetail>(promId);
-        //         if (obj == null) return false;
-        //         UpdateDataFor<ProductDetail>(obj, newObject);
-        //         _context.SaveChangesAsync().Wait();
-        //         return true;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex.Message);
-        //         return false;
-        //     }
-        // }
-
-        // public bool UpdateProductProm(int promId, Dictionary<string, object> newObject)
-        // {
-        //     if (!this.CheckConnect()) return false;
-        //     try
-        //     {
-        //         ProductDetail obj = _context.Find<ProductDetail>(id);
-        //         if (obj == null) return false;
-        //         UpdateDataFor<ProductDetail>(obj, newObject);
-        //         _context.SaveChangesAsync().Wait();
-        //         return true;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex.Message);
-        //         return false;
-        //     }
-        // }
     }
 }

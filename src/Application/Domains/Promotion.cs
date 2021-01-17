@@ -10,6 +10,6 @@ namespace Application.Domains
         public DateTime? ToDate { get; set; }
         public bool? isShow { get; set; }
         public bool? isAlways { get; set; }
-        public byte? Type { get; set; }
+        public byte? TypeProm { get; set; }
     }
 }

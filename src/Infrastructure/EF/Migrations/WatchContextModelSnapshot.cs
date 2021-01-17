@@ -474,6 +474,9 @@ namespace Infrastructure.EF.Migrations
                     b.Property<DateTime?>("ToDate")
                         .HasColumnType("smalldatetime");
 
+                    b.Property<byte?>("TypeProm")
+                        .HasColumnType("tinyint");
+
                     b.Property<bool?>("isAlways")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")

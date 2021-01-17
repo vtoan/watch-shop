@@ -20,14 +20,6 @@ namespace Application.Services
             _emailSender = email;
         }
 
-        // public bool UpdateItem(string id, Order modifiedObject)
-        // {
-        //     if (String.IsNullOrEmpty(id) || modifiedObject == null) return false;
-        //     var modified = GetPropChangedOf(modifiedObject);
-        //     if (modified.Count <= 0) return true;
-        //     return _dao.Update(id, modified);
-        // }
-
         public Order GetItem(string id)
         {
             if (String.IsNullOrEmpty(id)) return null;

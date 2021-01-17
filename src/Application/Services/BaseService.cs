@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Application.Services
 {
-    public class BaseService
+    public abstract class BaseService
     {
         //Reflection Proprety
         protected Dictionary<string, object> GetPropChangedOf(object target, string[] ignore = null)

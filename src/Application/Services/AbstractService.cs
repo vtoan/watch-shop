@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Application.Services
 {
-    public class AbstractService<T> : BaseService, IGetItem<T>, IAddItem<T>, IDeleteItem<T>, IUpdateItem<T>, IGetListItem<T>
+    public abstract class AbstractService<T> : BaseService, IBaseService<T>
     {
         private readonly IBaseDAO<T> _db;
         protected readonly ICache _cache;

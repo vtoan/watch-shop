@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Application.Interfaces.DAOs;
 using Infrastructure.EF;
 using Microsoft.Extensions.Logging;
@@ -33,18 +32,6 @@ namespace Infrastructure.DAOs
         public T Add(T newObject)
         {
             return this.Add<T>(newObject);
-            // if (!this.CheckConnect()) return null;
-            // try
-            // {
-            //     _context.Add<T>(newObject);
-            //     _context.SaveChangesAsync().Wait();
-            //     return newObject;
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(ex.Message);
-            //     return null;
-            // }
         }
 
         public bool Delete<V>(int id) where V : class
@@ -68,20 +55,6 @@ namespace Infrastructure.DAOs
         public bool Delete(int id)
         {
             return this.Delete<T>(id);
-            // if (!this.CheckConnect()) return false;
-            // try
-            // {
-            //     T obj = _context.Find<T>(id);
-            //     if (obj == null) return false;
-            //     _context.Remove<T>(obj);
-            //     _context.SaveChangesAsync().Wait();
-            //     return true;
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(ex.Message);
-            //     return false;
-            // }
         }
 
         public V Get<V>(int id) where V : class
@@ -103,17 +76,6 @@ namespace Infrastructure.DAOs
         public T Get(int id)
         {
             return this.Get<T>(id);
-            // if (!this.CheckConnect()) return null;
-            // try
-            // {
-            //     var re = _context.Set<T>().FindAsync(id);
-            //     return re.Result;
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(ex.Message);
-            //     return null;
-            // }
         }
 
         public ICollection<V> GetList<V>() where V : class
@@ -133,16 +95,6 @@ namespace Infrastructure.DAOs
         public ICollection<T> GetList()
         {
             return this.GetList<T>();
-            // if (!this.CheckConnect()) return null;
-            // try
-            // {
-            //     return _context.Set<T>().ToList();
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(ex.Message);
-            //     return null;
-            // }
         }
 
         public bool Update<V>(int id, Dictionary<string, object> newObject) where V : class
@@ -166,23 +118,6 @@ namespace Infrastructure.DAOs
         public bool Update(int id, Dictionary<string, object> newObject)
         {
             return this.Update<T>(id, newObject);
-            // if (!this.CheckConnect()) return false;
-            // try
-            // {
-            //     T obj = _context.Find<T>(id);
-            //     if (obj == null) return false;
-            //     this.UpdateDataFor<T>(obj, newObject);
-            //     _context.SaveChangesAsync().Wait();
-            //     return true;
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError(ex.Message);
-            //     return false;
-            // }
         }
-
-
-
     }
 }
