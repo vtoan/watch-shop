@@ -96,7 +96,7 @@ namespace Application.Services
         public new bool UpdateItem(int id, Product modifiedObject)
         {
             var execResult = base.UpdateItem(id, modifiedObject);
-            if (execResult == false) return false;
+            if (execResult == false) throw new Exception("There is nothing to Update"); ;
             _cache.MarkManyChanged(new string[] { _CACHE_BAND, _CACHE_CATE, _CACHE_FEATURED });
             return execResult;
         }
@@ -130,7 +130,7 @@ namespace Application.Services
         {
             if (id <= 0) return false;
             var propModified = base.GetPropChangedOf(modifiedObject);
-            if (propModified.Count < 0) return true;
+            if (propModified.Count < 0) throw new Exception("There is nothing to Update");
             return _db.Update<ProductDetail>(id, propModified);
         }
     }

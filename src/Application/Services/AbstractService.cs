@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Application.Interfaces.DAOs;
 using Application.Interfaces.Services;
@@ -36,7 +37,7 @@ namespace Application.Services
         {
             if (id <= 0 || modifiedObject == null) return false;
             var modified = GetPropChangedOf(modifiedObject);
-            if (modified.Count <= 0) return true;
+            if (modified.Count <= 0) throw new Exception("There is nothing to Update");
             bool re = _db.Update(id, modified);
             if (_cache != null && _CACHEKEY != null && re) _cache.MarkChanged(_CACHEKEY);
             return re;

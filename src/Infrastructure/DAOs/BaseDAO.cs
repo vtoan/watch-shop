@@ -25,7 +25,7 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -88,7 +88,7 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -111,7 +111,7 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 

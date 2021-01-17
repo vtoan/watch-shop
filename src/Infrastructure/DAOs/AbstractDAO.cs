@@ -27,7 +27,7 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 
