@@ -19,6 +19,7 @@ namespace Web.Pages
 
         public void OnGet()
         {
+            throw new Exception("ASD");
         }
     }
 }

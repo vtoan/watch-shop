@@ -11,11 +11,19 @@ namespace Web.Services
         public static IServiceCollection AddAppServices(
             this IServiceCollection services)
         { //
-            services.AddScoped<IProductDAO, ProductDAO>();
-
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IBandService, BandService>();
+            services.AddScoped<ICateService, CateService>();
+            services.AddScoped<IFeeService, FeeService>();
+            services.AddScoped<IInfoService, InfoService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderStatusService, OrderStatusService>();
+            services.AddScoped<IPhoneService, PhoneService>();
             services.AddScoped<IProductService, ProductService>();
-
-            //
+            services.AddScoped<IPromotionService, PromotionService>();
+            services.AddScoped<ISocialService, SocialService>();
+            services.AddScoped<ITransportService, TransportService>();
+            services.AddScoped<IWireService, WireService>();
             return services;
         }
     }

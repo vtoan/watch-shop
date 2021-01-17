@@ -28,6 +28,7 @@ namespace Web.Pages
         public void OnGet()
         {
             // var s = _service.GetListItems();
+            return;
         }
     }
 }
