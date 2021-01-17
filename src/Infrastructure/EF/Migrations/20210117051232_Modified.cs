@@ -3,17 +3,35 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.EF.Migrations
 {
-    public partial class Init : Migration
+    public partial class Modified : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddressStore = table.Column<string>(maxLength: 750, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Bands",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 100, nullable: true)
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Logo = table.Column<string>(nullable: true),
+                    isShow = table.Column<bool>(nullable: true),
+                    SeoImage = table.Column<string>(maxLength: 100, nullable: true),
+                    SeoTitle = table.Column<string>(maxLength: 150, nullable: true),
+                    SeoDescription = table.Column<string>(maxLength: 750, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,9 +45,10 @@ namespace Infrastructure.EF.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
+                    isShow = table.Column<bool>(nullable: true),
                     SeoImage = table.Column<string>(maxLength: 100, nullable: true),
                     SeoTitle = table.Column<string>(maxLength: 150, nullable: true),
-                    SeoDescription = table.Column<string>(nullable: true)
+                    SeoDescription = table.Column<string>(maxLength: 750, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,7 +62,7 @@ namespace Infrastructure.EF.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
-                    Cost = table.Column<decimal>(type: "decimal(3,2)", nullable: false)
+                    Cost = table.Column<decimal>(type: "decimal(2,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,13 +76,11 @@ namespace Infrastructure.EF.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
-                    Phone = table.Column<string>(maxLength: 100, nullable: true),
-                    Address = table.Column<string>(nullable: true),
                     WorkTime = table.Column<string>(maxLength: 100, nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(maxLength: 100, nullable: true),
                     SeoImage = table.Column<string>(maxLength: 100, nullable: true),
                     SeoTitle = table.Column<string>(maxLength: 150, nullable: true),
-                    SeoDescription = table.Column<string>(nullable: true)
+                    SeoDescription = table.Column<string>(maxLength: 750, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,23 +91,35 @@ namespace Infrastructure.EF.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateCreated = table.Column<DateTime>(type: "smalldatetime", nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "smalldatetime", nullable: true),
                     CustomerName = table.Column<string>(maxLength: 250, nullable: true),
                     CustomerPhone = table.Column<string>(maxLength: 50, nullable: true),
                     CustomerProvince = table.Column<string>(maxLength: 100, nullable: true),
                     CustomerEmail = table.Column<string>(maxLength: 150, nullable: true),
                     CustomerAddress = table.Column<string>(maxLength: 500, nullable: true),
-                    Note = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(maxLength: 750, nullable: true),
                     Promotions = table.Column<string>(nullable: true),
                     Fees = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: true)
+                    CustomerId = table.Column<int>(nullable: true),
+                    UnitTransportId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Phones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PhoneNumber = table.Column<string>(maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Phones", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,9 +131,9 @@ namespace Infrastructure.EF.Migrations
                     Name = table.Column<string>(nullable: true),
                     FromDate = table.Column<DateTime>(type: "smalldatetime", nullable: true),
                     ToDate = table.Column<DateTime>(type: "smalldatetime", nullable: true),
-                    isShow = table.Column<bool>(nullable: false),
-                    Type = table.Column<byte>(nullable: true),
-                    isAlways = table.Column<bool>(nullable: false)
+                    isShow = table.Column<bool>(nullable: true, defaultValue: true),
+                    isAlways = table.Column<bool>(nullable: true, defaultValue: false),
+                    TypeProm = table.Column<byte>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -170,11 +199,54 @@ namespace Infrastructure.EF.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 100, nullable: true)
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    isShow = table.Column<bool>(nullable: true),
+                    isDel = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Wires", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<string>(nullable: true),
+                    Status = table.Column<byte>(nullable: true),
+                    DateChanged = table.Column<DateTime>(type: "smalldatetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStatuses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderStatuses_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UnitTransports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 150, nullable: true),
+                    OrderId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnitTransports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UnitTransports_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,7 +255,7 @@ namespace Infrastructure.EF.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Discount = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(2,2)", nullable: true),
                     ConditionItem = table.Column<byte>(nullable: true),
                     ConditionAmount = table.Column<int>(nullable: true),
                     PromotionId = table.Column<int>(nullable: true)
@@ -200,12 +272,32 @@ namespace Infrastructure.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodeProms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodeCoupon = table.Column<string>(maxLength: 100, nullable: true),
+                    PromotionId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeProms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CodeProms_Promotions_PromotionId",
+                        column: x => x.PromotionId,
+                        principalTable: "Promotions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductProms",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Discount = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(2,2)", nullable: true),
                     ProductIds = table.Column<string>(maxLength: 250, nullable: true),
                     CategoryId = table.Column<int>(nullable: true),
                     BandId = table.Column<int>(nullable: true),
@@ -335,11 +427,11 @@ namespace Infrastructure.EF.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 250, nullable: true),
-                    isShow = table.Column<bool>(nullable: false),
-                    isDel = table.Column<bool>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
-                    SaleCount = table.Column<int>(nullable: false),
-                    Image = table.Column<string>(maxLength: 100, nullable: true),
+                    isShow = table.Column<bool>(nullable: true, defaultValue: true),
+                    isDel = table.Column<bool>(nullable: true, defaultValue: false),
+                    Price = table.Column<int>(nullable: true),
+                    SaleCount = table.Column<int>(nullable: true),
+                    Image = table.Column<string>(maxLength: 150, nullable: true),
                     CategoryId = table.Column<int>(nullable: true),
                     WireId = table.Column<int>(nullable: true),
                     BandId = table.Column<int>(nullable: true)
@@ -371,11 +463,11 @@ namespace Infrastructure.EF.Migrations
                 name: "OrderDetails",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(nullable: false),
+                    OrderId = table.Column<string>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(3,2)", nullable: false)
+                    Quantity = table.Column<int>(nullable: true),
+                    Price = table.Column<int>(nullable: true),
+                    Discount = table.Column<decimal>(type: "decimal(2,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -409,8 +501,8 @@ namespace Infrastructure.EF.Migrations
                     Origin = table.Column<string>(maxLength: 250, nullable: true),
                     Color = table.Column<string>(maxLength: 250, nullable: true),
                     Func = table.Column<string>(maxLength: 500, nullable: true),
-                    SeoTitle = table.Column<string>(maxLength: 150, nullable: true),
-                    SeoDescription = table.Column<string>(nullable: true),
+                    SeoTitle = table.Column<string>(maxLength: 250, nullable: true),
+                    SeoDescription = table.Column<string>(maxLength: 750, nullable: true),
                     ProductId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -430,9 +522,19 @@ namespace Infrastructure.EF.Migrations
                 column: "PromotionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CodeProms_PromotionId",
+                table: "CodeProms",
+                column: "PromotionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_ProductId",
                 table: "OrderDetails",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderStatuses_OrderId",
+                table: "OrderStatuses",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_ProductId",
@@ -474,6 +576,11 @@ namespace Infrastructure.EF.Migrations
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UnitTransports_OrderId",
+                table: "UnitTransports",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
                 table: "UserClaims",
                 column: "UserId");
@@ -504,7 +611,13 @@ namespace Infrastructure.EF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Addresses");
+
+            migrationBuilder.DropTable(
                 name: "BillProms");
+
+            migrationBuilder.DropTable(
+                name: "CodeProms");
 
             migrationBuilder.DropTable(
                 name: "Fees");
@@ -514,6 +627,12 @@ namespace Infrastructure.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "OrderStatuses");
+
+            migrationBuilder.DropTable(
+                name: "Phones");
 
             migrationBuilder.DropTable(
                 name: "ProductDetails");
@@ -528,6 +647,9 @@ namespace Infrastructure.EF.Migrations
                 name: "Socials");
 
             migrationBuilder.DropTable(
+                name: "UnitTransports");
+
+            migrationBuilder.DropTable(
                 name: "UserClaims");
 
             migrationBuilder.DropTable(
@@ -540,13 +662,13 @@ namespace Infrastructure.EF.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Promotions");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Roles");

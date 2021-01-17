@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Domains;
+using Application.Interfaces.DAOs;
+using Application.Interfaces.Services;
+using Application.Services;
 using Infrastructure.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,18 +16,18 @@ namespace Web.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        
-        private readonly WatchContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger, WatchContext context)
+
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-            _context =context;
+
+            // db.AddItem(null);
         }
 
         public void OnGet()
         {
-            var s = _context.Products.ToList();
+            // var s = _service.GetListItems();
         }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EF.Migrations
 {
     [DbContext(typeof(WatchContext))]
-    [Migration("20210110170751_Init")]
-    partial class Init
+    [Migration("20210117051232_Modified")]
+    partial class Modified
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,22 @@ namespace Infrastructure.EF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Application.Domains.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddressStore")
+                        .HasColumnType("nvarchar(750)")
+                        .HasMaxLength(750);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("Application.Domains.Band", b =>
                 {
                     b.Property<int>("Id")
@@ -28,9 +44,27 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(750)")
+                        .HasMaxLength(750);
+
+                    b.Property<string>("SeoImage")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("SeoTitle")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<bool?>("isShow")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -50,8 +84,8 @@ namespace Infrastructure.EF.Migrations
                     b.Property<byte?>("ConditionItem")
                         .HasColumnType("tinyint");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<int?>("PromotionId")
                         .HasColumnType("int");
@@ -75,7 +109,8 @@ namespace Infrastructure.EF.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("SeoDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(750)")
+                        .HasMaxLength(750);
 
                     b.Property<string>("SeoImage")
                         .HasColumnType("nvarchar(100)")
@@ -85,9 +120,33 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
+                    b.Property<bool?>("isShow")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Application.Domains.CodeProm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CodeCoupon")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("PromotionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PromotionId");
+
+                    b.ToTable("CodeProms");
                 });
 
             modelBuilder.Entity("Application.Domains.Fee", b =>
@@ -97,8 +156,8 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<decimal?>("Cost")
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)")
@@ -116,22 +175,17 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
                     b.Property<string>("SeoDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(750)")
+                        .HasMaxLength(750);
 
                     b.Property<string>("SeoImage")
                         .HasColumnType("nvarchar(100)")
@@ -152,10 +206,8 @@ namespace Infrastructure.EF.Migrations
 
             modelBuilder.Entity("Application.Domains.Order", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CustomerAddress")
                         .HasColumnType("nvarchar(500)")
@@ -180,19 +232,20 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime?>("DateCreated")
                         .HasColumnType("smalldatetime");
 
                     b.Property<string>("Fees")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(750)")
+                        .HasMaxLength(750);
 
                     b.Property<string>("Promotions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("UnitTransportId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -202,19 +255,19 @@ namespace Infrastructure.EF.Migrations
 
             modelBuilder.Entity("Application.Domains.OrderDetail", b =>
                 {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(2,2)");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId", "ProductId");
@@ -222,6 +275,45 @@ namespace Infrastructure.EF.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("Application.Domains.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateChanged")
+                        .HasColumnType("smalldatetime");
+
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte?>("Status")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderStatuses");
+                });
+
+            modelBuilder.Entity("Application.Domains.Phone", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Phones");
                 });
 
             modelBuilder.Entity("Application.Domains.Product", b =>
@@ -238,27 +330,31 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("SaleCount")
+                    b.Property<int?>("SaleCount")
                         .HasColumnType("int");
 
                     b.Property<int?>("WireId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isDel")
-                        .HasColumnType("bit");
+                    b.Property<bool?>("isDel")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
-                    b.Property<bool>("isShow")
-                        .HasColumnType("bit");
+                    b.Property<bool?>("isShow")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.HasKey("Id");
 
@@ -302,11 +398,12 @@ namespace Infrastructure.EF.Migrations
                         .HasMaxLength(250);
 
                     b.Property<string>("SeoDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(750)")
+                        .HasMaxLength(750);
 
                     b.Property<string>("SeoTitle")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("TypeBorder")
                         .HasColumnType("nvarchar(250)")
@@ -346,8 +443,8 @@ namespace Infrastructure.EF.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<string>("ProductIds")
                         .HasColumnType("nvarchar(250)")
@@ -379,14 +476,18 @@ namespace Infrastructure.EF.Migrations
                     b.Property<DateTime?>("ToDate")
                         .HasColumnType("smalldatetime");
 
-                    b.Property<byte?>("Type")
+                    b.Property<byte?>("TypeProm")
                         .HasColumnType("tinyint");
 
-                    b.Property<bool>("isAlways")
-                        .HasColumnType("bit");
+                    b.Property<bool?>("isAlways")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
-                    b.Property<bool>("isShow")
-                        .HasColumnType("bit");
+                    b.Property<bool?>("isShow")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.HasKey("Id");
 
@@ -413,6 +514,27 @@ namespace Infrastructure.EF.Migrations
                     b.ToTable("Socials");
                 });
 
+            modelBuilder.Entity("Application.Domains.UnitTransport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("UnitTransports");
+                });
+
             modelBuilder.Entity("Application.Domains.Wire", b =>
                 {
                     b.Property<int>("Id")
@@ -423,6 +545,12 @@ namespace Infrastructure.EF.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<bool?>("isDel")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isShow")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -632,6 +760,13 @@ namespace Infrastructure.EF.Migrations
                         .HasForeignKey("PromotionId");
                 });
 
+            modelBuilder.Entity("Application.Domains.CodeProm", b =>
+                {
+                    b.HasOne("Application.Domains.Promotion", "Promotion")
+                        .WithMany()
+                        .HasForeignKey("PromotionId");
+                });
+
             modelBuilder.Entity("Application.Domains.OrderDetail", b =>
                 {
                     b.HasOne("Application.Domains.Order", "Order")
@@ -645,6 +780,13 @@ namespace Infrastructure.EF.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Application.Domains.OrderStatus", b =>
+                {
+                    b.HasOne("Application.Domains.Order", "Order")
+                        .WithMany("OrderStatuses")
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Application.Domains.Product", b =>
@@ -674,6 +816,13 @@ namespace Infrastructure.EF.Migrations
                     b.HasOne("Application.Domains.Promotion", "Promotion")
                         .WithMany()
                         .HasForeignKey("PromotionId");
+                });
+
+            modelBuilder.Entity("Application.Domains.UnitTransport", b =>
+                {
+                    b.HasOne("Application.Domains.Order", null)
+                        .WithMany("UnitTransports")
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

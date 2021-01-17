@@ -43,8 +43,6 @@ C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Web.T
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Web.TagHelpers.output.cache
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Web.RazorCoreGenerate.cache
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\Error.cshtml.g.cs
-C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\Index.cshtml.g.cs
-C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\Privacy.cshtml.g.cs
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_Layout.cshtml.g.cs
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewImports.cshtml.g.cs
@@ -60,3 +58,5 @@ C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Web.p
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Web.genruntimeconfig.cache
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Toan\Documents\Sources\watch-shop\src\Web\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\Home\Privacy.cshtml.g.cs
+C:\Users\Toan\Documents\Sources\watch-shop\src\Web\obj\Debug\netcoreapp3.1\Razor\Pages\Index.cshtml.g.cs
