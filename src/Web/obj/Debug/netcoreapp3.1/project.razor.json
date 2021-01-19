@@ -14397,6 +14397,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Pages\\Shared\\_HeaderPartical.cshtml",
+      "TargetPath": "Pages\\Shared\\_HeaderPartical.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Pages\\_ViewStart.cshtml",
       "TargetPath": "Pages\\_ViewStart.cshtml",
       "FileKind": "mvc"
