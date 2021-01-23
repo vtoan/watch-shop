@@ -6,19 +6,19 @@
 @section Scripts{
     <script src="./js/slider.js"></script>
 }
-@* <!-- ================== Slider ================== --> *@
+@* ================== Slider ==================  *@
 <div class="container-fluid section pb-4">
     <div class="slider">
         <div class="slider-container">
             <div class="slider-handle">
                 <div class="img slider-item">
-                    <img src="./images/sliders/slider_1.jpg">
+                    <img src="./images/sliders/slider_1.jpg" loading="lazy">
                 </div>
                 <div class="img slider-item">
-                    <img src="./images/sliders/slider_2.jpg">
+                    <img src="./images/sliders/slider_2.jpg" loading="lazy">
                 </div>
                 <div class="img slider-item">
-                    <img src="./images/sliders/slider_3.jpg">
+                    <img src="./images/sliders/slider_3.jpg" loading="lazy">
                 </div>
             </div>
         </div>
@@ -26,16 +26,16 @@
         <a class="slider-next white"><i class="las la-angle-right"></i></a>
     </div>
 </div>
-@* <!-- ================== End-Slider ================== --> *@
+@* ================== End-Slider ================== *@
 <partial name="_PolicyPartical"></partial>
-@* <!-- ================== Product Futured ================== --> *@
+@* ================== Product Futured ================== *@
 <div class="container mb-3">
     <h2 class="text-center heading">SẢN PHẨM NỔI BẬT</h2>
     <partial name="_ProductPartical" model="@Model.ListProductFeatured"></partial>
     
 </div>
-@* <!-- ================== End Product Futured ================== --> *@
-@* <!-- ================== Product New ================== --> *@
+@* ================== End Product Futured ================== *@
+@* ================== Product New ================== *@
 <div class="container mb-3 section">
     <h2 class="text-center heading">SẢN PHẨM MỚI</h2>
     <partial name="_ProductPartical" model="@Model.ListProductNew"></partial>
@@ -43,7 +43,7 @@
         <a class="btn btn-sm bg-black white border">XEM THÊM</a>
     </div>
 </div>
-@* <!-- ================== End Product New ================== --> *@
+@* ================== End Product New ================== *@
 <cache>
     <partial name="_FeedbackPartical">
 </cache>

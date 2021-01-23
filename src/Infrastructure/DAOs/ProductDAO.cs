@@ -17,7 +17,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<Product> FindItem(string query)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.Products.Where(item => item.isDel == false)
@@ -36,7 +35,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<Product> GetListByIds(int[] arrayId)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.Products.Where(item => item.isDel == false)
@@ -55,7 +53,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<Product> GetByBand(int bandId, int catId, int wireId, bool isAdmin)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.Products
@@ -77,7 +74,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<Product> GetByCate(int catId, int bandId, int wireId, bool isAdmin)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.Products.Where(item => item.CategoryId == catId && item.isDel == false);
@@ -98,7 +94,6 @@ namespace Infrastructure.DAOs
 
         public ProductDetail GetDetail(int id)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.ProductDetails.Find(id);
@@ -113,7 +108,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<Product> GetList(bool isAdmin = false)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.Products.Where(item => item.isDel == false);
@@ -132,7 +126,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<Product> GetListSeller(int count)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 return _context.Products
@@ -152,7 +145,6 @@ namespace Infrastructure.DAOs
 
         public bool UpdateDetail(int id, Dictionary<string, object> newObject)
         {
-            if (!this.CheckConnect()) return false;
             try
             {
                 ProductDetail obj = _context.Find<ProductDetail>(id);

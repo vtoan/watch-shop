@@ -11,19 +11,19 @@ namespace Web.Services
         public static IServiceCollection AddAppServices(
             this IServiceCollection services)
         { //
-            services.AddScoped<IAddressService, AddressService>();
-            services.AddScoped<IBandService, BandService>();
-            services.AddScoped<ICateService, CateService>();
-            services.AddScoped<IFeeService, FeeService>();
-            services.AddScoped<IInfoService, InfoService>();
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IOrderStatusService, OrderStatusService>();
-            services.AddScoped<IPhoneService, PhoneService>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IPromotionService, PromotionService>();
-            services.AddScoped<ISocialService, SocialService>();
-            services.AddScoped<ITransportService, TransportService>();
-            services.AddScoped<IWireService, WireService>();
+            services.AddTransient<IAddressService, AddressService>();
+            services.AddTransient<IBandService, BandService>();
+            services.AddTransient<ICateService, CateService>();
+            services.AddTransient<IFeeService, FeeService>();
+            services.AddTransient<IInfoService, InfoService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderStatusService, OrderStatusService>();
+            services.AddTransient<IPhoneService, PhoneService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IPromotionService, PromotionService>();
+            services.AddTransient<ISocialService, SocialService>();
+            services.AddTransient<ITransportService, TransportService>();
+            services.AddTransient<IWireService, WireService>();
             return services;
         }
     }

@@ -16,7 +16,6 @@ namespace Infrastructure.DAOs
 
         public CodeProm GetCodeProm(string coupon)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var dNow = DateTime.Now;
@@ -33,7 +32,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<BillProm> GetListBillProm(bool isAvailable)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 if (!isAvailable) return _context.BillProms.ToList();
@@ -51,7 +49,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<CodeProm> GetListCodeProm(bool isAvailable)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 if (!isAvailable) return _context.CodeProms.ToList();
@@ -68,7 +65,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<ProductProm> GetListProductProm(bool isAvailable)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 if (!isAvailable) return _context.ProductProms.ToList();

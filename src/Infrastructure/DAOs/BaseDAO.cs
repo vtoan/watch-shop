@@ -15,7 +15,6 @@ namespace Infrastructure.DAOs
 
         public V Add<V>(V newObject) where V : class
         {
-            if (!this.CheckConnect()) return default(V);
             try
             {
                 _context.Add<V>(newObject);
@@ -36,7 +35,6 @@ namespace Infrastructure.DAOs
 
         public bool Delete<V>(int id) where V : class
         {
-            if (!this.CheckConnect()) return false;
             try
             {
                 V obj = _context.Find<V>(id);
@@ -59,7 +57,6 @@ namespace Infrastructure.DAOs
 
         public V Get<V>(int id) where V : class
         {
-            if (!this.CheckConnect()) return default(V);
             try
             {
                 var re = _context.Set<V>().FindAsync(id);
@@ -80,7 +77,6 @@ namespace Infrastructure.DAOs
 
         public ICollection<V> GetList<V>() where V : class
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 return _context.Set<V>().ToList();
@@ -99,7 +95,6 @@ namespace Infrastructure.DAOs
 
         public bool Update<V>(int id, Dictionary<string, object> newObject) where V : class
         {
-            if (!this.CheckConnect()) return false;
             try
             {
                 V obj = _context.Find<V>(id);

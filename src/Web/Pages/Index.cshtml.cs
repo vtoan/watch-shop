@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Web.Helper;
 using Web.Models;
 using System.Text.Json;
+using System.Threading;
 
 namespace Web.Pages
 {
@@ -21,7 +22,6 @@ namespace Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IProductService _productSer;
-
         private readonly IPromotionService _promotionSer;
         private readonly IMapper _mapper;
         //SEO
@@ -52,24 +52,39 @@ namespace Web.Pages
             GetListFeatured();
         }
 
-        private void GetListFeatured()
+        private Task GetListFeatured()
         {
             ListProductFeatured = new List<ProductDTO>();
             var asset = _productSer.GetListSeller(8);
-            if (asset == null || asset.Count == 0) return;
-            foreach (var item in asset)
-                ListProductFeatured.Add(_mapper.Map<ProductDTO>(item));
-            ProductData.CheckProm(ListProductFeatured, _lsProm);
+            Action action = () =>
+            {
+                if (asset == null || asset.Count == 0) return;
+                foreach (var item in asset)
+                    ListProductFeatured.Add(_mapper.Map<ProductDTO>(item));
+                ProductData.CheckProm(ListProductFeatured, _lsProm);
+                Thread.Sleep(5000);
+            };
+            Task task = new Task(action);
+            task.Start();
+            return task;
         }
 
-        private void GetListNew()
+        private Task GetListNew()
         {
             ListProductNew = new List<ProductDTO>();
             var asset = _productSer.GetListById(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 });
-            if (asset == null || asset.Count == 0) return;
-            foreach (var item in asset)
-                ListProductNew.Add(_mapper.Map<ProductDTO>(item));
-            ProductData.CheckProm(ListProductNew, _lsProm);
+
+            Action action = () =>
+            {
+                if (asset == null || asset.Count == 0) return;
+                foreach (var item in asset)
+                    ListProductNew.Add(_mapper.Map<ProductDTO>(item));
+                ProductData.CheckProm(ListProductNew, _lsProm);
+                Thread.Sleep(5000);
+            };
+            Task task = new Task(action);
+            task.Start();
+            return task;
         }
     }
 }
