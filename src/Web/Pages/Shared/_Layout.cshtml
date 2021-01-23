@@ -3,51 +3,48 @@
 
 <head>
     <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="language" content="VN">
     <meta name="resource-type" content="document">
     <!--SEO-->
-    <title>@ViewData["Title"]</title>
-    <meta name="description" content="@ViewData["Description"]">
+    <title>@ViewData["TitleSEO"]</title>
+    <meta name="description" content="@ViewData["DescriptionSEO"]">
     <meta name="copyright" content="Homer House" />
     <meta name="author" content="Homer House" />
     <!--OPEN GRAPH-->
-    <meta property="og:title" content="@ViewData["Title"]" />
+    <meta property="og:title" content="@ViewData["TitleSEO"]" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="" />
-    <meta property="og:image" content=">@ViewData["Image"]" />
-    <meta property="og:description" content="@ViewData["Description"]" />
+    <meta property="og:image" content=">@ViewData["ImageSEO"]" />
+    <meta property="og:description" content="@ViewData["DescriptionSEO"]" />
     <meta property="og:locale" content="vi_VN" />
     <!--CDN REFERENCE-->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300;1,400&display=swap" />
+    <link rel="icon" href="./icon/logo.jpg" type="image/x-icon" sizes="16x16">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" />
-    <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap-grid.min.css" />
-    <link rel="stylesheet" href="~/libs/line-awesome-1.3.0/1.3.0/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="./libs/bootstrap/dist/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="./libs/line-awesome-1.3.0/1.3.0/css/line-awesome.min.css" />
     <!--STYLESHEET-->
-    <link rel="stylesheet" href="~/css/utility.site.css" />
-    <link rel="stylesheet" href="~/css/header.site.css" />
+    <link rel="stylesheet" href="./css/utility.site.css" />
+    <link rel="stylesheet" href="./css/header.site.css" />
+    <link rel="stylesheet" href="./css/slider.site.css" />
+    <link rel="stylesheet" href="./css/main.site.css" />
+    <link rel="stylesheet" href="./css/dropdown.css" />
+    <link rel="stylesheet" href="./css/list-product.css" />
     @RenderSection("css", false)
 </head>
 
 <body>
     <partial name="_HeaderPartical"></partial>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+    @RenderBody()
+    @await Component.InvokeAsync("Footer");
+    <!--script-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./js/cart.site.js"></script>
+    <script src="./js/main.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 

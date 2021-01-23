@@ -10,5 +10,6 @@ namespace Application.Interfaces.DAOs
         ICollection<Product> GetByBand(int bandId, int catId, int wireId, bool isAdmin);
         ICollection<Product> GetByCate(int catId, int bandId, int wireId, bool isAdmin);
         ICollection<Product> GetList(bool isAdmin);
+        ICollection<Product> GetListSeller(int count);
     }
 }

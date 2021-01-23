@@ -5,6 +5,7 @@ using Infrastructure.EF;
 using System.Linq;
 using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DAOs
 {
@@ -20,7 +21,10 @@ namespace Infrastructure.DAOs
             try
             {
                 var re = _context.Products.Where(item => item.isDel == false)
-                .Where(item => item.Name.Contains(query) || item.Band.Name.Contains(query));
+                .Where(item => item.Name.Contains(query) || item.Band.Name.Contains(query))
+                .Include(item => item.Band)
+                .Include(item => item.Category)
+                .Include(item => item.TypeWire);
                 return re.ToList();
             }
             catch (Exception ex)
@@ -36,7 +40,10 @@ namespace Infrastructure.DAOs
             try
             {
                 var re = _context.Products.Where(item => item.isDel == false)
-                            .Where(item => arrayId.Contains(item.Id));
+                            .Where(item => arrayId.Contains(item.Id))
+                            .Include(item => item.Band)
+                            .Include(item => item.Category)
+                            .Include(item => item.TypeWire);
                 return re.ToList();
             }
             catch (Exception ex)
@@ -51,11 +58,15 @@ namespace Infrastructure.DAOs
             if (!this.CheckConnect()) return null;
             try
             {
-                var re = _context.Products.Where(item => item.BandId == bandId && item.isDel == false);
+                var re = _context.Products
+                    .Where(item => item.BandId == bandId && item.isDel == false);
                 if (catId > 0) re = re.Where(item => item.CategoryId == catId);
                 if (wireId > 0) re = re.Where(item => item.WireId == wireId);
                 if (isAdmin == false) re = re.Where(item => item.isShow == true);
-                return re.ToList();
+                return re
+                    .Include(item => item.Band)
+                    .Include(item => item.Category)
+                    .Include(item => item.TypeWire).ToList();
             }
             catch (Exception ex)
             {
@@ -73,7 +84,10 @@ namespace Infrastructure.DAOs
                 if (bandId > 0) re = re.Where(item => item.BandId == bandId);
                 if (wireId > 0) re = re.Where(item => item.WireId == wireId);
                 if (isAdmin == false) re = re.Where(item => item.isShow == true);
-                return re.ToList();
+                return re
+                   .Include(item => item.Band)
+                   .Include(item => item.Category)
+                   .Include(item => item.TypeWire).ToList();
             }
             catch (Exception ex)
             {
@@ -104,7 +118,30 @@ namespace Infrastructure.DAOs
             {
                 var re = _context.Products.Where(item => item.isDel == false);
                 if (isAdmin == false) re = re.Where(item => item.isDel == false);
-                return re.ToList();
+                return re
+                   .Include(item => item.Band)
+                   .Include(item => item.Category)
+                   .Include(item => item.TypeWire).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public ICollection<Product> GetListSeller(int count)
+        {
+            if (!this.CheckConnect()) return null;
+            try
+            {
+                return _context.Products
+                    .Where(item => item.isDel == false && item.isShow == true)
+                    .OrderByDescending(item => item.SaleCount)
+                    .Take(count)
+                    .Include(item => item.Band)
+                    .Include(item => item.Category)
+                    .Include(item => item.TypeWire).ToList();
             }
             catch (Exception ex)
             {
@@ -130,5 +167,7 @@ namespace Infrastructure.DAOs
                 throw new Exception(ex.Message);
             }
         }
+
+
     }
 }

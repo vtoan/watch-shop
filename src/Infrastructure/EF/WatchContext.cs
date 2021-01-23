@@ -50,7 +50,6 @@ namespace Infrastructure.EF
             modelBuilder.Entity<Wire>().Property(p => p.Name).HasMaxLength(100);
             //Fee
             modelBuilder.Entity<Fee>().Property(p => p.Name).HasMaxLength(100);
-            modelBuilder.Entity<Fee>().Property(p => p.Cost).HasColumnType("decimal(2,2)");
             //InfoShop
             modelBuilder.Entity<InfoShop>().Property(p => p.Name).HasMaxLength(100);
             modelBuilder.Entity<InfoShop>().Property(p => p.WorkTime).HasMaxLength(100);
@@ -72,7 +71,6 @@ namespace Infrastructure.EF
             modelBuilder.Entity<Order>().Property(o => o.Note).HasMaxLength(750);
             //OrderDetail
             modelBuilder.Entity<OrderDetail>().HasKey(od => new { od.OrderId, od.ProductId });
-            modelBuilder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType("decimal(2,2)");
             //OrderStatus
             modelBuilder.Entity<OrderStatus>().Property(o => o.DateChanged).HasColumnType("smalldatetime");
             //Phone
@@ -100,10 +98,8 @@ namespace Infrastructure.EF
             modelBuilder.Entity<Promotion>().Property(p => p.isShow).HasDefaultValue(true);
             modelBuilder.Entity<Promotion>().Property(p => p.isAlways).HasDefaultValue(false);
             //Config ProductProm
-            modelBuilder.Entity<ProductProm>().Property(p => p.Discount).HasColumnType("decimal(2,2)");
             modelBuilder.Entity<ProductProm>().Property(p => p.ProductIds).HasMaxLength(250);
             //Config ProductProm
-            modelBuilder.Entity<BillProm>().Property(p => p.Discount).HasColumnType("decimal(2,2)");
             //Tranport
             modelBuilder.Entity<UnitTransport>().Property(p => p.Name).HasMaxLength(150);
             //Identity

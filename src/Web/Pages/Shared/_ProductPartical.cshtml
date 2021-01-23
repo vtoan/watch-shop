@@ -1,0 +1,44 @@
+@using System.Globalization
+@model ICollection<Web.Models.ProductDTO>;
+@{
+    string _renderCurrency(double num) => num.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
+    string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
+    //
+    IHtmlContent _checkDiscount(double discount, ProductDTO product, Func<ProductDTO, IHtmlContent> template){
+        if(discount>=0) return template(product);
+        return null;
+    }
+}
+ <div class="row row-contents">
+    @if (Model?.Count >0)
+    {
+        @foreach (var item in Model)
+        {
+            double price = (double)item?.Price;
+            double priceRoot = price;
+            double discount = item.Discount;
+            if (discount != 0) { price = (discount % 1 == 0) ? (price - discount) : (price - (price * discount));}
+            //template        
+            <div class="col-6 col-lg-3">
+                <div class="product @if (discount != 0){<text>sale</text>;}">
+                    <div class="product-img img-anim">
+                        @(_checkDiscount(discount,item,@<span class="product-sale">-@_renderDiscount(discount)</span>))
+                        <div class="img">
+                            <img src="./images/products/@item.Image" loading="lazy">
+                        </div>
+                    </div>
+                    <a class="add-cart mb-3" href="#!">Thêm vào giỏ hàng</a>
+                    <a href="" item-id="@item.Id" class="product-content">
+                        <h4 class="pb-2 normal">@item.Name - @item.BandName - @item.CategoryName</h4>
+                        <div class="text-center">
+                            <p class="text-4 red bold d-block d-lg-inline-block m-0">
+                                @_renderCurrency(price)
+                            </p>
+                            @(_checkDiscount(discount,item,@<del class="normal">@_renderCurrency(priceRoot)</del>))
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    } else{ <p class="text-center flex-grow-1 mb-5">Chưa có sản phẩm</p> }
+</div>

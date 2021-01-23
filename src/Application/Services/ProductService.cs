@@ -31,16 +31,17 @@ namespace Application.Services
             return _db.GetListByIds(arrayId);
         }
 
-        // public ICollection<Product> GetListFeatured()
-        // {
-        //     var re = _cache.GetData<List<Product>>(_CACHE_FEATURED);
-        //     if (re == null || re?.Count <= 0)
-        //     {
-        //         re = (List<Product>)_db.GetListFeatured();
-        //         if (re?.Count > 0) _cache.AddData(_CACHE_FEATURED, re, TimeSpan.FromDays(1));
-        //     }
-        //     return re;
-        // }
+        public ICollection<Product> GetListSeller(int count)
+        {
+            if (count <= 0) return null;
+            var re = _cache.GetData<List<Product>>(_CACHE_FEATURED);
+            if (re == null || re?.Count <= 0)
+            {
+                re = (List<Product>)_db.GetListSeller(count);
+                if (re?.Count > 0) _cache.AddData(_CACHE_FEATURED, re, TimeSpan.FromDays(1));
+            }
+            return re;
+        }
 
         public ICollection<Product> GetListItems(bool isAdmin = false)
         {

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Web.csproj": {}
+    "/home/toan/Documents/Sources/watch-shop/src/Web/Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj": {
+    "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj",
+        "projectUniqueName": "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\obj\\",
+        "projectPath": "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj",
+        "packagesPath": "/home/toan/.nuget/packages/",
+        "outputPath": "/home/toan/Documents/Sources/watch-shop/src/Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/toan/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -56,21 +56,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.405/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Infrastructure\\Infrastructure.csproj": {
+    "/home/toan/Documents/Sources/watch-shop/src/Infrastructure/Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "/home/toan/Documents/Sources/watch-shop/src/Infrastructure/Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Infrastructure\\obj\\",
+        "projectPath": "/home/toan/Documents/Sources/watch-shop/src/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/home/toan/.nuget/packages/",
+        "outputPath": "/home/toan/Documents/Sources/watch-shop/src/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/toan/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -81,8 +81,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj"
+              "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj": {
+                "projectPath": "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj"
               }
             }
           }
@@ -138,21 +138,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.405/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Web.csproj": {
+    "/home/toan/Documents/Sources/watch-shop/src/Web/Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Web.csproj",
+        "projectUniqueName": "/home/toan/Documents/Sources/watch-shop/src/Web/Web.csproj",
         "projectName": "Web",
-        "projectPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\Web.csproj",
-        "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Web\\obj\\",
+        "projectPath": "/home/toan/Documents/Sources/watch-shop/src/Web/Web.csproj",
+        "packagesPath": "/home/toan/.nuget/packages/",
+        "outputPath": "/home/toan/Documents/Sources/watch-shop/src/Web/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/toan/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -163,11 +163,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj"
+              "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj": {
+                "projectPath": "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj"
               },
-              "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Infrastructure\\Infrastructure.csproj"
+              "/home/toan/Documents/Sources/watch-shop/src/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/home/toan/Documents/Sources/watch-shop/src/Infrastructure/Infrastructure.csproj"
               }
             }
           }
@@ -181,6 +181,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -206,7 +210,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.405/RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -25,6 +25,8 @@ using Web.Services;
 using System.Text.Json;
 using Web.Middlewares;
 using Application.Filters;
+using AutoMapper;
+using Web.Helper;
 
 namespace Web
 {
@@ -47,6 +49,7 @@ namespace Web
             services.AddAppServices();
             services.AddDAOService();
             // Framework use
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers(options =>
                 options.Filters.Add(new HttpResponseExceptionFilter()));
             services.AddRazorPages();
@@ -54,8 +57,16 @@ namespace Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
 
-            app.UseExceptionHandler("/error");
+            }
+
             app.UseStatusCodePages();
 
             app.UseHttpsRedirection();
