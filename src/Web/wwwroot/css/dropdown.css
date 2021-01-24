@@ -55,7 +55,7 @@
     opacity: 1;
 }
 
-.dropdown .dropdown-menu li {
+.dropdown .dropdown-menu li a {
     padding: 1em;
     transition: all 0.2s ease-in-out;
     cursor: pointer;

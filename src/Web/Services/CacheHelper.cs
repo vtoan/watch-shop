@@ -32,7 +32,7 @@ namespace Web.Services
         public override T GetData<T>(string key)
         {
             if (!DataChanged.ContainsKey(key)) return default(T);
-            if (DataChanged[key] == false) return default(T);
+            if (DataChanged[key] == true) return default(T);
             var result = _cache.Get(key);
             return result == null ? default(T) : (T)result;
         }

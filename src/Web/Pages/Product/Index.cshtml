@@ -1,7 +1,11 @@
 ﻿@page "{category}"
 @model ProductModel
+@section css{
+    <link rel="stylesheet" href="./css/dropdown.css" />
+    <link rel="stylesheet" href="./css/loader.css" />
+
+}
 @section Scripts{
-    <script src="./js/slider.js"></script>
     <script src="./js/dropdown.js"></script>
     <script src="./js/list-product.js">   </script>
 }
@@ -13,17 +17,17 @@
 @* ================== Product ================== *@
 <div class="container mb-3 section">
     @* ================== Filter band================== *@
-        @await Component.InvokeAsync("ListBand")
+        @await Component.InvokeAsync("ListBand",new {c= @Model.cateId, w= @Model.wireId , b=@Model.bandId})
     @* ================== End Filter band ================== *@
      @* ================== Order ================== *@
     <div class="row row-contents align-items-center mb-3">
         <div class="orderby mb-3">
-            <a class="order-item active" data-index="0" title="Phổ biến" >phổ biển</a>
-            <a class="order-item" data-index="1" title="Giá cao">giá cao</a>
-            <a class="order-item" data-index="2" title="Giá thấp">giá thấp</a>
+            <a class="order-item" index="1" title="Phổ biến" >phổ biển</a>
+            <a class="order-item" index="2" title="Giá cao">giá thấp</a>
+            <a class="order-item" index="3" title="Giá thấp">giá cao</a>
         </div>
         <div class="px-3 ml-auto mb-3">
-            @await Component.InvokeAsync("ListWire")
+            @await Component.InvokeAsync("ListWire",new {c= @Model.cateId, w= @Model.wireId , b= @Model.bandId})
         </div>  
     </div>
     @* ================== End Order ================== *@
@@ -41,4 +45,13 @@
 @* ================== End Product ================== *@
 <cache>
     <partial name="_PolicyPartical"/>
-</cache> 
+</cache>
+@* ================== Loader ================== *@
+<div id="loader">
+    <div class="loader-container">
+        <div class="dash uno"></div>
+        <div class="dash dos"></div>
+        <div class="dash tres"></div>
+        <div class="dash cuatro"></div>
+    </div>
+</div>

@@ -23,20 +23,20 @@
     cursor: pointer;
 }
 .filter-item.active {
-    border-color: var(--clr-black);
+    border-color: var(--clr-blue);
 }
 
 .filter-item.active::after {
     content: "\2713";
     /* background-color: black; */
-    color: var(--clr-black);
+    color: var(--clr-blue);
     font-size: 20px;
     font-weight: bold;
-    padding: 0.25em 0.75em;
+    padding: 0 0.55em;
     display: block;
     position: absolute;
-    top: -2%;
-    left: 6%;
+    top: -21%;
+    left: 4%;
 }
 /*============= banner =============*/
 div[class^="banner-"] {
@@ -73,6 +73,11 @@ div[class^="banner-"] {
     }
     .banner-sm p {
         font-size: 20px;
+    }
+    .filter-item.active::after {
+        padding-top: 0;
+        padding-bottom: 0;
+        top: -14%;
     }
 }
 

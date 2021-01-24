@@ -53,15 +53,7 @@ namespace Web
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers(options =>
                 options.Filters.Add(new HttpResponseExceptionFilter()));
-            services.AddRazorPages()
-                .AddRazorPagesOptions(options =>
-            {
-                options.Conventions.AddPageRoute(
-                "/product/Index",
-                "/dong-ho-nam"
-
-             );
-            });
+            services.AddRazorPages();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

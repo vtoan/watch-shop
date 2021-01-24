@@ -38,7 +38,7 @@ function UIDropDown(callBack, target = ".dropdown") {
     let lengItem = dropItem.length > 5 ? 5 : dropItem.length;
     dropItem.forEach((item) =>
         item.addEventListener("click", function (e) {
-            e.preventDefault();
+            // e.preventDefault();
             onSelected(this, dropdown, callBack);
         })
     );

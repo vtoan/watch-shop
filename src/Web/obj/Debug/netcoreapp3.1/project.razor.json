@@ -12439,14 +12439,51 @@
         }
       },
       {
-        "HashCode": -1294610669,
+        "HashCode": -1674513588,
         "Kind": "MVC.ViewComponent",
         "Name": "__Generated__ListBandViewComponentTagHelper",
         "AssemblyName": "Web",
         "CaseSensitive": false,
         "TagMatchingRules": [
           {
-            "TagName": "vc:list-band"
+            "TagName": "vc:list-band",
+            "Attributes": [
+              {
+                "Name": "c"
+              },
+              {
+                "Name": "w"
+              },
+              {
+                "Name": "b"
+              }
+            ]
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "c",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "c"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "w",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "w"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "b",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "b"
+            }
           }
         ],
         "Metadata": {
@@ -12456,14 +12493,51 @@
         }
       },
       {
-        "HashCode": 1602962855,
+        "HashCode": 541460762,
         "Kind": "MVC.ViewComponent",
         "Name": "__Generated__ListWireViewComponentTagHelper",
         "AssemblyName": "Web",
         "CaseSensitive": false,
         "TagMatchingRules": [
           {
-            "TagName": "vc:list-wire"
+            "TagName": "vc:list-wire",
+            "Attributes": [
+              {
+                "Name": "c"
+              },
+              {
+                "Name": "b"
+              },
+              {
+                "Name": "w"
+              }
+            ]
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "c",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "c"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "b",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "b"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "w",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "w"
+            }
           }
         ],
         "Metadata": {
