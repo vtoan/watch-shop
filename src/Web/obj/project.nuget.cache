@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2K2/7TYYknF8nYMgAI2fF/NzvcWu30jScy3FLcFDYFcplG184UIenMT0ONmkQbIZC1PNzZ+mSEViH5wTbVf+Xw==",
+  "dgSpecHash": "r5LqRqrd6hr6lm78wGEvhD2F0nimYe+iS+s2Sgz33aHTRGyEpxCt/srEIWPvXT2C4KCMx2GI46Fg96zGCBnErg==",
   "success": true,
   "projectFilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Web.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "/home/toan/.nuget/packages/microsoft.aspnetcore.http.features/2.2.0/microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "/home/toan/.nuget/packages/microsoft.aspnetcore.identity/2.2.0/microsoft.aspnetcore.identity.2.2.0.nupkg.sha512",
     "/home/toan/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/3.1.0/microsoft.aspnetcore.identity.entityframeworkcore.3.1.0.nupkg.sha512",
+    "/home/toan/.nuget/packages/microsoft.aspnetcore.rewrite/2.2.0/microsoft.aspnetcore.rewrite.2.2.0.nupkg.sha512",
     "/home/toan/.nuget/packages/microsoft.aspnetcore.webutilities/2.2.0/microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
     "/home/toan/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.0/microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "/home/toan/.nuget/packages/microsoft.bcl.hashcode/1.1.0/microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

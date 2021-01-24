@@ -27,6 +27,7 @@ using Web.Middlewares;
 using Application.Filters;
 using AutoMapper;
 using Web.Helper;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Web
 {
@@ -52,7 +53,15 @@ namespace Web
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers(options =>
                 options.Filters.Add(new HttpResponseExceptionFilter()));
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute(
+                "/product/Index",
+                "/dong-ho-nam"
+
+             );
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,8 +73,9 @@ namespace Web
             else
             {
                 app.UseExceptionHandler("/error");
-
             }
+
+            app.UseRewriter(RewriteConfig.options);
 
             app.UseStatusCodePages();
 

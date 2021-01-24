@@ -109,7 +109,6 @@ C:/Users/Toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Web.TagHelpers.output.cache
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Web.RazorCoreGenerate.cache
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Error.cshtml.g.cs
-/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Home/Privacy.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Index.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_HeaderPartical.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_Layout.cshtml.g.cs
@@ -130,7 +129,10 @@ C:/Users/Toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/Footer/Default.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_PolicyPartical.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_ProductPartical.cshtml.g.cs
-/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/Feedback/Default.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_FeedbackPartical.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/bin/Debug/netcoreapp3.1/AutoMapper.dll
 /home/toan/Documents/Sources/watch-shop/src/Web/bin/Debug/netcoreapp3.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Product/Index.cshtml.g.cs
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/Breadcrumb/Default.cshtml.g.cs
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/ListBand/Default.cshtml.g.cs
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/ListWire/Default.cshtml.g.cs

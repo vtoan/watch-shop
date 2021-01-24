@@ -1,0 +1,10 @@
+@model List< Web.Pages.Components.Breadcrumb.Breadcrumb.BreadModel>
+<div class="container mb-4">
+    <div class="breadcrumb">
+        <a href="/">Trang chủ</a>
+        @foreach (var item in Model)
+        {
+            <a href="@item.Link">/ @item.Name</a>
+        }
+    </div>
+</div>

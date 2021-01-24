@@ -1,0 +1,13 @@
+@model List<Application.Domains.Band>;
+<div class="row filter row-contents">
+    @foreach (var item in Model)
+    {
+        <div class="col-4 col-lg-2 mb-4">
+            <a class="filter-item" href="@item.Id">
+                <div class="img">
+                    <img src="./images/band-logo/g-shock-logo.png" alt="@item.Name">
+                </div>
+            </a>
+        </div>
+    }
+</div>

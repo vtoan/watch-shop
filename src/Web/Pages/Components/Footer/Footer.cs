@@ -3,16 +3,16 @@ using Application.Domains;
 using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Web.ViewComponents
+namespace Web.Pages.Components.Footer
 {
     [ViewComponent]
-    public class FooterViewComponent : ViewComponent
+    public class Footer : ViewComponent
     {
         private readonly IPhoneService _phoneSer;
         private readonly IInfoService _infoSer;
         private readonly IAddressService _addressSer;
         private readonly ISocialService _socialSer;
-        public FooterViewComponent(
+        public Footer(
             IPhoneService phoneSer,
             IInfoService infoSer,
             IAddressService addressSer,
@@ -23,7 +23,7 @@ namespace Web.ViewComponents
             _addressSer = addressSer;
             _socialSer = socialSer;
         }
-        public IViewComponentResult Invoke(string greeting, string name)
+        public IViewComponentResult Invoke()
         {
             var lsSocial = new List<Social>() { new Social() { Id = 1, Name = "Facebook", Link = "fb.com/dangviettoan99" } };
             var data = new FooterModel()
@@ -43,6 +43,5 @@ namespace Web.ViewComponents
             public List<Address> Addresses { get; set; }
             public List<Social> Socials { get; set; }
         }
-
     }
 }

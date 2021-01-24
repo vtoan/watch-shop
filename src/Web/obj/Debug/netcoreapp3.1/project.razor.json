@@ -12422,40 +12422,65 @@
         }
       },
       {
-        "HashCode": 202671434,
+        "HashCode": -1725234062,
+        "Kind": "MVC.ViewComponent",
+        "Name": "__Generated__BreadcrumbViewComponentTagHelper",
+        "AssemblyName": "Web",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "vc:breadcrumb"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "__Generated__BreadcrumbViewComponentTagHelper",
+          "MVC.ViewComponent.Name": "Breadcrumb"
+        }
+      },
+      {
+        "HashCode": -1294610669,
+        "Kind": "MVC.ViewComponent",
+        "Name": "__Generated__ListBandViewComponentTagHelper",
+        "AssemblyName": "Web",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "vc:list-band"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "__Generated__ListBandViewComponentTagHelper",
+          "MVC.ViewComponent.Name": "ListBand"
+        }
+      },
+      {
+        "HashCode": 1602962855,
+        "Kind": "MVC.ViewComponent",
+        "Name": "__Generated__ListWireViewComponentTagHelper",
+        "AssemblyName": "Web",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "vc:list-wire"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "__Generated__ListWireViewComponentTagHelper",
+          "MVC.ViewComponent.Name": "ListWire"
+        }
+      },
+      {
+        "HashCode": 859737040,
         "Kind": "MVC.ViewComponent",
         "Name": "__Generated__FooterViewComponentTagHelper",
         "AssemblyName": "Web",
         "CaseSensitive": false,
         "TagMatchingRules": [
           {
-            "TagName": "vc:footer",
-            "Attributes": [
-              {
-                "Name": "greeting"
-              },
-              {
-                "Name": "name"
-              }
-            ]
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "MVC.ViewComponent",
-            "Name": "greeting",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "greeting"
-            }
-          },
-          {
-            "Kind": "MVC.ViewComponent",
-            "Name": "name",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "name"
-            }
+            "TagName": "vc:footer"
           }
         ],
         "Metadata": {
@@ -14435,18 +14460,28 @@
   "RootNamespace": "Web",
   "Documents": [
     {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/Breadcrumb/Default.cshtml",
+      "TargetPath": "Pages\\Components\\Breadcrumb\\Default.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/ListBand/Default.cshtml",
+      "TargetPath": "Pages\\Components\\ListBand\\Default.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Shared/_PolicyPartical.cshtml",
       "TargetPath": "Pages\\Shared\\_PolicyPartical.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/Footer/Default.cshtml",
-      "TargetPath": "Pages\\Components\\Footer\\Default.cshtml",
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/ListWire/Default.cshtml",
+      "TargetPath": "Pages\\Components\\ListWire\\Default.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Home/Privacy.cshtml",
-      "TargetPath": "Pages\\Home\\Privacy.cshtml",
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/Footer/Default.cshtml",
+      "TargetPath": "Pages\\Components\\Footer\\Default.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14475,8 +14510,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/Feedback/Default.cshtml",
-      "TargetPath": "Pages\\Components\\Feedback\\Default.cshtml",
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Product/Index.cshtml",
+      "TargetPath": "Pages\\Product\\Index.cshtml",
       "FileKind": "mvc"
     },
     {

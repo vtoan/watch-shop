@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Application.Domains;
-using Application.Interfaces.DAOs;
 using Application.Interfaces.Services;
-using Application.Services;
 using AutoMapper;
-using Infrastructure.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Web.Helper;
 using Web.Models;
-using System.Text.Json;
-using System.Threading;
 
 namespace Web.Pages
 {
@@ -62,7 +56,6 @@ namespace Web.Pages
                 foreach (var item in asset)
                     ListProductFeatured.Add(_mapper.Map<ProductDTO>(item));
                 ProductData.CheckProm(ListProductFeatured, _lsProm);
-                Thread.Sleep(5000);
             };
             Task task = new Task(action);
             task.Start();
@@ -73,14 +66,12 @@ namespace Web.Pages
         {
             ListProductNew = new List<ProductDTO>();
             var asset = _productSer.GetListById(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 });
-
             Action action = () =>
             {
                 if (asset == null || asset.Count == 0) return;
                 foreach (var item in asset)
                     ListProductNew.Add(_mapper.Map<ProductDTO>(item));
                 ProductData.CheckProm(ListProductNew, _lsProm);
-                Thread.Sleep(5000);
             };
             Task task = new Task(action);
             task.Start();

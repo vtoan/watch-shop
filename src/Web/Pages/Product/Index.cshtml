@@ -1,0 +1,44 @@
+﻿@page "{category}"
+@model ProductModel
+@section Scripts{
+    <script src="./js/slider.js"></script>
+    <script src="./js/dropdown.js"></script>
+    <script src="./js/list-product.js">   </script>
+}
+ <div class="banner-lg section" >
+    <p class="">banner</p>
+</div>
+@await Component.InvokeAsync("Breadcrumb")
+
+@* ================== Product ================== *@
+<div class="container mb-3 section">
+    @* ================== Filter band================== *@
+        @await Component.InvokeAsync("ListBand")
+    @* ================== End Filter band ================== *@
+     @* ================== Order ================== *@
+    <div class="row row-contents align-items-center mb-3">
+        <div class="orderby mb-3">
+            <a class="order-item active" data-index="0" title="Phổ biến" >phổ biển</a>
+            <a class="order-item" data-index="1" title="Giá cao">giá cao</a>
+            <a class="order-item" data-index="2" title="Giá thấp">giá thấp</a>
+        </div>
+        <div class="px-3 ml-auto mb-3">
+            @await Component.InvokeAsync("ListWire")
+        </div>  
+    </div>
+    @* ================== End Order ================== *@
+    <partial name="_ProductPartical" model="@Model.ListProducts"></partial>
+    @if(Model.PageNumber>1){
+        <div class="pagnation contents">
+            <a class="page-item active" >1</a>
+            @for (int i = 2; i <= Model.PageNumber; i++)
+            {
+                <a class="page-item" > @i</a>
+            }        
+        </div>
+    }
+</div>
+@* ================== End Product ================== *@
+<cache>
+    <partial name="_PolicyPartical"/>
+</cache> 
