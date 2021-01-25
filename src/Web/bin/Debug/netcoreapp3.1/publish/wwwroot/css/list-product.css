@@ -1,0 +1,103 @@
+/*============= fliter =============*/
+.orderby {
+    padding: 0 15px;
+}
+.orderby .order-item {
+    text-transform: capitalize;
+    padding: 0.4em 1em;
+    margin-right: 1em;
+    cursor: pointer;
+    border: 1px solid var(--clr-secondary);
+    border-radius: 5px;
+}
+
+.orderby .order-item.active {
+    font-weight: bold;
+    background-color: var(--clr-secondary);
+}
+
+.filter-item {
+    border: 1px solid var(--clr-secondary);
+    border-radius: 5px;
+    padding: 0.5em;
+    cursor: pointer;
+}
+.filter-item.active {
+    border-color: var(--clr-blue);
+}
+
+.filter-item.active::after {
+    content: "\2713";
+    /* background-color: black; */
+    color: var(--clr-blue);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 0.55em;
+    display: block;
+    position: absolute;
+    top: -21%;
+    left: 4%;
+}
+/*============= banner =============*/
+div[class^="banner-"] {
+    font-weight: bold;
+    text-align: center;
+}
+
+.banner-sm p {
+    background-color: var(--clr-black);
+    padding: 1em 0;
+    line-height: 100%;
+    color: var(--clr-white);
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.banner-lg p {
+    /* background-image: url("../images//banner.jpg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 40%;
+    height: 135px;
+    font-size: 24px;
+    line-height: 135px;
+    background-color: var(--clr-secondary);
+    margin-bottom: 0;
+}
+
+@media only screen and (min-width: 62em) {
+    .banner-lg p {
+        font-size: 64px !important;
+        height: 300px !important;
+        line-height: 300px !important;
+    }
+    .banner-sm p {
+        font-size: 20px;
+    }
+    .filter-item.active::after {
+        padding-top: 0;
+        padding-bottom: 0;
+        top: -14%;
+    }
+}
+
+/*============= page =============*/
+.pagnation {
+    display: flex;
+    justify-content: center;
+}
+
+.pagnation .page-item {
+    cursor: pointer;
+    margin: 0 0.5em;
+    padding: 0.25em 1em;
+    color: var(--clr-black);
+    min-width: auto;
+    border-radius: 5px;
+}
+
+.pagnation .page-item.active,
+.pagnation .page-item:hover {
+    color: var(--clr-white);
+    background-color: var(--clr-black);
+}

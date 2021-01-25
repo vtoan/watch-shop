@@ -5,6 +5,7 @@ using System.Text.Json;
 using Application.Domains;
 using Application.Interfaces.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Helper;
 using Web.Models;
@@ -30,7 +31,7 @@ namespace Web.Pages
         public int WireId { get; set; }
         [BindProperty(Name = "b", SupportsGet = true)]
         public int BandId { get; set; }
-        public string PathRequest { get; set; }
+        public string PathRequest { get; set; } = "";
 
         public bool isSearchResult { get; set; }
 
@@ -49,76 +50,35 @@ namespace Web.Pages
 
         public void OnGet(int category, int b, int w, int p = 1)
         {
-            MapProductDTO(_productSer.GetListByCate(category, b, w), ref PageNumber);
-            CheckProm(ListProducts);
-            if (ListProducts.Count > 0)
-            {
-                string keyCache = $"c{category},b{b},w{w}";
-                _cache.AddData(keyCache, ListProducts, TimeSpan.FromMinutes(3));
-                //
-                CookieHelper.AddKey(HttpContext, keyCache);
-                ListProducts = GetPage(ListProducts, p);
-            }
+            GetProductByCate(HttpContext, category, b, w, p);
             PathRequest = GetPathRequest(HttpContext, category);
             //
             var cate = _cateSer.GetItem(category);
-            TitleSEO = cate.SeoTitle;
+            if (cate == null) return;
+            TitleSEO = cate?.SeoTitle;
             DescriptionSEO = cate.SeoDescription;
             ImageSEO = cate.SeoImage;
         }
 
-
         public void OnGetDiscount(int b, int w, int p = 1)
         {
-            if (_lsProm?.Count == 0) return;
-            string keyCache = "prod-discount";
-            GetProductDiscount(keyCache);
-            //
-            if (ListProducts.Count > 0)
-            {
-                CookieHelper.AddKey(HttpContext, keyCache);
-                if (b != 0)
-                    ListProducts = ListProducts.Where(item => item.BandId == b).ToList();
-                if (w != 0)
-                    ListProducts = ListProducts.Where(item => item.WireId == w).ToList();
-                PageNumber = CalcPage(ListProducts.Count);
-                ListProducts = GetPage(ListProducts, p);
-            }
+            GetProductDiscount(HttpContext, b, w, p);
             PathRequest = GetPathRequest(HttpContext);
             //
             var info = _infoSer.GetItem(1);
+            if (info == null) return;
             TitleSEO = "Sản phẩm khuyến mãi";
             DescriptionSEO = info.SeoDescription;
             ImageSEO = info.SeoImage;
-
         }
 
         public void OnGetSearch(string query, int b, int w, int p = 1)
         {
-            isSearchResult = true;
-            string keyCacheNew = $"query-{query}";
-            string keyCache = CookieHelper.GetKey(HttpContext);
-            if (keyCache == keyCacheNew) ListProducts = _cache.GetData<List<ProductDTO>>(keyCache);
-            if (ListProducts == null || ListProducts?.Count == 0)
-            {
-                MapProductDTO(_productSer.FindByQuery(query), ref PageNumber);
-                CheckProm(ListProducts);
-                if (ListProducts.Count == 0) return;
-                _cache.AddData(keyCache, ListProducts, TimeSpan.FromMinutes(3));
-                CookieHelper.AddKey(HttpContext, keyCacheNew);
-            }
-            if (ListProducts?.Count > 0)
-            {
-                if (b != 0)
-                    ListProducts = ListProducts.Where(item => item.BandId == b).ToList();
-                if (w != 0)
-                    ListProducts = ListProducts.Where(item => item.WireId == w).ToList();
-                PageNumber = CalcPage(ListProducts.Count);
-                ListProducts = GetPage(ListProducts, 1);
-            }
+            GetProductByQuery(HttpContext, query, b, w, p);
             PathRequest = GetPathRequest(HttpContext);
             //
             var info = _infoSer.GetItem(1);
+            if (info == null) return;
             TitleSEO = "Kết quả tìm kiếm";
             DescriptionSEO = info.SeoDescription;
             ImageSEO = info.SeoImage;
@@ -131,15 +91,72 @@ namespace Web.Pages
             if (keyCache != null) ListProducts = _cache.GetData<List<ProductDTO>>(keyCache);
             if (ListProducts == null || ListProducts?.Count == 0)
             {
-                if (query != null) this.OnGetSearch(query, b, w, 0);
-                else if (category != 0) this.OnGet(category, b, w, 0);
-                else this.OnGetDiscount(b, w, 0);
+                if (query != null) GetProductByQuery(HttpContext, query, b, w, 0);
+                else if (category != 0) GetProductByCate(HttpContext, category, b, w, 0);
+                else GetProductDiscount(HttpContext, b, w, 0);
             }
             if (o != 0) ListProducts = OrderBy(ListProducts, o);
             return Partial("_ProductPartical", GetPage(ListProducts, p));
         }
 
-        // ==========
+        #region "method"
+        private void GetProductByCate(HttpContext context, int category, int b, int w, int p = 1)
+        {
+            MapProductDTO(_productSer.GetListByCate(category, b, w), ref PageNumber);
+            CheckProm(ListProducts);
+            if (ListProducts.Count > 0)
+            {
+                string keyCache = $"c{category},b{b},w{w}";
+                _cache.AddData(keyCache, ListProducts, TimeSpan.FromMinutes(3));
+                //
+                CookieHelper.AddKey(context, keyCache);
+                ListProducts = GetPage(ListProducts, p);
+            }
+        }
+
+        private void GetProductDiscount(HttpContext context, int b, int w, int p = 1)
+        {
+            if (_lsProm?.Count == 0) return;
+            string keyCache = "prod-discount";
+            GetProductDiscount(keyCache);
+            //
+            if (ListProducts.Count > 0)
+            {
+                CookieHelper.AddKey(context, keyCache);
+                if (b != 0)
+                    ListProducts = ListProducts.Where(item => item.BandId == b).ToList();
+                if (w != 0)
+                    ListProducts = ListProducts.Where(item => item.WireId == w).ToList();
+                PageNumber = CalcPage(ListProducts.Count);
+                ListProducts = GetPage(ListProducts, p);
+            }
+        }
+
+        private void GetProductByQuery(HttpContext context, string query, int b, int w, int p = 1)
+        {
+            isSearchResult = true;
+            string keyCacheNew = $"query-{query}";
+            string keyCache = CookieHelper.GetKey(context);
+            if (keyCache == keyCacheNew) ListProducts = _cache.GetData<List<ProductDTO>>(keyCache);
+            if (ListProducts == null || ListProducts?.Count == 0)
+            {
+                MapProductDTO(_productSer.FindByQuery(query), ref PageNumber);
+                CheckProm(ListProducts);
+                if (ListProducts.Count == 0) return;
+                _cache.AddData(keyCache, ListProducts, TimeSpan.FromMinutes(3));
+                CookieHelper.AddKey(context, keyCacheNew);
+            }
+            if (ListProducts?.Count > 0)
+            {
+                if (b != 0)
+                    ListProducts = ListProducts.Where(item => item.BandId == b).ToList();
+                if (w != 0)
+                    ListProducts = ListProducts.Where(item => item.WireId == w).ToList();
+                PageNumber = CalcPage(ListProducts.Count);
+                ListProducts = GetPage(ListProducts, 1);
+            }
+        }
+
         private void GetProductDiscount(string key)
         {
             ListProducts = _cache.GetData<List<ProductDTO>>(key);
@@ -200,6 +217,7 @@ namespace Web.Pages
             }
         }
 
+        #endregion
 
     }
 

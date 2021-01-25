@@ -40,9 +40,9 @@ namespace Web.Pages
             GetListNew();
             GetListFeatured();
             var info = _infoSer.GetItem(1);
-            TitleSEO = info.SeoTitle;
-            DescriptionSEO = info.SeoDescription;
-            ImageSEO = info.SeoImage;
+            TitleSEO = info?.SeoTitle ?? "";
+            DescriptionSEO = info?.SeoDescription ?? "";
+            ImageSEO = info?.SeoImage ?? "";
         }
 
         private Task GetListFeatured()

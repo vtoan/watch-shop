@@ -1,7 +1,10 @@
 @using System.Globalization
 @model ICollection<Web.Models.ProductDTO>;
 @{
-    string _renderCurrency(double num) => num.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
+    string _renderCurrency(double num){
+        int val = (int) num;
+        return val.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
+    }
     string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
     //
     IHtmlContent _checkDiscount(double discount, ProductDTO product, Func<ProductDTO, IHtmlContent> template){

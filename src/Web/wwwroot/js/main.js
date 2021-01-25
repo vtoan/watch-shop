@@ -75,5 +75,7 @@ function showLoader() {
     loader.classList.add("active");
 }
 function closeLoader() {
-    loader.classList.remove("active");
+    setTimeout(function () {
+        loader.classList.remove("active");
+    }, 500);
 }
