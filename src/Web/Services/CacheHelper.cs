@@ -17,7 +17,7 @@ namespace Web.Services
 
         public override bool AddData(string key, object data, TimeSpan? span = null)
         {
-            if (data == null) return false;
+            if (data == null || key == null) return false;
             if (!DataChanged.ContainsKey(key)) DataChanged.Add(key, false);
             else DataChanged[key] = false;
             //
@@ -31,7 +31,8 @@ namespace Web.Services
 
         public override T GetData<T>(string key)
         {
-            if (!DataChanged.ContainsKey(key)) return default(T);
+
+            if (key == null || !DataChanged.ContainsKey(key)) return default(T);
             if (DataChanged[key] == true) return default(T);
             var result = _cache.Get(key);
             return result == null ? default(T) : (T)result;

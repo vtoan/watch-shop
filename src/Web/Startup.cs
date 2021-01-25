@@ -1,33 +1,14 @@
-using System.Runtime.Serialization.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Domains;
-using Application.Interfaces.DAOs;
-using Application.Interfaces.Services;
-using Application.Services;
-using Infrastructure.DAOs;
 using Infrastructure.EF;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Web.Interfaces;
 using Web.Services;
-using System.Text.Json;
-using Web.Middlewares;
 using Application.Filters;
 using AutoMapper;
-using Web.Helper;
-using Microsoft.AspNetCore.Rewrite;
 
 namespace Web
 {
@@ -54,6 +35,7 @@ namespace Web
             services.AddControllers(options =>
                 options.Filters.Add(new HttpResponseExceptionFilter()));
             services.AddRazorPages();
+            services.AddSession();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -78,6 +60,8 @@ namespace Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

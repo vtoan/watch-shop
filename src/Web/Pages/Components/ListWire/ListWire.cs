@@ -18,7 +18,7 @@ namespace Web.Pages.Components.Breadcrumb
             _wireSer = wireSer;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int c, int b, int w)
+        public async Task<IViewComponentResult> InvokeAsync(string path, int b, int w)
         {
             Func<List<Wire>> func = () =>
             {
@@ -27,8 +27,7 @@ namespace Web.Pages.Components.Breadcrumb
             Task<List<Wire>> task = new Task<List<Wire>>(func);
             task.Start();
             await task;
-            string link = RouteHelper.CreateRouter(c, b, 0);
-            ViewData["link"] = link.Contains("?") ? link += "&&" : link += "?";
+            ViewData["link"] = RouteHelper.CurrentRouter(path, b, 0);
             ViewData["active"] = task.Result.Find(item => item.Id == w)?.Name ?? "";
             return View(task.Result);
         }

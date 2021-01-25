@@ -20,7 +20,7 @@ namespace Web.Pages.Components.Breadcrumb
             _bandSer = bandSer;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int c, int w, int b)
+        public async Task<IViewComponentResult> InvokeAsync(string path, int w, int b)
         {
             Func<List<Band>> func = () =>
             {
@@ -29,8 +29,7 @@ namespace Web.Pages.Components.Breadcrumb
             Task<List<Band>> task = new Task<List<Band>>(func);
             task.Start();
             await task;
-            string link = RouteHelper.CreateRouter(c, 0, w);
-            ViewData["link"] = link.Contains("?") ? link += "&&" : link += "?";
+            ViewData["link"] = RouteHelper.CurrentRouter(path, 0, w);
             ViewData["active"] = b;
             return View(task.Result);
         }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Web.Helper;
 
 namespace Web.Pages.Components.Breadcrumb
 {
@@ -9,21 +11,27 @@ namespace Web.Pages.Components.Breadcrumb
         public string MyProperty { get; set; }
         public IViewComponentResult Invoke()
         {
-            var re = HttpContext.Request.Path;
-            var listBread = new List<BreadModel>();
-            listBread.Add(new BreadModel() { Name = "Trang chủ", Link = "/" });
-            listBread.Add(new BreadModel()
+            var handler = HttpContext.Request.Query["handler"];
+            if (!String.IsNullOrEmpty(handler))
             {
-                Name = "Đồng hồ nam",
-                Link = "#"
-            });
-            return View(listBread);
-        }
-
-        public class BreadModel
-        {
-            public string Name { get; set; }
-            public string Link { get; set; }
+                var result = RouteHelper.SeoRoute.Find(item => item.Hander == handler);
+                if (result != null)
+                {
+                    string page = result.Name;
+                    if (result.Id == 5) page += " '" + HttpContext.Request.Query["query"].ToString() + " '";
+                    ViewData["page"] = page;
+                }
+                return View();
+            }
+            var cate = HttpContext.Request.RouteValues["category"];
+            if (cate != null)
+            {
+                int cateId = Int32.Parse(cate.ToString());
+                var result = RouteHelper.SeoRoute.Find(item => item.Id == cateId);
+                if (result != null) ViewData["page"] = result.Name;
+                return View();
+            }
+            return View();
         }
     }
 

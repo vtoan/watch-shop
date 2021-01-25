@@ -1,35 +1,36 @@
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Web.Helper
 {
     public class RouteHelper
     {
-        public static string CreateRouter(int cateId, int bandId, int wireId)
+        public static List<RouteModel> SeoRoute = new List<RouteModel>()
+        {
+            new RouteModel() { Id=1,Path="dong-ho-nam",Name="Đồng hồ nam"},
+            new RouteModel() { Id=2,Path="dong-ho-nu",Name="Đồng hồ nữ"},
+            new RouteModel() { Id=3,Path="dong-ho-doi",Name="Đồng hồ  đôi"},
+            new RouteModel() { Id=4,Path="phu-kien",Name="Phụ kiện"},
+            new RouteModel() { Id=5,Path="tim-kiem",Name="Kết quả tìm kiếm cho",Hander="search"},
+            new RouteModel() { Id=6,Path="khuyen-mai",Name="Khuyễn mãi",Hander="discount"},
+
+        };
+        public static string CurrentRouter(string path, int bandId, int wireId)
         {
             string route = "";
-            switch (cateId)
-            {
-                case 1:
-                    route += "dong-ho-nam";
-                    break;
-                case 2:
-                    route += "dong-ho-nu";
-                    break;
-                case 3:
-                    route += "dong-ho-doi";
-                    break;
-                case 4:
-                    route += "phu-kien";
-                    break;
-                default:
-                    route += "";
-                    break;
-            };
-            if (bandId != 0 && wireId != 0) route += "?b=" + bandId + "&&w=" + wireId;
-            else if (bandId != 0) route += "?b=" + bandId;
-            else if (wireId != 0) route += "?w=" + wireId;
-            return route;
+            if (bandId != 0) route += (path.Contains('?') ? "&&" : "?") + "b=" + bandId;
+            if (wireId != 0) route += (path.Contains('?') ? "&&" : "?") + "w=" + wireId;
+            route += (path.Contains('?') || route.Contains("?")) ? "&&" : "?";
+            return path + route;
         }
+    }
+    public class RouteModel
+    {
+        public int Id { get; set; }
+        public string Path { get; set; }
+        public string Name { get; set; }
+        public string PathRoot { get; set; }
+        public string Hander { get; set; } = "";
     }
 }

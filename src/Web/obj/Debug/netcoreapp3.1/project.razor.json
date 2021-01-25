@@ -12439,7 +12439,7 @@
         }
       },
       {
-        "HashCode": -1674513588,
+        "HashCode": -1879327954,
         "Kind": "MVC.ViewComponent",
         "Name": "__Generated__ListBandViewComponentTagHelper",
         "AssemblyName": "Web",
@@ -12449,7 +12449,7 @@
             "TagName": "vc:list-band",
             "Attributes": [
               {
-                "Name": "c"
+                "Name": "path"
               },
               {
                 "Name": "w"
@@ -12463,10 +12463,10 @@
         "BoundAttributes": [
           {
             "Kind": "MVC.ViewComponent",
-            "Name": "c",
-            "TypeName": "System.Int32",
+            "Name": "path",
+            "TypeName": "System.String",
             "Metadata": {
-              "Common.PropertyName": "c"
+              "Common.PropertyName": "path"
             }
           },
           {
@@ -12493,7 +12493,7 @@
         }
       },
       {
-        "HashCode": 541460762,
+        "HashCode": -430259319,
         "Kind": "MVC.ViewComponent",
         "Name": "__Generated__ListWireViewComponentTagHelper",
         "AssemblyName": "Web",
@@ -12503,7 +12503,7 @@
             "TagName": "vc:list-wire",
             "Attributes": [
               {
-                "Name": "c"
+                "Name": "path"
               },
               {
                 "Name": "b"
@@ -12517,10 +12517,10 @@
         "BoundAttributes": [
           {
             "Kind": "MVC.ViewComponent",
-            "Name": "c",
-            "TypeName": "System.Int32",
+            "Name": "path",
+            "TypeName": "System.String",
             "Metadata": {
-              "Common.PropertyName": "c"
+              "Common.PropertyName": "path"
             }
           },
           {
@@ -14559,6 +14559,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/ListProduct/Index.cshtml",
+      "TargetPath": "Pages\\ListProduct\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Shared/_FeedbackPartical.cshtml",
       "TargetPath": "Pages\\Shared\\_FeedbackPartical.cshtml",
       "FileKind": "mvc"
@@ -14581,11 +14586,6 @@
     {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Product/Index.cshtml",
-      "TargetPath": "Pages\\Product\\Index.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -12,12 +12,9 @@ using Web.Models;
 
 namespace Web.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : ProductPage
     {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly IProductService _productSer;
-        private readonly IPromotionService _promotionSer;
-        private readonly IMapper _mapper;
+        private readonly IInfoService _infoSer;
         //SEO
         [ViewData]
         public string TitleSEO { get; set; }
@@ -29,21 +26,23 @@ namespace Web.Pages
         public List<ProductDTO> ListProductFeatured { get; set; }
         public List<ProductDTO> ListProductNew { get; set; }
 
-        private List<ProductProm> _lsProm = new List<ProductProm>();
-
-        public IndexModel(ILogger<IndexModel> logger, IProductService productSer, IMapper mapper, IPromotionService promotionSer)
+        public IndexModel(
+            IProductService productSer,
+            IMapper mapper,
+            IPromotionService promotionSer,
+            IInfoService infoSer) : base(productSer, mapper, promotionSer)
         {
-            _logger = logger;
-            _productSer = productSer;
-            _mapper = mapper;
-            _promotionSer = promotionSer;
+            _infoSer = infoSer;
         }
 
         public void OnGet()
         {
-            _lsProm = (List<ProductProm>)_promotionSer.GetListProductProm();
             GetListNew();
             GetListFeatured();
+            var info = _infoSer.GetItem(1);
+            TitleSEO = info.SeoTitle;
+            DescriptionSEO = info.SeoDescription;
+            ImageSEO = info.SeoImage;
         }
 
         private Task GetListFeatured()
@@ -55,7 +54,7 @@ namespace Web.Pages
                 if (asset == null || asset.Count == 0) return;
                 foreach (var item in asset)
                     ListProductFeatured.Add(_mapper.Map<ProductDTO>(item));
-                ProductData.CheckProm(ListProductFeatured, _lsProm);
+                CheckProm(ListProductFeatured);
             };
             Task task = new Task(action);
             task.Start();
@@ -71,7 +70,7 @@ namespace Web.Pages
                 if (asset == null || asset.Count == 0) return;
                 foreach (var item in asset)
                     ListProductNew.Add(_mapper.Map<ProductDTO>(item));
-                ProductData.CheckProm(ListProductNew, _lsProm);
+                CheckProm(ListProductNew);
             };
             Task task = new Task(action);
             task.Start();

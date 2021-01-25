@@ -12,6 +12,7 @@ namespace Web.Models
         public string BandName { get; set; }
         public int CategoryId { get; set; }
         public int BandId { get; set; }
+        public int WireId { get; set; }
         public int PromotionId { get; set; }
         public double Discount { get; set; }
     }

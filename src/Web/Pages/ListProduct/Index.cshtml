@@ -1,4 +1,4 @@
-﻿@page "{category}"
+﻿@page "{category?}"
 @model ProductModel
 @section css{
     <link rel="stylesheet" href="./css/dropdown.css" />
@@ -9,15 +9,24 @@
     <script src="./js/dropdown.js"></script>
     <script src="./js/list-product.js">   </script>
 }
- <div class="banner-lg section" >
-    <p class="">banner</p>
-</div>
+@if (Model.isSearchResult)
+{
+    <div class="banner-sm section" >
+        <p class="">Kết quả tìm kiếm</p>
+    </div>
+}
+else{
+    <div class="banner-lg section" >
+        <p class="">banner category </p>
+    </div>
+}
+ 
 @await Component.InvokeAsync("Breadcrumb")
 
 @* ================== Product ================== *@
 <div class="container mb-3 section">
     @* ================== Filter band================== *@
-        @await Component.InvokeAsync("ListBand",new {c= @Model.cateId, w= @Model.wireId , b=@Model.bandId})
+        @await Component.InvokeAsync("ListBand",new {path= @Model.PathRequest,w= @Model.WireId, b= @Model.BandId})
     @* ================== End Filter band ================== *@
      @* ================== Order ================== *@
     <div class="row row-contents align-items-center mb-3">
@@ -27,7 +36,7 @@
             <a class="order-item" index="3" title="Giá thấp">giá cao</a>
         </div>
         <div class="px-3 ml-auto mb-3">
-            @await Component.InvokeAsync("ListWire",new {c= @Model.cateId, w= @Model.wireId , b= @Model.bandId})
+            @await Component.InvokeAsync("ListWire",new {path= @Model.PathRequest,w= @Model.WireId, b= @Model.BandId})
         </div>  
     </div>
     @* ================== End Order ================== *@
