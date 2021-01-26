@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace Web.Helper
 {
+    public enum SeoType
+    {
+        Home, Discount, Category, Search, Detail
+    }
     public class RouteHelper
     {
         public static List<RouteModel> SeoRoute = new List<RouteModel>()

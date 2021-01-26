@@ -40,7 +40,6 @@ namespace Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseStaticFiles();
 
             if (env.IsDevelopment())
             {
@@ -53,10 +52,11 @@ namespace Web
 
             app.UseRewriter(RewriteConfig.options);
 
-            app.UseStatusCodePages();
+            app.UseStatusCodePagesWithRedirects("/error/{0}");
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
 
             app.UseRouting();
 

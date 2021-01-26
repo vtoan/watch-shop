@@ -38,7 +38,7 @@
 .gallery .arrow-prev {
     position: absolute;
     font-size: 48px;
-    top: 50%;
+    top: 42%;
     bottom: 50%;
     padding: 0 0.25em;
     margin: -0.5em 0;
@@ -47,6 +47,13 @@
 .gallery .arrow-next {
     right: 0;
 }
+@media only screen and (min-width: 62em) {
+    .gallery .arrow-next,
+    .gallery .arrow-prev {
+        top: 50%;
+    }
+}
+
 /*============= ?feedback =============*/
 .feedback-list {
     display: flex;

@@ -1,78 +1,78 @@
 @page  "/san-pham"
 @model ProductDetailMode
 @using System.Globalization
-@using Enums
-
+@using Helper
 @section seo{
     @await Component.InvokeAsync("SeoContent", new {Type =SeoType.Home, Id=1})
 }
-
 @section css{
-    <link rel="stylesheet" href="./css/product-detail.css" />
-
+    <link rel="stylesheet" href="~/css/product-detail.css" />
 }
 @section scripts{
-    <script src="./js/dropdown.js"></script>
-    <script src="./js/list-product.js"></script>
+    <script src="~/js/gallary.js"></script>
+    <script src="~/js/product-detail.js"></script>
 }
 @{
     var detail = Model.ProductDetail;
+    double price = (double)@Model.Product?.Price;
+    double priceRoot = price;
+    double discount = @Model.Product.Discount;
+    if (discount != 0) { price = (discount % 1 == 0) ? (price - discount) : (price - (price * discount));}
     string _renderCurrency(double num){
         int val = (int) num;
         return val.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
     }
-    @* string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
-    //
-    IHtmlContent _checkDiscount(double discount, ProductDTO product, Func<ProductDTO, IHtmlContent> template){
-        if(discount>=0) return template(product);
-        return null;
-    } *@
+    string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
 }
-@if(Model.Product==null){
-    <p>Not found</p>
-}
-else{
 @* <!-- ================== Product Info ================== --> *@
-<div class="container section">
+<div class="container section pt-5">
     <div class="row row-contents">
         <div class="col-12 col-md-6 col-lg-7">
             <div class="gallery"> 
                 <div class="img-anim mb-4">
                     <div class="img">
+                        @* <img src="./images/products/@Model.Product.Image"> *@
                     </div>
                 </div> 
-                <a class="arrow-prev white"><i class="las la-angle-left"></i></a>
-                <a class="arrow-next white"><i class="las la-angle-right"></i></a>
+                <a class="arrow-prev black"><i class="las la-angle-left"></i></a>
+                <a class="arrow-next black"><i class="las la-angle-right"></i></a>
             </div>                  
             <div class="gallery-nav">
                 <div class="img">
-                    <img src="./images/products/img.jpg">
+                    <img src="~/images/products/cuff.jpg" loading ="lazy">
                 </div>
                 <div class="img">
-                    <img src="./images/products/img.jpg">
+                    <img src="~/images/products/img.jpg" loading ="lazy">
                 </div>
                 <div class="img">
-                    <img src="./images/products/img.jpg">
+                    <img src="./images/products/img2.jpg" loading ="lazy">
                 </div>
                 <div class="img">
-                    <img src="./images/products/img.jpg">
+                    <img src="~/images/products/img.jpg" loading ="lazy">
                 </div>
                 <div class="img">
-                    <img src="./images/products/img.jpg">
+                    <img src="~/images/products/img2.jpg" loading ="lazy">
                 </div>
             </div>                            
         </div>
         <div class="col-12 col-md-6 col-lg-5">
-            <h1 class="normal mb-3 text-2">@Model.Product.Name - @Model.Product.BandName - @Model.Product.CategoryName - @Model.Product.WireName</h1>
-            <div class="text-4 mb-3">
-                <p class="bold mb-0"> <span class="underline">Giá còn:</span> 
-                <span class="text-3 red bold d-lg-inline-block mb-1 px-2" > @_renderCurrency(Model.Product.Price) </span>
-                @* <del data-discount="@Model.Discount" class="normal text-sub"> $ 9.888</del> *@
+            <h1 class="normal mb-4 text-2">@Model.Product.Name @Model.Product.BandName @Model.Product.CategoryName @Model.Product.WireName</h1>
+            <div class="text-4 mb-5">
+                <p class="bold mb-3"> 
+                    <span class="underline">Giá @(discount >0 ? "còn": "") :</span> 
+                    <span class="text-4 red bold d-lg-inline-block mb-1 px-2" > @_renderCurrency(price) </span>
                 </p>
+                 @if(discount>0){
+                    <p> 
+                        <span>Giá gốc :</span>
+                        <del class="normal">@_renderCurrency(priceRoot)</del>
+                        <span class="red">- @_renderDiscount(discount) </span>
+                    </p>
+                 }
             </div>
             <div class="group-btns text-center mb-4">
-                <a class="buy-now btn btn-sm white bg-red mb-3 w-100">Mua ngay</a>
-                <a class="to-cart float-left btn btn-sm white bg-black w-100  mb-3">Thêm vào giỏ hàng</a>
+                <a class="buy-now btn btn-sm white bg-red mb-3 w-100 bold">Mua ngay</a>
+                <a class="to-cart float-left btn btn-sm white bg-black w-100 mb-3 bold">Thêm vào giỏ hàng</a>
                 <span class="float-clear text-center d-block">Hoặc đặt mua qua facebook tại <a class="link blue" href="Instance.Messenger"> ĐÂY </a></span>
             </div>
             <div>
@@ -81,7 +81,7 @@ else{
                 <tbody>
                     <tr>
                         <td scope="row">thương hiệu</td>
-                        <td>@Model.Product.BandName</td>
+                        <td item-related >@Model.Product.BandName</td>
                     </tr>
                      <tr>
                         <td scope="row">phân loại</td>
@@ -91,7 +91,6 @@ else{
                         <td scope="row">dây đeo</td>
                         <td>@Model.Product.WireName</td>
                     </tr>
-
                     @if(detail!=null){
                         <tr>
                             <td scope="row">xuất xứ</td>
@@ -138,4 +137,15 @@ else{
     </div>
 </div>
 @* <!-- ================== End Info ================== --> *@
-}
+@await Component.InvokeAsync("Post",new {productId = @Model.Product.Id})
+ <!-- ================== FEATURED - PRODUCT ================== -->
+<div class="container mb-3">
+    <h2 class="text-center heading">SẢN PHẨM LIÊN QUAN</h2>
+    <div id="related-container" class="row row-contents" style="min-height:250px;">
+        <p class="text-center flex-grow-1">Không có sản phẩm liên quan</p> 
+    </div>
+</div>
+        <!-- ================== END-FEATURED PRODUCT ================== -->
+<cache>
+    <partial name="_PolicyPartical"/>
+</cache>

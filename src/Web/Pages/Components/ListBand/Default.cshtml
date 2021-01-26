@@ -1,13 +1,13 @@
 @model List<Application.Domains.Band>;
+@{
+    int active = (int)ViewData["active"];
+    string link = ViewData["link"].ToString();
+}
 <div class="row filter row-contents">
-    @{
-        int active = (int)ViewData["active"];
-    }
     @foreach (var item in Model)
     {
-        string link = ViewData["link"].ToString() + "b=" + item.Id;
         <div class="col-4 col-lg-2 mb-4">
-            <a class="filter-item @(item.Id == active ?"active":"")" href="@link">
+            <a class="filter-item @(item.Id == active ?"active":"")" href="@(link + "b=" + item.Id)">
                 <div class="img">
                     <img src="./images/band-logo/g-shock-logo.png" alt="@item.Name">
                 </div>

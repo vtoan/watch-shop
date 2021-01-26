@@ -1,6 +1,6 @@
 ﻿@page
 @model IndexModel
-@using Web.Enums;
+@using Helper;
 @section seo{
     @await Component.InvokeAsync("SeoContent", new {Type = SeoType.Home,Id =1})
 }

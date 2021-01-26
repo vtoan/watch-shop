@@ -12595,7 +12595,7 @@
           {
             "Kind": "MVC.ViewComponent",
             "Name": "type",
-            "TypeName": "Web.Enums.SeoType",
+            "TypeName": "Web.Helper.SeoType",
             "IsEnum": true,
             "Metadata": {
               "Common.PropertyName": "Type"
@@ -12638,6 +12638,38 @@
           "Runtime.Name": "ITagHelper",
           "Common.TypeName": "__Generated__SeoContentViewComponentTagHelper",
           "MVC.ViewComponent.Name": "SeoContent"
+        }
+      },
+      {
+        "HashCode": -125101264,
+        "Kind": "MVC.ViewComponent",
+        "Name": "__Generated__PostViewComponentTagHelper",
+        "AssemblyName": "Web",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "vc:post",
+            "Attributes": [
+              {
+                "Name": "product-id"
+              }
+            ]
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "product-id",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "productId"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "__Generated__PostViewComponentTagHelper",
+          "MVC.ViewComponent.Name": "Post"
         }
       },
       {
@@ -14631,6 +14663,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/Post/Default.cshtml",
+      "TargetPath": "Pages\\Components\\Post\\Default.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/Footer/Default.cshtml",
       "TargetPath": "Pages\\Components\\Footer\\Default.cshtml",
       "FileKind": "mvc"
@@ -14683,6 +14720,11 @@
     {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/_ViewImports.cshtml",
       "TargetPath": "Pages\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Cart/Index.cshtml",
+      "TargetPath": "Pages\\Cart\\Index.cshtml",
       "FileKind": "mvc"
     },
     {

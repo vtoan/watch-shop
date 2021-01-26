@@ -7,7 +7,6 @@ using Application.Interfaces.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Web.Enums;
 using Web.Helper;
 using Web.Models;
 
@@ -16,18 +15,17 @@ namespace Web.Pages
     public class ProductModel : ProductPage
     {
         private readonly ICache _cache;
+        //paging
+        public int PageNumber = 0;
         //SEO
         public SeoType TypeSeo { get; set; }
         public int ItemSeoId { get; set; } = 1;
-        //paging
-        public int PageNumber = 0;
         //route
         [BindProperty(Name = "w", SupportsGet = true)]
         public int WireId { get; set; }
         [BindProperty(Name = "b", SupportsGet = true)]
         public int BandId { get; set; }
         public string PathRequest { get; set; } = "";
-
         public bool isSearchResult { get; set; }
 
         public ProductModel(
@@ -154,7 +152,6 @@ namespace Web.Pages
                             foreach (var product in re)
                                 products.Add(product);
                         }
-
                     }
                     if (prom.BandId != null)
                     {
@@ -164,7 +161,6 @@ namespace Web.Pages
                             foreach (var product in re)
                                 products.Add(product);
                         };
-
                     }
                     if (prom.ProductIds != null)
                     {
@@ -186,9 +182,7 @@ namespace Web.Pages
                             ListProducts.Add(prod);
                         }
                     }
-
                 }
-
             }
             if (ListProducts.Count > 0)
             {
@@ -196,7 +190,6 @@ namespace Web.Pages
                 PageNumber = CalcPage(ListProducts.Count);
             }
         }
-
         #endregion
 
     }

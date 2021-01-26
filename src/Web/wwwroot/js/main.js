@@ -16,6 +16,13 @@ function toggleElm(eOpen, eClose, eTarget) {
         tagetElm.classList.add("hide-item");
     });
 }
+function showAddCartAlert() {
+    swal({
+        title: "Thêm sản phẩm thành công!",
+        icon: "success",
+        buttons: ["Tiếp tục", "Giỏ hàng"],
+    }).then(() => location.assign("/goi-hang"));
+}
 toggleElm("#menu-open", "#menu-close", "#menu-target");
 toggleElm("#search-open", "#search-close", "#search-target");
 document.querySelector("#search-sm").addEventListener("click", function () {
@@ -62,11 +69,7 @@ updateViewCount();
 document.querySelectorAll(".add-cart").forEach((item) => {
     item.addEventListener("click", function () {
         addCartEvent(this);
-        swal({
-            title: "Thêm sản phẩm thành công!",
-            icon: "success",
-            buttons: ["Tiếp tục", "Giỏ hàng"],
-        });
+        showAddCartAlert();
     });
 });
 window.addEventListener("beforeunload", saveCookie);

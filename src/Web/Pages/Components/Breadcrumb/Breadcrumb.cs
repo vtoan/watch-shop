@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Web.Helper;
 
@@ -8,7 +7,6 @@ namespace Web.Pages.Components.Breadcrumb
     [ViewComponent]
     public class Breadcrumb : ViewComponent
     {
-        public string MyProperty { get; set; }
         public IViewComponentResult Invoke()
         {
             var handler = HttpContext.Request.Query["handler"];

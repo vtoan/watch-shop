@@ -1,11 +1,4 @@
 @model Web.Pages.Components.Footer.Footer.FooterModel
-@{
-    void _renderText(string content)
-    {
-        <text>@content</text>
-    }
-    ViewData["a"]="dm";
-}
 @* <!-- ================== Footer ================== --> *@
 <footer class="border-top footer text-muted">
     <div class="container-fluid bg-black white pt-5 pb-3">
@@ -17,7 +10,7 @@
                     @if (Model.InfoShop?.Email !=null){
                         <p class="middle-inline">
                             <i class="big-icon las la-envelope pr-1"></i>
-                            <span id="email"> @{_renderText(Model.InfoShop?.Email);}</span>
+                            <span id="email">@Model.InfoShop?.Email</span>
                         </p>
                     }
                     @if (Model.Phones?.Count > 0){
@@ -74,16 +67,12 @@
             </div>
             <div class="row section align-items-center">
                 <div class="col-12 col-lg-8 mb-3">
-                    <h3 class="mb-3">@{
-                            _renderText(Model.InfoShop?.Name);
-                        }</h3>
-                    <p class="pr-5">@{
-                            _renderText(Model.InfoShop?.SeoDescription);
-                        }</p>
+                    <h3 class="mb-3">@Model.InfoShop?.Name </h3>
+                    <p class="pr-5">@Model.InfoShop?.SeoDescription</p>
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="img">
-                        <img width="200" src="./images/unnamed.png">
+                        <img width="200" src="~/images/unnamed.png">
                     </div>
                 </div>
             </div>

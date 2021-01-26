@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using Web.Helper;
 
 namespace Web.Pages
 {
     public class ErrorModel : PageModel
     {
-
-        public void OnGet(string status)
+        public void OnGet(int code)
         {
-            var val = TempData["mgs-err"];
-            if (val != null) ViewData["message"] = val;
-            else ViewData["message"] = "Loi";
+            string msg = "";
+            if (code != 0) msg = ErrorHelper.GetMsg(code);
+            ViewData["message"] = msg;
         }
     }
 }

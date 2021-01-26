@@ -11,7 +11,6 @@
     <script src="./js/dropdown.js"></script>
     <script src="./js/list-product.js"></script>
 }
-
 @if (Model.isSearchResult)
 {
     <div class="banner-sm section" >
@@ -23,9 +22,7 @@ else{
         <p class="">banner category </p>
     </div>
 }
- 
 @await Component.InvokeAsync("Breadcrumb")
-
 @* ================== Product ================== *@
 <div class="container mb-3 section">
     @* ================== Filter band================== *@

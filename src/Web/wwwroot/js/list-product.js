@@ -1,4 +1,4 @@
-let dropdown = new UIDropDown((idx) => console.log(idx));
+let dropdown = new UIDropDown();
 let pageItems = document.querySelectorAll(".page-item");
 let orderItems = document.querySelectorAll(".order-item");
 let scrollValue = screen.width > 1024 ? 475 : 145;
@@ -50,9 +50,11 @@ function getPage(page) {
     let query =
         (path.includes("?") ? "&&" : "?") +
         `handler=ajax&&o=${valOrder}&&p=${page}`;
-    console.log(path + query);
     fetch(path + query)
-        .then((data) => data.text())
+        .then((data) => {
+            if (data.ok) return data.text();
+            return null;
+        })
         .then(renderProduct)
         .catch((er) => console.log(er));
 }
