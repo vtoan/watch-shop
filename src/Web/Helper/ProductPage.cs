@@ -13,7 +13,6 @@ namespace Web.Helper
 {
     public class ProductPage : PageModel
     {
-
         protected readonly IProductService _productSer;
         protected readonly IPromotionService _promotionSer;
         protected readonly IMapper _mapper;

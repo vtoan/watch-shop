@@ -1,9 +1,13 @@
 ﻿@page
 @model IndexModel
+@using Web.Enums;
+@section seo{
+    @await Component.InvokeAsync("SeoContent", new {Type = SeoType.Home,Id =1})
+}
 @section css{
     <link rel="stylesheet" href="./css/slider.site.css" />
 }
-@section Scripts{
+@section scripts{
     <script src="./js/slider.js"></script>
 }
 @* ================== Slider ==================  *@

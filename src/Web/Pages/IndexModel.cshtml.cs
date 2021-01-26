@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.Domains;
 using Application.Interfaces.Services;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using Web.Helper;
 using Web.Models;
 
@@ -14,14 +10,6 @@ namespace Web.Pages
 {
     public class IndexModel : ProductPage
     {
-        private readonly IInfoService _infoSer;
-        //SEO
-        [ViewData]
-        public string TitleSEO { get; set; }
-        [ViewData]
-        public string DescriptionSEO { get; set; }
-        [ViewData]
-        public string ImageSEO { get; set; }
         //Property
         public List<ProductDTO> ListProductFeatured { get; set; }
         public List<ProductDTO> ListProductNew { get; set; }
@@ -29,20 +17,12 @@ namespace Web.Pages
         public IndexModel(
             IProductService productSer,
             IMapper mapper,
-            IPromotionService promotionSer,
-            IInfoService infoSer) : base(productSer, mapper, promotionSer)
-        {
-            _infoSer = infoSer;
-        }
+            IPromotionService promotionSer) : base(productSer, mapper, promotionSer) { }
 
         public void OnGet()
         {
             GetListNew();
             GetListFeatured();
-            var info = _infoSer.GetItem(1);
-            TitleSEO = info?.SeoTitle ?? "";
-            DescriptionSEO = info?.SeoDescription ?? "";
-            ImageSEO = info?.SeoImage ?? "";
         }
 
         private Task GetListFeatured()

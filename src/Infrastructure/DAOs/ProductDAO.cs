@@ -15,16 +15,15 @@ namespace Infrastructure.DAOs
         {
         }
 
-        public ICollection<Product> FindItem(string query)
+        public new Product Get(int id)
         {
             try
             {
-                var re = _context.Products.Where(item => item.isDel == false)
-                .Where(item => item.Name.Contains(query) || item.Band.Name.Contains(query))
-                .Include(item => item.Band)
-                .Include(item => item.Category)
-                .Include(item => item.TypeWire);
-                return re.ToList();
+                var re = _context.Products.Where(item => item.isDel == false);
+                return re
+                   .Include(item => item.Band)
+                   .Include(item => item.Category)
+                   .Include(item => item.TypeWire).First();
             }
             catch (Exception ex)
             {
@@ -33,16 +32,36 @@ namespace Infrastructure.DAOs
             }
         }
 
-        public ICollection<Product> GetListByIds(int[] arrayId)
+        public ICollection<Product> FindItem(string query, int items)
         {
             try
             {
                 var re = _context.Products.Where(item => item.isDel == false)
-                            .Where(item => arrayId.Contains(item.Id))
-                            .Include(item => item.Band)
-                            .Include(item => item.Category)
-                            .Include(item => item.TypeWire);
-                return re.ToList();
+                .Where(item => item.Name.Contains(query) || item.Band.Name.Contains(query));
+                if (items != 0) re = re.Take(items);
+                return re.Include(item => item.Band)
+                        .Include(item => item.Category)
+                        .Include(item => item.TypeWire)
+                        .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public ICollection<Product> GetListByIds(int[] arrayId, bool isAdmin)
+        {
+            try
+            {
+                var re = _context.Products.Where(item => item.isDel == false)
+                            .Where(item => arrayId.Contains(item.Id));
+                if (isAdmin == false) re = re.Where(item => item.isShow == true);
+
+                return re.Include(item => item.Band)
+                        .Include(item => item.Category)
+                        .Include(item => item.TypeWire).ToList(); ;
             }
             catch (Exception ex)
             {

@@ -14,7 +14,9 @@ namespace Web.Pages
 
         public void OnGet(string status)
         {
-            ViewData["status"] = status;
+            var val = TempData["mgs-err"];
+            if (val != null) ViewData["message"] = val;
+            else ViewData["message"] = "Loi";
         }
     }
 }

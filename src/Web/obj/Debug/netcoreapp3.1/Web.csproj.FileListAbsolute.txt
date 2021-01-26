@@ -108,7 +108,6 @@ C:/Users/Toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Web.TagHelpers.input.cache
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Web.TagHelpers.output.cache
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Web.RazorCoreGenerate.cache
-/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Error.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Index.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_HeaderPartical.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_Layout.cshtml.g.cs
@@ -136,3 +135,6 @@ C:/Users/Toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/ListBand/Default.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/ListWire/Default.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/ListProduct/Index.cshtml.g.cs
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Components/SeoContent/Default.cshtml.g.cs
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/ProductDetail/Index.cshtml.g.cs
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Error/Index.cshtml.g.cs

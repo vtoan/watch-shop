@@ -1,6 +1,8 @@
+using Application.Interfaces.Helper;
+
 namespace Application.Domains
 {
-    public class InfoShop
+    public class InfoShop : ISeoDomain
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -34,7 +34,7 @@
 }
 
 .product .product-content {
-    text-align: center;
+    /* text-align: center; */
     cursor: pointer;
     width: 100%;
 }

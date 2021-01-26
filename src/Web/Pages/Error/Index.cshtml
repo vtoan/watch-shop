@@ -1,0 +1,11 @@
+﻿@page "/error/{message?}"
+@model ErrorModel
+
+<div class="banner-lg section">
+    <p class="">banner error </p>
+</div>
+<div class="container" style="min-height:300px">
+    <p class="text-center">
+        <strong>Lỗi</strong> <code> @ViewData["message"]</code>
+    </p>
+</div>

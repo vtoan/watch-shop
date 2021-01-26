@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Application.Domains;
 using Application.Interfaces.DAOs;
+using Application.Interfaces.Helper;
 using Application.Interfaces.Services;
 
 namespace Application.Services
@@ -19,16 +20,16 @@ namespace Application.Services
             _db = dao;
         }
 
-        public ICollection<Product> FindByQuery(string query)
+        public ICollection<Product> FindByQuery(string query, int items = 0)
         {
             if (String.IsNullOrEmpty(query)) return null;
-            return _db.FindItem(query);
+            return _db.FindItem(query, items);
         }
 
-        public ICollection<Product> GetListById(int[] arrayId)
+        public ICollection<Product> GetListById(int[] arrayId, bool isAdmin = false)
         {
             if (arrayId == null || arrayId?.Length <= 0) return null;
-            return _db.GetListByIds(arrayId);
+            return _db.GetListByIds(arrayId, isAdmin);
         }
 
         public ICollection<Product> GetListSeller(int count)
@@ -133,6 +134,11 @@ namespace Application.Services
             var propModified = base.GetPropChangedOf(modifiedObject);
             if (propModified.Count < 0) throw new Exception("There is nothing to Update");
             return _db.Update<ProductDetail>(id, propModified);
+        }
+
+        public ISeoDomain GetSeo(int id)
+        {
+            return GetDetail(id);
         }
     }
 }

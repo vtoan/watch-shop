@@ -1,0 +1,141 @@
+@page  "/san-pham"
+@model ProductDetailMode
+@using System.Globalization
+@using Enums
+
+@section seo{
+    @await Component.InvokeAsync("SeoContent", new {Type =SeoType.Home, Id=1})
+}
+
+@section css{
+    <link rel="stylesheet" href="./css/product-detail.css" />
+
+}
+@section scripts{
+    <script src="./js/dropdown.js"></script>
+    <script src="./js/list-product.js"></script>
+}
+@{
+    var detail = Model.ProductDetail;
+    string _renderCurrency(double num){
+        int val = (int) num;
+        return val.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
+    }
+    @* string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
+    //
+    IHtmlContent _checkDiscount(double discount, ProductDTO product, Func<ProductDTO, IHtmlContent> template){
+        if(discount>=0) return template(product);
+        return null;
+    } *@
+}
+@if(Model.Product==null){
+    <p>Not found</p>
+}
+else{
+@* <!-- ================== Product Info ================== --> *@
+<div class="container section">
+    <div class="row row-contents">
+        <div class="col-12 col-md-6 col-lg-7">
+            <div class="gallery"> 
+                <div class="img-anim mb-4">
+                    <div class="img">
+                    </div>
+                </div> 
+                <a class="arrow-prev white"><i class="las la-angle-left"></i></a>
+                <a class="arrow-next white"><i class="las la-angle-right"></i></a>
+            </div>                  
+            <div class="gallery-nav">
+                <div class="img">
+                    <img src="./images/products/img.jpg">
+                </div>
+                <div class="img">
+                    <img src="./images/products/img.jpg">
+                </div>
+                <div class="img">
+                    <img src="./images/products/img.jpg">
+                </div>
+                <div class="img">
+                    <img src="./images/products/img.jpg">
+                </div>
+                <div class="img">
+                    <img src="./images/products/img.jpg">
+                </div>
+            </div>                            
+        </div>
+        <div class="col-12 col-md-6 col-lg-5">
+            <h1 class="normal mb-3 text-2">@Model.Product.Name - @Model.Product.BandName - @Model.Product.CategoryName - @Model.Product.WireName</h1>
+            <div class="text-4 mb-3">
+                <p class="bold mb-0"> <span class="underline">Giá còn:</span> 
+                <span class="text-3 red bold d-lg-inline-block mb-1 px-2" > @_renderCurrency(Model.Product.Price) </span>
+                @* <del data-discount="@Model.Discount" class="normal text-sub"> $ 9.888</del> *@
+                </p>
+            </div>
+            <div class="group-btns text-center mb-4">
+                <a class="buy-now btn btn-sm white bg-red mb-3 w-100">Mua ngay</a>
+                <a class="to-cart float-left btn btn-sm white bg-black w-100  mb-3">Thêm vào giỏ hàng</a>
+                <span class="float-clear text-center d-block">Hoặc đặt mua qua facebook tại <a class="link blue" href="Instance.Messenger"> ĐÂY </a></span>
+            </div>
+            <div>
+                <h4 class="mb-3 underline">Thông số sản phẩm</h4>
+                <table class="table table-color">
+                <tbody>
+                    <tr>
+                        <td scope="row">thương hiệu</td>
+                        <td>@Model.Product.BandName</td>
+                    </tr>
+                     <tr>
+                        <td scope="row">phân loại</td>
+                        <td>@Model.Product.CategoryName</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">dây đeo</td>
+                        <td>@Model.Product.WireName</td>
+                    </tr>
+
+                    @if(detail!=null){
+                        <tr>
+                            <td scope="row">xuất xứ</td>
+                            <td>@(detail?.Origin ?? "Không")</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">kính</td>
+                            <td>@(detail?.TypeGlass ?? "Không")</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">thông số</td>
+                            <td>@(detail?.Parameter ?? "Không")</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">máy</td>
+                            <td>@(detail?.TypeMachine ?? "Không")</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">niềng</td>
+                            <td>@(detail?.TypeBorder ?? "Không")</td>
+                        </tr>
+                        
+                        <tr>
+                            <td scope="row">chống nước</td>
+                            <td>@(detail?.ResistWater ?? "Không")</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">chức năng</td>
+                            <td>@(detail?.Func ?? "Không")</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">nơi sản xuất</td>
+                            <td>@(detail?.Origin ?? "Không")</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">bảo hành</td>
+                            <td>@(detail?.Warranty ?? "Không")</td>
+                        </tr>
+                    }        
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@* <!-- ================== End Info ================== --> *@
+}

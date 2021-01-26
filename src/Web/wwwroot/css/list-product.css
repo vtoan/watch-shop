@@ -1,11 +1,13 @@
 /*============= fliter =============*/
 .orderby {
     padding: 0 15px;
+    width: 400px;
 }
 .orderby .order-item {
     text-transform: capitalize;
-    padding: 0.4em 1em;
-    margin-right: 1em;
+    padding: 0.4em 0;
+    text-align: center;
+    width: 100%;
     cursor: pointer;
     border: 1px solid var(--clr-secondary);
     border-radius: 5px;

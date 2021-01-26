@@ -12564,6 +12564,83 @@
         }
       },
       {
+        "HashCode": -1201630467,
+        "Kind": "MVC.ViewComponent",
+        "Name": "__Generated__SeoContentViewComponentTagHelper",
+        "AssemblyName": "Web",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "vc:seo-content",
+            "Attributes": [
+              {
+                "Name": "type"
+              },
+              {
+                "Name": "id"
+              },
+              {
+                "Name": "title"
+              },
+              {
+                "Name": "des"
+              },
+              {
+                "Name": "img"
+              }
+            ]
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "type",
+            "TypeName": "Web.Enums.SeoType",
+            "IsEnum": true,
+            "Metadata": {
+              "Common.PropertyName": "Type"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "id",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "Id"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "des",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Des"
+            }
+          },
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "img",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Img"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "__Generated__SeoContentViewComponentTagHelper",
+          "MVC.ViewComponent.Name": "SeoContent"
+        }
+      },
+      {
         "HashCode": 899238057,
         "Kind": "Components.Bind",
         "Name": "Bind",
@@ -14589,6 +14666,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Error/Index.cshtml",
+      "TargetPath": "Pages\\Error\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/ProductDetail/Index.cshtml",
+      "TargetPath": "Pages\\ProductDetail\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Shared/_ProductPartical.cshtml",
       "TargetPath": "Pages\\Shared\\_ProductPartical.cshtml",
       "FileKind": "mvc"
@@ -14599,8 +14686,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Error.cshtml",
-      "TargetPath": "Pages\\Error.cshtml",
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Components/SeoContent/Default.cshtml",
+      "TargetPath": "Pages\\Components\\SeoContent\\Default.cshtml",
       "FileKind": "mvc"
     },
     {

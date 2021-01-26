@@ -1,14 +1,17 @@
 ﻿@page "{category?}"
 @model ProductModel
+@section seo{
+    @await Component.InvokeAsync("SeoContent", new {Type =@Model.TypeSeo, Id=@Model.ItemSeoId})
+}
 @section css{
     <link rel="stylesheet" href="./css/dropdown.css" />
     <link rel="stylesheet" href="./css/loader.css" />
-
 }
-@section Scripts{
+@section scripts{
     <script src="./js/dropdown.js"></script>
-    <script src="./js/list-product.js">   </script>
+    <script src="./js/list-product.js"></script>
 }
+
 @if (Model.isSearchResult)
 {
     <div class="banner-sm section" >
@@ -31,9 +34,17 @@ else{
      @* ================== Order ================== *@
     <div class="row row-contents align-items-center mb-3">
         <div class="orderby mb-3">
-            <a class="order-item" index="1" title="Phổ biến" >phổ biển</a>
-            <a class="order-item" index="2" title="Giá cao">giá thấp</a>
-            <a class="order-item" index="3" title="Giá thấp">giá cao</a>
+            <div class="row">
+                <div class="col-4">
+                    <a class="order-item" index="1" title="Phổ biến" >phổ biển</a>
+                </div>
+                <div class="col-4">
+                    <a class="order-item" index="2" title="Giá cao">giá thấp</a>
+                </div>
+                <div class="col-4">
+                    <a class="order-item" index="3" title="Giá thấp">giá cao</a>
+                </div>
+            </div>
         </div>
         <div class="px-3 ml-auto mb-3">
             @await Component.InvokeAsync("ListWire",new {path= @Model.PathRequest,w= @Model.WireId, b= @Model.BandId})

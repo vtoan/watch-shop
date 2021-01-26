@@ -6,31 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="language" content="VN">
     <meta name="resource-type" content="document">
-    <!--SEO-->
-    <title>@ViewData["TitleSEO"] | Homer House</title>
-    <meta name="description" content="@ViewData["DescriptionSEO"]">
-    <meta name="copyright" content="Homer House" />
-    <meta name="author" content="Homer House" />
-    <!--OPEN GRAPH-->
-    <meta property="og:title" content="@ViewData["TitleSEO"]" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content=">@ViewData["ImageSEO"]" />
-    <meta property="og:description" content="@ViewData["DescriptionSEO"]" />
-    <meta property="og:locale" content="vi_VN" />
+    @RenderSection("seo", false)
     <!--CDN REFERENCE-->
-    <link rel="icon" href="./icon/logo.jpg" type="image/x-icon" sizes="16x16">
+    <link rel="icon" href="~/icon/logo.jpg" type="image/x-icon" sizes="16x16">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" />
-    <link rel="stylesheet" href="./libs/bootstrap/dist/css/bootstrap-grid.min.css" />
-    <link rel="stylesheet" href="./libs/line-awesome-1.3.0/1.3.0/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="~/libs/line-awesome-1.3.0/1.3.0/css/line-awesome.min.css" />
     <!--STYLESHEET-->
-    <link rel="stylesheet" href="./css/utility.site.css" />
-    <link rel="stylesheet" href="./css/header.site.css" />
-    <link rel="stylesheet" href="./css/main.site.css" />
-    <link rel="stylesheet" href="./css/list-product.css" />
+    <link rel="stylesheet" href="~/css/utility.site.css" />
+    <link rel="stylesheet" href="~/css/header.site.css" />
+    <link rel="stylesheet" href="~/css/main.site.css" />
+    <link rel="stylesheet" href="~/css/list-product.css" />
     @RenderSection("css", false)
 </head>
 
@@ -40,9 +29,9 @@
     @await Component.InvokeAsync("Footer")
     <!--script-->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="./js/cart.site.js"></script>
-    <script src="./js/main.js"></script>
-    @RenderSection("Scripts", required: false)
+    <script src="~/js/cart.site.js"></script>
+    <script src="~/js/main.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 
 </html>

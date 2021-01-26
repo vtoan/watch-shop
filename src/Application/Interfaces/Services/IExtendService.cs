@@ -11,10 +11,10 @@ namespace Application.Interfaces.Services
     public interface ITransportService : IBaseService<UnitTransport> { }
     public interface IOrderStatusService : IGetListItem<OrderStatus>, IGetItem<OrderStatus>, IAddItem<OrderStatus> { }
     public interface ICateService :
-        IGetItem<Category>, IAddItem<Category>, IUpdateItem<Category>, IGetListItem<Category>
+        IGetItem<Category>, IAddItem<Category>, IUpdateItem<Category>, IGetListItem<Category>, ISeoService
     { }
     public interface IInfoService :
-        IGetItem<InfoShop>, IUpdateItem<InfoShop>
+        IGetItem<InfoShop>, IUpdateItem<InfoShop>, ISeoService
     { }
 
 }

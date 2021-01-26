@@ -402,6 +402,9 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("nvarchar(750)")
                         .HasMaxLength(750);
 
+                    b.Property<string>("SeoImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SeoTitle")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);

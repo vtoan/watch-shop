@@ -1,5 +1,6 @@
 using Application.Domains;
 using Application.Interfaces.DAOs;
+using Application.Interfaces.Helper;
 using Application.Interfaces.Services;
 
 namespace Application.Services
@@ -8,6 +9,11 @@ namespace Application.Services
     {
         public InfoService(IBaseDAO<InfoShop> db) : base(db)
         {
+        }
+
+        public ISeoDomain GetSeo(int id)
+        {
+            return base.GetItem(id);
         }
     }
 }

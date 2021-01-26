@@ -7,6 +7,7 @@ using Application.Interfaces.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Web.Enums;
 using Web.Helper;
 using Web.Models;
 
@@ -14,16 +15,10 @@ namespace Web.Pages
 {
     public class ProductModel : ProductPage
     {
-        private readonly ICateService _cateSer;
-        private readonly IInfoService _infoSer;
         private readonly ICache _cache;
         //SEO
-        [ViewData]
-        public string TitleSEO { get; set; }
-        [ViewData]
-        public string DescriptionSEO { get; set; }
-        [ViewData]
-        public string ImageSEO { get; set; }
+        public SeoType TypeSeo { get; set; }
+        public int ItemSeoId { get; set; } = 1;
         //paging
         public int PageNumber = 0;
         //route
@@ -39,13 +34,10 @@ namespace Web.Pages
             IProductService productSer,
             IMapper mapper,
             IPromotionService promotionSer,
-            ICateService cateSer,
-            ICache cache,
-            IInfoService infoSer) : base(productSer, mapper, promotionSer)
+            ICache cache) : base(productSer, mapper, promotionSer)
         {
-            _cateSer = cateSer;
+
             _cache = cache;
-            _infoSer = infoSer;
         }
 
         public void OnGet(int category, int b, int w, int p = 1)
@@ -53,11 +45,8 @@ namespace Web.Pages
             GetProductByCate(HttpContext, category, b, w, p);
             PathRequest = GetPathRequest(HttpContext, category);
             //
-            var cate = _cateSer.GetItem(category);
-            if (cate == null) return;
-            TitleSEO = cate?.SeoTitle;
-            DescriptionSEO = cate.SeoDescription;
-            ImageSEO = cate.SeoImage;
+            TypeSeo = SeoType.Category;
+            ItemSeoId = category;
         }
 
         public void OnGetDiscount(int b, int w, int p = 1)
@@ -65,11 +54,7 @@ namespace Web.Pages
             GetProductDiscount(HttpContext, b, w, p);
             PathRequest = GetPathRequest(HttpContext);
             //
-            var info = _infoSer.GetItem(1);
-            if (info == null) return;
-            TitleSEO = "Sản phẩm khuyến mãi";
-            DescriptionSEO = info.SeoDescription;
-            ImageSEO = info.SeoImage;
+            TypeSeo = SeoType.Discount;
         }
 
         public void OnGetSearch(string query, int b, int w, int p = 1)
@@ -77,16 +62,11 @@ namespace Web.Pages
             GetProductByQuery(HttpContext, query, b, w, p);
             PathRequest = GetPathRequest(HttpContext);
             //
-            var info = _infoSer.GetItem(1);
-            if (info == null) return;
-            TitleSEO = "Kết quả tìm kiếm";
-            DescriptionSEO = info.SeoDescription;
-            ImageSEO = info.SeoImage;
+            TypeSeo = SeoType.Search;
         }
 
         public PartialViewResult OnGetAjax(string query, int category, int b, int w, int o, int p = 1)
         {
-            // string keyCache = HttpContext.Request.Cookies[KEY_CACHE];
             string keyCache = CookieHelper.GetKey(HttpContext);
             if (keyCache != null) ListProducts = _cache.GetData<List<ProductDTO>>(keyCache);
             if (ListProducts == null || ListProducts?.Count == 0)

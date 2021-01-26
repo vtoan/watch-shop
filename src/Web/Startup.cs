@@ -40,6 +40,8 @@ namespace Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseStaticFiles();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,7 +57,6 @@ namespace Web
 
             app.UseHttpsRedirection();
 
-            app.UseStaticFiles();
 
             app.UseRouting();
 
