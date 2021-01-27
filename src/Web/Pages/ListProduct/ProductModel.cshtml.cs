@@ -7,6 +7,7 @@ using Application.Interfaces.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Web.DTO;
 using Web.Helper;
 using Web.Models;
 
@@ -34,7 +35,6 @@ namespace Web.Pages
             IPromotionService promotionSer,
             ICache cache) : base(productSer, mapper, promotionSer)
         {
-
             _cache = cache;
         }
 
@@ -65,7 +65,7 @@ namespace Web.Pages
 
         public PartialViewResult OnGetAjax(string query, int category, int b, int w, int o, int p = 1)
         {
-            string keyCache = CookieHelper.GetKey(HttpContext);
+            string keyCache = CookieHelper.GetKeyCache(HttpContext);
             if (keyCache != null) ListProducts = _cache.GetData<List<ProductDTO>>(keyCache);
             if (ListProducts == null || ListProducts?.Count == 0)
             {
@@ -81,13 +81,12 @@ namespace Web.Pages
         private void GetProductByCate(HttpContext context, int category, int b, int w, int p = 1)
         {
             MapProductDTO(_productSer.GetListByCate(category, b, w), ref PageNumber);
-            CheckProm(ListProducts);
             if (ListProducts.Count > 0)
             {
                 string keyCache = $"c{category},b{b},w{w}";
                 _cache.AddData(keyCache, ListProducts, TimeSpan.FromMinutes(3));
                 //
-                CookieHelper.AddKey(context, keyCache);
+                CookieHelper.AddKeyCache(context, keyCache);
                 ListProducts = GetPage(ListProducts, p);
             }
         }
@@ -95,12 +94,11 @@ namespace Web.Pages
         private void GetProductDiscount(HttpContext context, int b, int w, int p = 1)
         {
             if (_lsProm?.Count == 0) return;
-            string keyCache = "prod-discount";
-            GetProductDiscount(keyCache);
+            GetProductDiscount(KEY_CACHE_DISCOUNT);
             //
             if (ListProducts.Count > 0)
             {
-                CookieHelper.AddKey(context, keyCache);
+                CookieHelper.AddKeyCache(context, KEY_CACHE_DISCOUNT);
                 if (b != 0)
                     ListProducts = ListProducts.Where(item => item.BandId == b).ToList();
                 if (w != 0)
@@ -114,15 +112,14 @@ namespace Web.Pages
         {
             isSearchResult = true;
             string keyCacheNew = $"query-{query}";
-            string keyCache = CookieHelper.GetKey(context);
+            string keyCache = CookieHelper.GetKeyCache(context);
             if (keyCache == keyCacheNew) ListProducts = _cache.GetData<List<ProductDTO>>(keyCache);
             if (ListProducts == null || ListProducts?.Count == 0)
             {
                 MapProductDTO(_productSer.FindByQuery(query), ref PageNumber);
-                CheckProm(ListProducts);
                 if (ListProducts.Count == 0) return;
                 _cache.AddData(keyCache, ListProducts, TimeSpan.FromMinutes(3));
-                CookieHelper.AddKey(context, keyCacheNew);
+                CookieHelper.AddKeyCache(context, keyCacheNew);
             }
             if (ListProducts?.Count > 0)
             {

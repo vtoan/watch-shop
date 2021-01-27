@@ -1,6 +1,5 @@
-@page  "/san-pham"
+@page  "/san-pham/{name}"
 @model ProductDetailMode
-@using System.Globalization
 @using Helper
 @section seo{
     @await Component.InvokeAsync("SeoContent", new {Type =SeoType.Home, Id=1})
@@ -14,15 +13,10 @@
 }
 @{
     var detail = Model.ProductDetail;
-    double price = (double)@Model.Product?.Price;
+    double price = (double)Model.Product?.Price;
     double priceRoot = price;
-    double discount = @Model.Product.Discount;
+    double discount = Model.Product.Discount;
     if (discount != 0) { price = (discount % 1 == 0) ? (price - discount) : (price - (price * discount));}
-    string _renderCurrency(double num){
-        int val = (int) num;
-        return val.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
-    }
-    string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
 }
 @* <!-- ================== Product Info ================== --> *@
 <div class="container section pt-5">
@@ -30,8 +24,7 @@
         <div class="col-12 col-md-6 col-lg-7">
             <div class="gallery"> 
                 <div class="img-anim mb-4">
-                    <div class="img">
-                        @* <img src="./images/products/@Model.Product.Image"> *@
+                    <div class="img" style="background-image: url('~/images/products/cuff.jpg');">
                     </div>
                 </div> 
                 <a class="arrow-prev black"><i class="las la-angle-left"></i></a>
@@ -45,7 +38,7 @@
                     <img src="~/images/products/img.jpg" loading ="lazy">
                 </div>
                 <div class="img">
-                    <img src="./images/products/img2.jpg" loading ="lazy">
+                    <img src="~/images/products/img2.jpg" loading ="lazy">
                 </div>
                 <div class="img">
                     <img src="~/images/products/img.jpg" loading ="lazy">
@@ -60,13 +53,13 @@
             <div class="text-4 mb-5">
                 <p class="bold mb-3"> 
                     <span class="underline">Giá @(discount >0 ? "còn": "") :</span> 
-                    <span class="text-4 red bold d-lg-inline-block mb-1 px-2" > @_renderCurrency(price) </span>
+                    <span class="text-4 red bold d-lg-inline-block mb-1 px-2" > @PageHelper._renderCurrency(price) </span>
                 </p>
                  @if(discount>0){
                     <p> 
                         <span>Giá gốc :</span>
-                        <del class="normal">@_renderCurrency(priceRoot)</del>
-                        <span class="red">- @_renderDiscount(discount) </span>
+                        <del class="normal">@PageHelper._renderCurrency(priceRoot)</del>
+                        <span class="red">- @PageHelper._renderDiscount(discount) </span>
                     </p>
                  }
             </div>
@@ -141,8 +134,8 @@
  <!-- ================== FEATURED - PRODUCT ================== -->
 <div class="container mb-3">
     <h2 class="text-center heading">SẢN PHẨM LIÊN QUAN</h2>
-    <div id="related-container" class="row row-contents" style="min-height:250px;">
-        <p class="text-center flex-grow-1">Không có sản phẩm liên quan</p> 
+    <div id="related-container" style="min-height:250px;">
+        <p class="text-center flex-grow-1">Đang tải dữ liệu ...</p> 
     </div>
 </div>
         <!-- ================== END-FEATURED PRODUCT ================== -->

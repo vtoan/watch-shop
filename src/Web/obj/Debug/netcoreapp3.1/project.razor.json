@@ -12564,6 +12564,38 @@
         }
       },
       {
+        "HashCode": -125101264,
+        "Kind": "MVC.ViewComponent",
+        "Name": "__Generated__PostViewComponentTagHelper",
+        "AssemblyName": "Web",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "vc:post",
+            "Attributes": [
+              {
+                "Name": "product-id"
+              }
+            ]
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "MVC.ViewComponent",
+            "Name": "product-id",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "productId"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "__Generated__PostViewComponentTagHelper",
+          "MVC.ViewComponent.Name": "Post"
+        }
+      },
+      {
         "HashCode": -1201630467,
         "Kind": "MVC.ViewComponent",
         "Name": "__Generated__SeoContentViewComponentTagHelper",
@@ -12638,38 +12670,6 @@
           "Runtime.Name": "ITagHelper",
           "Common.TypeName": "__Generated__SeoContentViewComponentTagHelper",
           "MVC.ViewComponent.Name": "SeoContent"
-        }
-      },
-      {
-        "HashCode": -125101264,
-        "Kind": "MVC.ViewComponent",
-        "Name": "__Generated__PostViewComponentTagHelper",
-        "AssemblyName": "Web",
-        "CaseSensitive": false,
-        "TagMatchingRules": [
-          {
-            "TagName": "vc:post",
-            "Attributes": [
-              {
-                "Name": "product-id"
-              }
-            ]
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "MVC.ViewComponent",
-            "Name": "product-id",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "productId"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "ITagHelper",
-          "Common.TypeName": "__Generated__PostViewComponentTagHelper",
-          "MVC.ViewComponent.Name": "Post"
         }
       },
       {
@@ -14705,6 +14705,11 @@
     {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Error/Index.cshtml",
       "TargetPath": "Pages\\Error\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Shared/_CartItemPartical.cshtml",
+      "TargetPath": "Pages\\Shared\\_CartItemPartical.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -1,4 +1,4 @@
-(function (config) {
+function cart(config) {
     let options = {
         cart: null,
         quantityChanged: null,
@@ -13,7 +13,7 @@
     let root = document.querySelector(options.root);
     let listCartItem = [];
     let listFees = [];
-    let promo = { code: "ABC", discount: "0.3" };
+    let promo = null;
     let elmTotal = root.querySelector("[order-total]");
     let elmPay = root.querySelector("[order-pay]");
     let elmPromo = root.querySelector("[order-promotion]");
@@ -48,14 +48,17 @@
         }
     );
     root.querySelector("form").addEventListener("submit", function (e) {
-        e.preventDefault();
-        var formData = new FormData();
-        formData.append("promCode", promo.code);
-        formData.append("order", JSON.stringify(cart.getData()));
-        console.log(this);
-        var request = new XMLHttpRequest();
-        request.open("POST", options.checkOutUri);
-        request.send(formData);
+        let prom = document.createElement("input");
+        prom.value = promo?.code;
+        prom.name = "promCode";
+        prom.type = "hidden";
+        this.appendChild(prom);
+        let listItem = document.createElement("input");
+        listItem.value = JSON.stringify(cart.getData());
+        listItem.name = "listItem";
+        listItem.type = "hidden";
+        this.appendChild(listItem);
+        return true;
     });
     // ========== define event ==========
     function attachEventItem(element, id) {
@@ -139,31 +142,34 @@
     //promotion
     function checkPromotion(promCode) {
         options.loader.show();
-        let cost = promo.discount;
-        elmPromo.textContent =
-            "- " + (cost % 1 == 0 ? currency(cost) : cost * 100 + " %");
-        elmPromo.parentElement.classList.remove("d-none");
-        setTimeout(function () {
-            options.loader.close();
-            options.popup.show(true, "Thành công!", "Đã áp dụng mã giảm giá");
-        }, 1500);
-        // fetch("", {
-        //     method: "GET",
-        //     body: { promCode: promCode },
-        // }).then(function (response) {
-        //     console.log(response);
-        // });
+
+        if (location.href.endsWith("#!")) return;
+        let url = location.href + "?handler=checkprom&&code=" + promCode;
+        fetch(url).then(function (response) {
+            if (response.ok) {
+                // response.json().
+                // let cost = promo.discount;
+                // elmPromo.textContent =
+                //     "- " + (cost % 1 == 0 ? currency(cost) : cost * 100 + " %");
+                // elmPromo.parentElement.classList.remove("d-none");
+                // options.loader.close();
+                // options.popup.show(
+                //     true,
+                //     "Thành công!",
+                //     "Đã áp dụng mã giảm giá"
+                // );
+            } else {
+                options.loader.close();
+                options.popup.show(
+                    false,
+                    "Thất bại!",
+                    "Mã giảm giá không hợp lệ"
+                );
+            }
+        });
     }
     updateSummaryOrder();
-})({
-    cart: cartObject,
-    quantityChanged: updateViewCount,
-    root: "#cart",
-    currency: currency,
-    loader: { show: showLoader, close: closeLoader },
-    popup: { show: showPopup, close: null },
-    checkOutUri: "/",
-});
+}
 //
 function showPopup(success, title, messsage) {
     swal({
@@ -173,6 +179,29 @@ function showPopup(success, title, messsage) {
         button: "OK",
     });
 }
-//dump-data
-cartObject.addItem(1);
-cartObject.addItem(2);
+let container = document.querySelector("#cart-container");
+function renderCartItem(data) {
+    container.innerHTML = "";
+    container.innerHTML = data;
+    let act = cart({
+        cart: cartObject,
+        quantityChanged: updateViewCount,
+        root: "#cart",
+        currency: currency,
+        loader: { show: showLoader, close: closeLoader },
+        popup: { show: showPopup, close: null },
+        checkOutUri: "/gio-hang",
+    });
+}
+window.addEventListener("load", function () {
+    let val = JSON.stringify(cartObject.getData());
+    if (location.href.endsWith("#!")) return;
+    let url = location.href + "?handler=cartitem&&ids=" + val;
+    fetch(url)
+        .then((response) => {
+            if (response.ok) return response.text();
+            return null;
+        })
+        .then(renderCartItem)
+        .catch((er) => console.log(er));
+});

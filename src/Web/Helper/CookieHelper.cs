@@ -1,37 +1,68 @@
 using Microsoft.AspNetCore.Http;
 using Web.Models;
+using Web.Pages.Cart;
+using Web.DTO;
+using System.Collections.Generic;
 using System.Text.Json;
+using System;
 
 namespace Web.Helper
 {
     public static class CookieHelper
     {
+        public static string KEY_CART = "basketshopping";
         public static string KEY_CACHE = "key-cache";
 
-        public static void AddKey(HttpContext context, string keyCache, CookieModel cookie = null)
+        public static void AddCookie(HttpContext context, string key, string data)
         {
-            if (cookie == null) cookie = new CookieModel();
-            cookie.KeyCache = keyCache;
-            cookie.SessionId = context.Session.Id;
-            context.Response.Cookies.Append(KEY_CACHE, JsonSerializer.Serialize(cookie));
+            CookieOptions options = new CookieOptions()
+            {
+                HttpOnly = false
+            };
+            context.Response.Cookies.Append(key, data, options);
         }
 
-        public static string GetKey(HttpContext context)
+        public static T GetCookie<T>(HttpContext context, string key)
         {
-            var obj = context.Request.Cookies[KEY_CACHE];
+            var obj = context.Request.Cookies[key];
             try
             {
-                var model = JsonSerializer.Deserialize<CookieModel>(obj);
-                // string currentSesstion = context.Session.Id;
-                if (model != null) return model.KeyCache;
-                return null;
+                var model = JsonSerializer.Deserialize<T>(obj);
+                if (model != null) return model;
+                return default(T);
             }
             catch
             {
-                return null;
+                return default(T);
             }
+        }
 
+        public static string GetKeyCache(HttpContext context)
+        {
+            return GetCookie<string>(context, KEY_CACHE);
+        }
 
+        public static void AddKeyCache(HttpContext context, string keyCache)
+        {
+            AddCookie(context, KEY_CACHE, keyCache);
+        }
+
+        public static void AddCart(HttpContext context, List<CartDTO> cart = null)
+        {
+            if (cart == null) cart = new List<CartDTO>() { new CartDTO() };
+            CookieOptions options = new CookieOptions()
+            {
+                HttpOnly = false,
+                Path = "/gio-hang",
+                IsEssential = true,
+                Expires = DateTime.Now.AddMonths(1)
+            };
+            context.Response.Cookies.Append(KEY_CART, JsonSerializer.Serialize(cart), options);
+        }
+
+        public static List<CartDTO> GetCart(HttpContext context)
+        {
+            return GetCookie<List<CartDTO>>(context, KEY_CART);
         }
     }
 }

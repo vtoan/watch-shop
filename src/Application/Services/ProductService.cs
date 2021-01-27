@@ -140,5 +140,11 @@ namespace Application.Services
         {
             return GetDetail(id);
         }
+
+        public Product GetByName(string name)
+        {
+            if (String.IsNullOrEmpty(name)) return null;
+            return _db.GetByName(name);
+        }
     }
 }

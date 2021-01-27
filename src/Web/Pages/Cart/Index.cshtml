@@ -1,151 +1,82 @@
-@page  "/san-pham"
-@model CartModel
-@using System.Globalization
+@page "/gio-hang"
 @using Helper
-@section seo{
-    @await Component.InvokeAsync("SeoContent", new {Type =SeoType.Home, Id=1})
-}
-@section css{
-    <link rel="stylesheet" href="~/css/product-detail.css" />
-}
+@model CartModel
 @section scripts{
-    <script src="~/js/gallary.js"></script>
-    <script src="~/js/product-detail.js"></script>
+    <script src="~/js/cart.page.js"></script>
 }
-@{
-    var detail = Model.ProductDetail;
-    double price = (double)@Model.Product?.Price;
-    double priceRoot = price;
-    double discount = @Model.Product.Discount;
-    if (discount != 0) { price = (discount % 1 == 0) ? (price - discount) : (price - (price * discount));}
-    string _renderCurrency(double num){
-        int val = (int) num;
-        return val.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
-    }
-    string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
-}
-@* <!-- ================== Product Info ================== --> *@
-<div class="container section pt-5">
-    <div class="row row-contents">
-        <div class="col-12 col-md-6 col-lg-7">
-            <div class="gallery"> 
-                <div class="img-anim mb-4">
-                    <div class="img">
-                        @* <img src="./images/products/@Model.Product.Image"> *@
-                    </div>
-                </div> 
-                <a class="arrow-prev black"><i class="las la-angle-left"></i></a>
-                <a class="arrow-next black"><i class="las la-angle-right"></i></a>
-            </div>                  
-            <div class="gallery-nav">
-                <div class="img">
-                    <img src="~/images/products/cuff.jpg" loading ="lazy">
+<div class="banner-sm section">
+    <p class="">Giỏ hàng</p>
+</div>
+<div class="container mb-4">
+    <div class="breadcrumb">
+        <a href="/">Trang chủ</a>/
+        <a href="#">Giỏ hàng</a>
+    </div>
+</div>
+<!-- ================== List Product ================== -->
+<div class="container section">
+    <div id="cart" class="row section">
+        <div class="col-12 col-lg-8 mb-5">
+            <!--Cart - Header List-->
+            <div class="mb-3">
+                <div class="d-flex align-items-center px-3">
+                    <h3 class="">Sản phẩm</h3>
+                    <p class="ml-auto"> <span id="count-items">0</span> sản phẩm
+                    <p>
                 </div>
-                <div class="img">
-                    <img src="~/images/products/img.jpg" loading ="lazy">
-                </div>
-                <div class="img">
-                    <img src="./images/products/img2.jpg" loading ="lazy">
-                </div>
-                <div class="img">
-                    <img src="~/images/products/img.jpg" loading ="lazy">
-                </div>
-                <div class="img">
-                    <img src="~/images/products/img2.jpg" loading ="lazy">
-                </div>
-            </div>                            
+                <hr class="bg-black mx-3" style="height: 1px;">
+            </div>
+            <!--Cart - List Item-->
+            <div id="cart-container" style="min-height:200px;">
+                <p class="text-center flex-grow-1 py-5">Đang tải dữ liệu...</p> 
+            </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-5">
-            <h1 class="normal mb-4 text-2">@Model.Product.Name @Model.Product.BandName @Model.Product.CategoryName @Model.Product.WireName</h1>
-            <div class="text-4 mb-5">
-                <p class="bold mb-3"> 
-                    <span class="underline">Giá @(discount >0 ? "còn": "") :</span> 
-                    <span class="text-4 red bold d-lg-inline-block mb-1 px-2" > @_renderCurrency(price) </span>
-                </p>
-                 @if(discount>0){
-                    <p> 
-                        <span>Giá gốc :</span>
-                        <del class="normal">@_renderCurrency(priceRoot)</del>
-                        <span class="red">- @_renderDiscount(discount) </span>
-                    </p>
-                 }
+        <div class="col-12 col-lg-4 mb-5">
+            <div class="mb-3">
+                <h3 class="pl-3">Đơn hàng</h3>
+                <hr class="bg-black mx-3" style="height: 1px;">
             </div>
-            <div class="group-btns text-center mb-4">
-                <a class="buy-now btn btn-sm white bg-red mb-3 w-100 bold">Mua ngay</a>
-                <a class="to-cart float-left btn btn-sm white bg-black w-100 mb-3 bold">Thêm vào giỏ hàng</a>
-                <span class="float-clear text-center d-block">Hoặc đặt mua qua facebook tại <a class="link blue" href="Instance.Messenger"> ĐÂY </a></span>
+            <div class="m-3">
+                <input prom-code name="promotion" style="width:72%;" type="text" placeholder="Mã giảm giá">
+                <a prom-submit class="btn btn-sm bg-red white bold" >Áp dụng</a>
             </div>
-            <div>
-                <h4 class="mb-3 underline">Thông số sản phẩm</h4>
-                <table class="table table-color">
+            <table class="table text-4" style="margin-left: 0.2em;">
                 <tbody>
-                    <tr>
-                        <td scope="row">thương hiệu</td>
-                        <td item-related >@Model.Product.BandName</td>
+                    <tr >
+                        <td>Tạm tính</td>
+                        <td order-total="" >0 đ</td>
                     </tr>
-                     <tr>
-                        <td scope="row">phân loại</td>
-                        <td>@Model.Product.CategoryName</td>
+                    <tr class="d-none">
+                        <td>Giảm giá</td>
+                        <td order-promotion="" >0 đ</td>
                     </tr>
-                    <tr>
-                        <td scope="row">dây đeo</td>
-                        <td>@Model.Product.WireName</td>
+                    @foreach (var item in Model.ListFee)
+                    {    
+                         <tr>
+                            <td>Phi</td>
+                            <td order-fees fee-cost="@item.Cost">@PageHelper._renderDiscount((double)item.Cost)</td>
+                        </tr>
+                    }
+                    <tr class="bold">
+                        <td>Thanh Toán</td>
+                        <td class="red" order-pay>0 đ</td>
                     </tr>
-                    @if(detail!=null){
-                        <tr>
-                            <td scope="row">xuất xứ</td>
-                            <td>@(detail?.Origin ?? "Không")</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">kính</td>
-                            <td>@(detail?.TypeGlass ?? "Không")</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">thông số</td>
-                            <td>@(detail?.Parameter ?? "Không")</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">máy</td>
-                            <td>@(detail?.TypeMachine ?? "Không")</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">niềng</td>
-                            <td>@(detail?.TypeBorder ?? "Không")</td>
-                        </tr>
-                        
-                        <tr>
-                            <td scope="row">chống nước</td>
-                            <td>@(detail?.ResistWater ?? "Không")</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">chức năng</td>
-                            <td>@(detail?.Func ?? "Không")</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">nơi sản xuất</td>
-                            <td>@(detail?.Origin ?? "Không")</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">bảo hành</td>
-                            <td>@(detail?.Warranty ?? "Không")</td>
-                        </tr>
-                    }        
                 </tbody>
-                </table>
-            </div>
+            </table>
+        </div>
+        <div class="col-12 text-center">
+            <form method="POST">
+                <button class="btn btn-sm bg-red white w-25 bold" type="submit"> Tiếp tục</button>
+            </form>
         </div>
     </div>
 </div>
-@* <!-- ================== End Info ================== --> *@
-@await Component.InvokeAsync("Post",new {productId = @Model.Product.Id})
- <!-- ================== FEATURED - PRODUCT ================== -->
-<div class="container mb-3">
-    <h2 class="text-center heading">SẢN PHẨM LIÊN QUAN</h2>
-    <div id="related-container" class="row row-contents" style="min-height:250px;">
-        <p class="text-center flex-grow-1">Không có sản phẩm liên quan</p> 
+<!-- ================== End List Product ================== -->
+<div id="loader">
+    <div class="loader-container">
+        <div class="dash uno"></div>
+        <div class="dash dos"></div>
+        <div class="dash tres"></div>
+        <div class="dash cuatro"></div>
     </div>
 </div>
-        <!-- ================== END-FEATURED PRODUCT ================== -->
-<cache>
-    <partial name="_PolicyPartical"/>
-</cache>

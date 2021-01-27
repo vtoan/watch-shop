@@ -179,6 +179,22 @@ namespace Infrastructure.DAOs
             }
         }
 
-
+        public Product GetByName(string name)
+        {
+            try
+            {
+                var re = _context.Products.Where(item => item.isDel == false)
+                .Where(item => item.Name == name);
+                return re.Include(item => item.Band)
+                        .Include(item => item.Category)
+                        .Include(item => item.TypeWire)
+                        .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -7,12 +7,14 @@ using Application.Interfaces.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Web.DTO;
 using Web.Models;
 
 namespace Web.Helper
 {
     public class ProductPage : PageModel
     {
+        protected readonly string KEY_CACHE_DISCOUNT = "prod-discount";
         protected readonly IProductService _productSer;
         protected readonly IPromotionService _promotionSer;
         protected readonly IMapper _mapper;
@@ -52,11 +54,27 @@ namespace Web.Helper
 
         protected void MapProductDTO(ICollection<Product> asset, ref int pageNumner)
         {
-            if (ListProducts == null) ListProducts = new List<ProductDTO>();
             if (asset == null || asset.Count == 0) return;
             if (pageNumner == 0) pageNumner = CalcPage(asset.Count);
+            MapProductDTO(asset);
+        }
+
+        protected void MapProductDTO(ICollection<Product> asset)
+        {
+            if (ListProducts == null) ListProducts = new List<ProductDTO>();
+            if (asset == null || asset.Count == 0) return;
             foreach (var item in asset)
-                ListProducts.Add(_mapper.Map<ProductDTO>(item));
+            {
+                var product = _mapper.Map<ProductDTO>(item);
+                ListProducts.Add(product);
+            }
+            CheckProm(ListProducts);
+        }
+
+        protected int GetProductId(string nameInter)
+        {
+            var val = nameInter.Split("-").Last();
+            return Int32.Parse(val);
         }
 
         protected List<ProductDTO> GetPage(List<ProductDTO> list, int p = 1)

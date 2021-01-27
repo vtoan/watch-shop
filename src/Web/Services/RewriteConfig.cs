@@ -11,6 +11,7 @@ namespace Web.Services
                 .AddRewrite("phu-kien", "listproduct/4", skipRemainingRules: true)
                 .AddRewrite("khuyen-mai", "listproduct?handler=discount", skipRemainingRules: true)
                 .AddRewrite("tim-kiem", "listproduct?handler=search", skipRemainingRules: true);
+        // .AddRewrite("gio-hang", "cart", skipRemainingRules: true);
         // .AddRewrite("san-pham", "productdetail", skipRemainingRules: true);
 
     }

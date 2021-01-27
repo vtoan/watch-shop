@@ -1,5 +1,7 @@
 @using System.Globalization
-@model ICollection<Web.Models.ProductDTO>;
+@using DTO
+@using Helper
+@model ICollection<Web.DTO.ProductDTO>;
 @{
     string _renderCurrency(double num){
         int val = (int) num;
@@ -11,6 +13,7 @@
         if(discount>0) return template(product);
         return null;
     }
+    string _convertPath(ProductDTO product) => DataHelper.RemapVniToAsciiText(product.BandName + "-" + product.Name + "-" + product.Id);
 }
  <div id="product-container" class="row row-contents" style="min-height: 300px;">
     @if (Model?.Count >0)
@@ -27,11 +30,11 @@
                     <div class="product-img img-anim">
                         @(_checkDiscount(discount,item,@<span class="product-sale">-@_renderDiscount(discount)</span>))
                         <div class="img">
-                            <img src="./images/products/@item.Image" loading="lazy">
+                            <img src="~/images/products/@item.Image" loading="lazy">
                         </div>
                     </div>
-                    <a class="add-cart mb-3" href="#!">Thêm vào giỏ hàng</a>
-                    <a href="/san-pham?id=@item.Id" item-id="@item.Id" class="product-content">
+                    <a class="add-cart mb-3" item-id="@item.Id"  href="#!">Thêm vào giỏ hàng</a>
+                    <a href="/san-pham/@_convertPath(item)" class="product-content">
                         <h4 class="pb-2 normal">@item.Name @item.BandName @item.CategoryName @item.WireName</h4>
                         <div>
                             <p class="text-4 red bold d-block d-lg-inline-block m-0">

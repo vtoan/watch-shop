@@ -20,7 +20,7 @@ namespace Infrastructure.DAOs
             {
                 var dNow = DateTime.Now;
                 var re = _context.CodeProms
-                    .Where(item => item.CodeCoupon == coupon && item.Promotion.isShow == true && item.Promotion.FromDate >= dNow && dNow <= item.Promotion.ToDate);
+                    .Where(item => item.CodeCoupon.ToLower() == coupon.ToLower() && item.Promotion.isShow == true && item.Promotion.FromDate >= dNow && dNow <= item.Promotion.ToDate);
                 return re.FirstOrDefault();
             }
             catch (Exception ex)

@@ -32,14 +32,15 @@ function Gallery(obj = ".gallery", nav = ".gallery-nav") {
             behavior: "smooth",
         });
     }
-    nav_gallery
-        .querySelector(".img")
-        .addEventListener("mouseenter", function () {
+    let items = nav_gallery.querySelectorAll(".img");
+    items.forEach((item) =>
+        item.addEventListener("click", function () {
             let active = nav_gallery.querySelector(".img.active");
             active.classList.remove("active");
             this.classList.add("active");
-            showImage(this.firstChild.getAttribute("src"));
-        });
+            showImage(this.querySelector("img").getAttribute("src"));
+        })
+    );
 
     document
         .querySelector(obj + " .arrow-prev")

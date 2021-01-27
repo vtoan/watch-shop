@@ -19,7 +19,7 @@ let productContainer = document.querySelector("#related-container");
 
 function getRelated(query) {
     let path = location.href;
-    fetch(path + "&&handler=related&&query=" + query)
+    fetch(path + "?handler=related&&query=" + query)
         .then((data) => {
             if (data.ok) return data.text();
             return null;

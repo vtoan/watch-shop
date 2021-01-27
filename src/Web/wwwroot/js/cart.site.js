@@ -1,19 +1,19 @@
 function Cart() {
-    let order = { items: [] };
+    let order = [];
     let count = 0;
     this.setData = function (asset) {
         if (!asset) return;
         order = asset;
-        let len = order.items.length;
+        let len = order.length;
         for (let index = 0; index < len; index++) {
-            count += order.items[index].quantity;
+            count += order[index].Quantity;
         }
     };
     this.getData = function () {
         return order;
     };
     this.getItem = function (id) {
-        return order.items.find((i) => i.productId == id);
+        return order.find((i) => i.ProductId == id);
     };
     this.getCount = function () {
         return count;
@@ -23,35 +23,37 @@ function Cart() {
         return false;
     };
     this.addItem = function (id) {
-        let index = order.items.findIndex((item) => item.productId == id);
-        if (index >= 0) order.items[index].quantity++;
+        id = Number(id);
+        let index = order.findIndex((item) => item.ProductId == id);
+        if (index >= 0) order[index].Quantity++;
         else
-            order.items.push({
-                productId: id,
-                quantity: 1,
+            order.push({
+                ProductId: id,
+                Quantity: 1,
             });
         count++;
+        console.log(order);
     };
     this.changeQuantityItem = function (id, operation) {
         if (this.isEmpty());
-        let indx = order.items.findIndex((i) => i.productId == id);
+        let indx = order.findIndex((i) => i.ProductId == id);
         if (indx < 0) return;
         if (operation) {
-            order.items[indx].quantity++;
+            order[indx].Quantity++;
             count++;
         } else {
-            order.items[indx].quantity--;
+            order[indx].Quantity--;
             count--;
         }
     };
     this.removeItem = function (id) {
         if (this.isEmpty()) return;
-        let idx = order.items.findIndex((i) => i.productId == id);
+        let idx = order.findIndex((i) => i.ProductId == id);
         if (idx < 0) return;
-        count = count - order.items[idx].quantity;
-        order.items.splice(idx, 1);
+        count = count - order[idx].Quantity;
+        order.splice(idx, 1);
     };
     this.clear = function () {
-        order = { items: [] };
+        order = [];
     };
 }

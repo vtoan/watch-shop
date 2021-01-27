@@ -2,57 +2,69 @@ using System.Collections.Generic;
 using Application.Interfaces.Services;
 using AutoMapper;
 using Web.Helper;
-using Web.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Application.Domains;
 using System;
+using System.Text.Json;
+using Web.DTO;
 
 namespace Web.Pages.Cart
 {
     public class CartModel : ProductPage
     {
-        private string keyCacheDiscount = "prod-discount";
-        private readonly ICache _cache;
-        public ProductDTO Product { get; set; }
+        public ICollection<Fee> ListFee { get; set; }
 
-        public Application.Domains.ProductDetail ProductDetail { get; set; }
+        private readonly ICache _cache;
+        private readonly IFeeService _feeSer;
+
         public CartModel(
             IProductService productSer,
             IMapper mapper,
             IPromotionService promotionSer,
+            IFeeService feeSer,
             ICache cache) : base(productSer, mapper, promotionSer)
-        { _cache = cache; }
-
-        public IActionResult OnGet([FromQuery] int id)
         {
-            ListProducts = _cache.GetData<List<ProductDTO>>(keyCacheDiscount);
-            if (ListProducts != null) Product = ListProducts.Find(item => item.Id == id);
-            else
-            {
-                var productAsset = (List<Product>)_productSer.GetListById(new int[] { id });
-                if (productAsset == null || productAsset?.Count == 0)
-                {
-                    return RedirectToPage("/error/" + ErrorType.ProductNotFound);
-                }
-                var prod = _mapper.Map<ProductDTO>(productAsset[0]);
-                var ls = new List<ProductDTO>() { prod };
-                CheckProm(ls);
-                Product = ls[0];
-            }
-            ProductDetail = _productSer.GetDetail(id);
-            return Page();
+            _cache = cache;
+            _feeSer = feeSer;
         }
 
-        public IActionResult OnGetRelated(string query)
+        public void OnGet()
         {
-            if (String.IsNullOrEmpty(query)) return null;
-            var asset = _productSer.FindByQuery(query, 4);
-            if (asset == null || asset.Count == 0) return null;
-            var result = new List<ProductDTO>();
-            foreach (var item in asset)
-                result.Add(_mapper.Map<ProductDTO>(item));
-            return Partial("_ProductPartical", result);
+            ListFee = _feeSer.GetListItems();
         }
+
+        public IActionResult OnGetCartItem(string ids)
+        {
+            var val = JsonSerializer.Deserialize<List<CartDTO>>(ids);
+            int[] productIds = val.Select(item => item.ProductId).ToArray();
+            if (productIds.Length == 0) return BadRequest();
+            MapProductDTO(_productSer.GetListById(productIds));
+            var result = new ProductInCart() { ListItem = val, ListProduct = ListProducts };
+            return Partial("_CartItemPartical", result);
+        }
+
+        public IActionResult OnGetCheckProm(string code)
+        {
+            var result = _promotionSer.GetCodeProm(code);
+            if (result == null) return NotFound();
+            return new JsonResult(new { code = result.CodeCoupon, discount = result.Discount });
+        }
+
+        public void OnPost(string listItem)
+        {
+            if (
+                String.IsNullOrWhiteSpace(listItem)
+                || listItem == "") return;
+            var val = JsonSerializer.Deserialize<ICollection<CartDTO>>(listItem);
+            if (val == null || val.Count == 0) return;
+        }
+
+        public class ProductInCart
+        {
+            public List<CartDTO> ListItem { get; set; }
+            public List<ProductDTO> ListProduct { get; set; }
+        }
+
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Web.Services;
 using Application.Filters;
 using AutoMapper;
+using Web.Middlewares;
 
 namespace Web
 {
@@ -34,8 +35,9 @@ namespace Web
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers(options =>
                 options.Filters.Add(new HttpResponseExceptionFilter()));
-            services.AddRazorPages();
             services.AddSession();
+            services.AddRazorPages();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,20 +51,21 @@ namespace Web
             {
                 app.UseExceptionHandler("/error");
             }
-
-            app.UseRewriter(RewriteConfig.options);
-
-            app.UseStatusCodePagesWithRedirects("/error/{0}");
-
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
+            app.UseRewriter(RewriteConfig.options);
+
+            // app.UseCookieHandler();
+
             app.UseRouting();
 
-            app.UseAuthorization();
+            // app.UseStatusCodePagesWithRedirects("/error/{0}");
 
             app.UseSession();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
