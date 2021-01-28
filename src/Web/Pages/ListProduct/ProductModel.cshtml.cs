@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.DTO;
 using Web.Helper;
-using Web.Models;
 
 namespace Web.Pages
 {
@@ -27,7 +26,6 @@ namespace Web.Pages
         [BindProperty(Name = "b", SupportsGet = true)]
         public int BandId { get; set; }
         public string PathRequest { get; set; } = "";
-        public bool isSearchResult { get; set; }
 
         public ProductModel(
             IProductService productSer,
@@ -110,7 +108,6 @@ namespace Web.Pages
 
         private void GetProductByQuery(HttpContext context, string query, int b, int w, int p = 1)
         {
-            isSearchResult = true;
             string keyCacheNew = $"query-{query}";
             string keyCache = CookieHelper.GetKeyCache(context);
             if (keyCache == keyCacheNew) ListProducts = _cache.GetData<List<ProductDTO>>(keyCache);
@@ -118,7 +115,7 @@ namespace Web.Pages
             {
                 MapProductDTO(_productSer.FindByQuery(query), ref PageNumber);
                 if (ListProducts.Count == 0) return;
-                _cache.AddData(keyCache, ListProducts, TimeSpan.FromMinutes(3));
+                _cache.AddData(keyCacheNew, ListProducts, TimeSpan.FromMinutes(3));
                 CookieHelper.AddKeyCache(context, keyCacheNew);
             }
             if (ListProducts?.Count > 0)
@@ -128,7 +125,7 @@ namespace Web.Pages
                 if (w != 0)
                     ListProducts = ListProducts.Where(item => item.WireId == w).ToList();
                 PageNumber = CalcPage(ListProducts.Count);
-                ListProducts = GetPage(ListProducts, 1);
+                ListProducts = GetPage(ListProducts, p);
             }
         }
 

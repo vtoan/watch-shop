@@ -51,7 +51,7 @@ function saveCookie() {
     let dt = new Date(Date.now() + 30 * 86400000);
     document.cookie = `basketshopping=${JSON.stringify(
         cartObject.getData()
-    )};expires=${dt.toString()};`;
+    )};expires=${dt.toString()};path=/;`;
 }
 function getCookie() {
     let cookie = document.cookie;

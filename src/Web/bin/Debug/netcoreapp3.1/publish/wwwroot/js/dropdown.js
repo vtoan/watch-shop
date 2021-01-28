@@ -32,17 +32,20 @@ function UIDropDown(callBack, target = ".dropdown") {
         selected.parentElement.classList.add("input-invalid");
     };
     //Attach Element
-    dropdown.addEventListener("click", onClickDrop);
-    dropdown.addEventListener("onfocusout", hideDrop);
-    let dropItem = dropdown.querySelectorAll(".dropdown-menu li");
-    let lengItem = dropItem.length > 5 ? 5 : dropItem.length;
-    dropItem.forEach((item) =>
-        item.addEventListener("click", function (e) {
-            // e.preventDefault();
-            onSelected(this, dropdown, callBack);
-        })
-    );
-    dropdown.querySelector(".dropdown-menu").style.height =
-        dropItem.item(0).offsetHeight * lengItem + "px";
+    this.attach = function () {
+        dropdown.addEventListener("click", onClickDrop);
+        dropdown.addEventListener("onfocusout", hideDrop);
+        let dropItem = dropdown.querySelectorAll(".dropdown-menu li");
+        let lengItem = dropItem.length > 5 ? 5 : dropItem.length;
+        dropItem.forEach((item) =>
+            item.addEventListener("click", function (e) {
+                // e.preventDefault();
+                onSelected(this, dropdown, callBack);
+            })
+        );
+        dropdown.querySelector(".dropdown-menu").style.height =
+            dropItem.item(0).offsetHeight * lengItem + "px";
+    };
+    this.attach();
 }
 // let dropdown = new UIDropDown((idx) => console.log(idx));

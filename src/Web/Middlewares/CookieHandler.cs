@@ -12,9 +12,9 @@ namespace Web.Middlewares
         {
             app.Use(async (context, next) =>
             {
-                var re = CookieHelper.GetCart(context);
-                if (re == null) CookieHelper.AddCart(context);
-                await next.Invoke();
+                // var re = CookieHelper.GetCart(context);
+                // if (re == null) CookieHelper.AddCart(context);
+                // await next.Invoke();
             });
         }
     }

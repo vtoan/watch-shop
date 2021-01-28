@@ -71,7 +71,7 @@ p {
 
 p {
     margin-bottom: 1em;
-    font-weight: 300;
+    font-weight: 400;
 }
 /*========== sizing ==========*/
 h1,
@@ -403,7 +403,7 @@ button {
 }
 
 .float-right {
-    float: left;
+    float: right;
 }
 
 .float-clear {
@@ -444,5 +444,19 @@ table {
 }
 
 .table.table-color tr:nth-child(odd) {
-    background-color: var(--clr-secondary);
+    background-color: whitesmoke;
+}
+/*============= ?tabel =============*/
+@keyframes appear {
+    0% {
+        transform: translateY(30px);
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

@@ -1,5 +1,6 @@
 Gallery();
-let itemid = location.href.split("=")[1];
+let ar = location.href.split("-");
+let itemid = Number(ar.pop());
 window.addEventListener("load", function () {
     let query = document.querySelector("[item-related]").textContent;
     getRelated(query);
@@ -8,13 +9,23 @@ document.querySelector(".to-cart").addEventListener("click", function (e) {
     e.preventDefault();
     cartObject.addItem(itemid);
     updateViewCount();
-    showAddCartAlert();
+    swal({
+        title: "Thêm sản phẩm thành công!",
+        icon: "success",
+        buttons: ["Tiếp tục", "Giỏ hàng"],
+    }).then(function (act) {
+        if (act) {
+            saveCookie();
+            location.assign("/gio-hang");
+        }
+    });
 });
 document.querySelector(".buy-now").addEventListener("click", function (e) {
     e.preventDefault();
     cartObject.addItem(itemid);
     updateViewCount();
-    location.assign("/goi-hang");
+    saveCookie();
+    location.assign("/gio-hang");
 });
 //
 let productContainer = document.querySelector("#related-container");

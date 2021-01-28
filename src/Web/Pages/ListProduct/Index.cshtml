@@ -11,17 +11,9 @@
     <script src="./js/dropdown.js"></script>
     <script src="./js/list-product.js"></script>
 }
-@if (Model.isSearchResult)
-{
-    <div class="banner-sm section" >
-        <p class="">Kết quả tìm kiếm</p>
-    </div>
-}
-else{
-    <div class="banner-lg section" >
-        <p class="">banner 1920 x 300</p>
-    </div>
-}
+<div class="banner-lg section" >
+    <p class="">banner 1920 x 300</p>
+</div>
 @await Component.InvokeAsync("Breadcrumb")
 @* ================== Product ================== *@
 <div class="container mb-3 section">

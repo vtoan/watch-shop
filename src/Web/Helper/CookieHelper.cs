@@ -17,52 +17,22 @@ namespace Web.Helper
         {
             CookieOptions options = new CookieOptions()
             {
-                HttpOnly = false
+                HttpOnly = false,
+                Expires = DateTime.Now.AddHours(1)
             };
             context.Response.Cookies.Append(key, data, options);
         }
 
-        public static T GetCookie<T>(HttpContext context, string key)
-        {
-            var obj = context.Request.Cookies[key];
-            try
-            {
-                var model = JsonSerializer.Deserialize<T>(obj);
-                if (model != null) return model;
-                return default(T);
-            }
-            catch
-            {
-                return default(T);
-            }
-        }
-
         public static string GetKeyCache(HttpContext context)
         {
-            return GetCookie<string>(context, KEY_CACHE);
+            var key = context.Request.Cookies[KEY_CACHE];
+            if (key != null) return key;
+            return null;
         }
 
         public static void AddKeyCache(HttpContext context, string keyCache)
         {
             AddCookie(context, KEY_CACHE, keyCache);
-        }
-
-        public static void AddCart(HttpContext context, List<CartDTO> cart = null)
-        {
-            if (cart == null) cart = new List<CartDTO>() { new CartDTO() };
-            CookieOptions options = new CookieOptions()
-            {
-                HttpOnly = false,
-                Path = "/gio-hang",
-                IsEssential = true,
-                Expires = DateTime.Now.AddMonths(1)
-            };
-            context.Response.Cookies.Append(KEY_CART, JsonSerializer.Serialize(cart), options);
-        }
-
-        public static List<CartDTO> GetCart(HttpContext context)
-        {
-            return GetCookie<List<CartDTO>>(context, KEY_CART);
         }
     }
 }

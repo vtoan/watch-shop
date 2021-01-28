@@ -6,14 +6,14 @@
     right: 0;
     height: 100%;
     width: 100%;
-    background-color: black;
+    background-color: white;
     z-index: -5;
     pointer-events: none;
     opacity: 0;
     transition: 0.5s all;
 }
 #loader.active {
-    opacity: 0.8;
+    opacity: 0.9;
     z-index: 999;
 }
 
@@ -27,10 +27,10 @@
 
 .dash {
     margin: 0 15px;
-    width: 35px;
-    height: 15px;
+    width: 25px;
+    height: 10px;
     border-radius: 8px;
-    background: white;
+    background: var(--clr-red);
 }
 
 .uno {

@@ -23,6 +23,7 @@
 }
 .product {
     padding-bottom: 2em;
+    animation: appear 0.3s ease-in;
 }
 
 .product .product-img {
@@ -34,7 +35,7 @@
 }
 
 .product .product-content {
-    text-align: center;
+    /* text-align: center; */
     cursor: pointer;
     width: 100%;
 }
@@ -127,6 +128,6 @@
 }
 .gallery-nav .img:hover,
 .gallery-nav .img.active {
-    transform: scale(0.9);
-    box-shadow: 0 0 5px 1px #333333;
+    transform: scale(0.98);
+    box-shadow: 0 0 3px 1px #333333;
 }
