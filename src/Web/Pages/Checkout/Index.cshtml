@@ -2,11 +2,11 @@
 @using Helper
 @model CheckoutModel
 @section scripts{
-
     <script src="~/js/dropdown.js"></script>
     <script src="~/js/checkout.page.js"></script>
 }
 @section css{
+    <link rel="stylesheet" href="./css/dropdown.css" />
     <style>
         .cart-item{
         animation: appear 0.5s ease-in;
@@ -18,64 +18,48 @@
     var ListFees = Model.ListFees;
 }
 <div class="banner-sm section">
-    <p class="">Đặt hàng</p>
+    <p class="">Thông tin giao hàng</p>
 </div>
  @* <!-- ================== Cart ================== --> *@
 <div class="container section">
     <div id="cart" class="row  section">
-        <div class="col-12 col-lg-7">
+        <div class="col-12 col-lg-7 mb-4">
             <h3 class="pl-3">Thông tin giao hàng</h3>
             <hr class="bg-black mx-3 mb-3" style="height: 1px;">
-            <form id="formOrder" class="row-contents" action="don-hang/xac-nhan-don-hang" id="form-confirm" method="POST">
+            <form id="formOrder" class="row-contents" id="form-confirm" method="POST">
                 <div class="control-input validate">
                     <label>Họ tên người nhận <span class="red">*</span></label>
-                    <input class="mb-3"  type="text" required>
+                    <input class="mb-3" name="CustomerName" type="text" required>
                 </div>
                 <div class="control-input validate">
                     <label>Số điện thoại <span class="red">*</span></label>
-                    <input class="mb-3" type="tel"  pattern="^0\d+" minlength="9" maxlength="10"  required>
+                    <input class="mb-3" name="CustomerPhone" type="tel"  pattern="^0\d+" minlength="9" maxlength="10"  required>
                 </div>
                 <div class="control-input validate">
                     <label>Email</label>
-                    <input class="mb-3" type="email" pattern="[\w+|\W+]*[@@]\w+[.]\w+" >
+                    <input class="mb-3" name="CustomerEmail" type="email" pattern="[\w+|\W+]*[@@]\w+[.]\w+" >
                 </div>
                 <div class="control-input validate local" >
                     <label>Địa chỉ giao hàng <span class="red">*</span></label>
                     <div class="row">
                         <div class="col-lg-6">
                             <div local-province class="dropdown ml-lg-auto mb-3">
-                                <div class="select select border-secondary">
+                                <div class="select border-secondary  no-select">
                                     <span class="placeholder">Chọn Tỉnh/TP</span>
                                     <i class="black las la-angle-down"></i>
                                 </div>
-                                <input type="hidden" required>
-                                <ul class="dropdown-menu bg-white srcoll">
-                                    <li value="1">Tất cả</li>  
-                                    @* <li  value="2">@item.Name</li>
-                                    <li  value="3">@item.Name</li>
-                                    <li  value="2">@item.Name</li>
-                                    <li  value="3">@item.Name</li>
-                                    <li  value="2">@item.Name</li>
-                                    <li  value="3">@item.Name</li> *@
-                                </ul>
+                                <input name="CustomerProvince" type="hidden" required>
+                                <ul class="dropdown-menu bg-white srcoll"></ul>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div local-district class="dropdown ml-lg-auto mb-3">
-                                <div class="select select border-secondary">
+                                <div class="select border-secondary  no-select">
                                     <span class="placeholder">Quận/Huyện</span>
                                     <i class="black las la-angle-down"></i>
                                 </div>
-                                <input type="hidden" id="district" name="district" required>
-                                <ul class="dropdown-menu bg-white srcoll"> 
-                                    <li value="1">Tất cả</li>  
-                                    @* <li  value="2">@item.Name</li>
-                                    <li  value="3">@item.Name</li>
-                                    <li  value="2">@item.Name</li>
-                                    <li  value="3">@item.Name</li>
-                                    <li  value="2">@item.Name</li>
-                                    <li  value="3">@item.Name</li> *@
-                                </ul>
+                                <input type="hidden" name="CustomerDistrict" required>
+                                <ul class="dropdown-menu bg-white srcoll"></ul>
                             </div>
                         </div>   
                     </div>
@@ -83,42 +67,42 @@
                 </div>
                 <div class="control-input validate">
                     <label>Số nhà, tên đường (hoặc địa chỉ cụ thể) <span class="red">*</span></label>
-                    <input class="mb-3" type="text" required>
+                    <input class="mb-3" name="CustomerAddress" type="text" required>
                 </div>
                 <div>
                     <label>Ghi chú</label>
-                    <textarea class="mb-3 d-block w-100" rows="3"></textarea>
+                    <textarea class="mb-3 d-block w-100" name="Note" rows="3"></textarea>
                 </div>
                 <button type="submit" class="d-none" ></button>
             </form>
         </div>
         <div class="col-12 col-lg-5">
-            <div>
+            <div style="margin-bottom: 2.5em;">
                 <!--Cart - Header List-->
-            <div class="mb-3">
-                <div class="d-flex align-items-center px-3">
-                    <h3 class="">Sản phẩm</h3>
-                    <p class="mb-0 ml-auto"> 
-                        <span id="count-items">@Model.TotalItem</span> sản phẩm
-                    </p>
+                <div class="mb-3">
+                    <div class="d-flex align-items-center px-3">
+                        <h3 class="">Sản phẩm</h3>
+                        <p class="mb-0 ml-auto"> 
+                            <span id="count-items">@Model.TotalItem</span> sản phẩm
+                        </p>
+                    </div>
+                    <hr class="bg-black mx-3" style="height: 1px;">
                 </div>
-                <hr class="bg-black mx-3" style="height: 1px;">
-            </div>
-            <!--Cart - List Item-->
-            <div class="px-1 mb-3 mx-2">
-                <table class="table table-color">
-                    <tbody>
-                        @foreach (var item in ListItems)
-                        {
-                            <tr>
-                                <td>@item.ProductName</td>
-                                <td class="bold">x @item.Quantity</td>
-                                <td>@PageHelper._renderCurrency(item.PricePromotion * item.Quantity)</td>
-                            </tr> 
-                        }  
-                    </tbody>
-                </table>
-            </div>
+                <!--Cart - List Item-->
+                <div class="px-1 mx-2 section">
+                    <table class="table table-color">
+                        <tbody>
+                            @foreach (var item in ListItems)
+                            {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td class="bold">x@(item.Quantity)</td>
+                                    <td>@PageHelper._renderCurrency(item.PricePromotion * item.Quantity)</td>
+                                </tr> 
+                            }  
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="mb-3">
                 <h3 class="pl-3">Tổng đơn hàng</h3>
@@ -152,7 +136,7 @@
         </div>
     </div>
     <div class="text-center">
-        <a id="send-order" class="btn btn-sm bg-red white w-25 bold">Đặt hàng</a>
+        <a id="send-order" class="btn btn-sm bg-red white w-50 bold" style="max-width: 250px;">Đặt hàng</a>
     </div>
 </div>
 <!-- ================== End Cart ================== -->

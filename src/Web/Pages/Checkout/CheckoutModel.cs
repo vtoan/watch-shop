@@ -47,6 +47,11 @@ namespace Web.Pages.Checkout
             return Page();
         }
 
+        public IActionResult OnPost(OrderDTO order)
+        {
+            return RedirectToPage("/Status/OrderSussess", new { orderId = 121 });
+        }
+
         private void CheckProm(string coupon)
         {
             if (coupon != null) Discount = _promotionSer.GetCodeProm(coupon)?.Discount ?? 0;
@@ -100,6 +105,17 @@ namespace Web.Pages.Checkout
                     Amount += item.Cost % 1 == 0 ? (double)item.Cost : (Amount * (double)item.Cost);
                 }
             }
+        }
+
+        public class OrderDTO
+        {
+            public string CustomerName { get; set; }
+            public string CustomerPhone { get; set; }
+            public string CustomerProvince { get; set; }
+            public string CustomerDistrict { get; set; }
+            public string CustomerEmail { get; set; }
+            public string CustomerAddress { get; set; }
+            public string Note { get; set; }
         }
 
     }
