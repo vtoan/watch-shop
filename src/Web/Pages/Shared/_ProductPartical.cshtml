@@ -1,50 +1,41 @@
-@using System.Globalization
 @using DTO
 @using Helper
 @model ICollection<Web.DTO.ProductDTO>;
 @{
-    string _renderCurrency(double num){
-        int val = (int) num;
-        return val.ToString("C", CultureInfo.GetCultureInfo("vi-VN"));
-    }
-    string _renderDiscount(double discount) => (discount % 1 == 0) ? _renderCurrency(discount) : (discount * 100).ToString()  + " %";
-    //
-    IHtmlContent _checkDiscount(double discount, ProductDTO product, Func<ProductDTO, IHtmlContent> template){
-        if(discount>0) return template(product);
-        return null;
-    }
     string _convertPath(ProductDTO product) => DataHelper.RemapVniToAsciiText(product.BandName + "-" + product.Name + "-" + product.Id);
 }
- <div id="product-container" class="row row-contents" style="min-height: 300px;">
-    @if (Model?.Count >0)
+@if (Model?.Count >0)
+{
+    @foreach (var item in Model)
     {
-        @foreach (var item in Model)
-        {
-            double price = (double)item?.Price;
-            double priceRoot = price;
-            double discount = item.Discount;
-            if (discount != 0) { price = (discount % 1 == 0) ? (price - discount) : (price - (price * discount));}
-            //template        
-            <div class="col-6 col-lg-3">
-                <div class="product @if (discount != 0){<text>sale</text>;}">
-                    <div class="product-img img-anim">
-                        @(_checkDiscount(discount,item,@<span class="product-sale">-@_renderDiscount(discount)</span>))
-                        <div class="img">
-                            <img src="~/images/products/@item.Image" loading="lazy">
-                        </div>
+        double price = (double)item?.Price;
+        double priceRoot = price;
+        double discount = item.Discount;
+        if (discount != 0) { price = (discount % 1 == 0) ? (price - discount) : (price - (price * discount));}
+        //template        
+        <div class="col-6 col-lg-3">
+            <div class="product @if (discount != 0){<text>sale</text>;}">
+                <div class="product-img img-anim">
+                    @if(discount >0){
+                        <span class="product-sale">-@(PageHelper._renderDiscount(discount))</span>
+                    }
+                    <div class="img">
+                        <img src="~/images/products/@item.Image" loading="lazy">
                     </div>
-                    <a class="add-cart mb-3" item-id="@item.Id"  href="#!">Thêm vào giỏ hàng</a>
-                    <a href="/san-pham/@_convertPath(item)" class="product-content">
-                        <h4 class="pb-2 normal">@item.Name @item.BandName @item.CategoryName @item.WireName</h4>
-                        <div>
-                            <p class="text-4 red bold d-block d-lg-inline-block m-0">
-                                @_renderCurrency(price)
-                            </p>
-                            @(_checkDiscount(discount,item,@<del class="normal">@_renderCurrency(priceRoot)</del>))
-                        </div>
-                    </a>
                 </div>
+                <a class="add-cart mb-3" item-id="@item.Id"  href="javascript:void(0)">Thêm vào giỏ hàng</a>
+                <a href="/san-pham/@_convertPath(item)" class="product-content">
+                    <h4 class="pb-2 normal">@item.Name @item.BandName @item.WireName</h4>
+                    <div>
+                        <p class="text-4 red bold d-block d-lg-inline-block m-0">
+                            @PageHelper._renderCurrency(price)
+                        </p>
+                         @if(discount >0){
+                        <del class="normal">@PageHelper._renderCurrency(priceRoot)</del>
+                         }
+                    </div>
+                </a>
             </div>
-        }
-    } else{ <p class="text-center flex-grow-1 mb-5" style="line-height: 300px;">Chưa có sản phẩm</p> }
-</div>
+        </div>
+    }
+} else{ <p class="text-center flex-grow-1 mb-5" style="line-height: 300px;">Chưa có sản phẩm</p> }

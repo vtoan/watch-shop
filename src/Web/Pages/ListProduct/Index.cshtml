@@ -19,7 +19,7 @@
 }
 else{
     <div class="banner-lg section" >
-        <p class="">banner category </p>
+        <p class="">banner 1920 x 300</p>
     </div>
 }
 @await Component.InvokeAsync("Breadcrumb")
@@ -48,7 +48,9 @@ else{
         </div>  
     </div>
     @* ================== End Order ================== *@
-    <partial name="_ProductPartical" model="@Model.ListProducts"></partial>
+    <div id="product-container" class="row row-contents" style="min-height: 250px;">
+        <partial name="_ProductPartical" model="@Model.ListProducts"></partial>
+    </div>
     @if(Model.PageNumber>1){
         <div class="pagnation contents">
             <a class="page-item active" >1</a>

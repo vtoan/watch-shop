@@ -14718,6 +14718,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Checkout/Index.cshtml",
+      "TargetPath": "Pages\\Checkout\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/toan/Documents/Sources/watch-shop/src/Web/Pages/Shared/_ProductPartical.cshtml",
       "TargetPath": "Pages\\Shared\\_ProductPartical.cshtml",
       "FileKind": "mvc"

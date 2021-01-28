@@ -15,11 +15,11 @@
     <div class="slider">
         <div class="slider-container">
             <div class="slider-handle">
-                <div class="img slider-item">
-                    <img src="./images/sliders/slider_1.jpg" loading="lazy">
+                 <div class="img slider-item">
+                    <img src="./images/sliders/slider_2.jpg" loading="lazy">
                 </div>
                 <div class="img slider-item">
-                    <img src="./images/sliders/slider_2.jpg" loading="lazy">
+                    <img src="./images/sliders/slider_1.jpg" loading="lazy">
                 </div>
                 <div class="img slider-item">
                     <img src="./images/sliders/slider_3.jpg" loading="lazy">
@@ -35,13 +35,17 @@
 @* ================== Product Futured ================== *@
 <div class="container mb-3">
     <h2 class="text-center heading">SẢN PHẨM NỔI BẬT</h2>
-    <partial name="_ProductPartical" model="@Model.ListProductFeatured"></partial>
+     <div id="product-container" class="row row-contents" style="min-height: 300px;">
+        <partial name="_ProductPartical" model="@Model.ListProductFeatured"></partial>
+     </div>
 </div>
 @* ================== End Product Futured ================== *@
 @* ================== Product New ================== *@
 <div class="container mb-3 section">
     <h2 class="text-center heading">SẢN PHẨM MỚI</h2>
-    <partial name="_ProductPartical" model="@Model.ListProductNew"></partial>
+     <div id="product-container" class="row row-contents" style="min-height: 300px;">
+        <partial name="_ProductPartical" model="@Model.ListProductNew"></partial>
+     </div>
     <div class="text-center">
         <a href="/khuyen-mai" class="btn btn-sm bg-black white border">XEM THÊM</a>
     </div>

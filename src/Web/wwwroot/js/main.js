@@ -16,14 +16,8 @@ function toggleElm(eOpen, eClose, eTarget) {
         tagetElm.classList.add("hide-item");
     });
 }
-function showAddCartAlert() {
-    swal({
-        title: "Thêm sản phẩm thành công!",
-        icon: "success",
-        buttons: ["Tiếp tục", "Giỏ hàng"],
-    }).then((act) => {
-        if (act) location.assign("/gio-hang");
-    });
+function getPathCurrent() {
+    return location.href.replaceAll(/[#!]/g, "");
 }
 toggleElm("#menu-open", "#menu-close", "#menu-target");
 toggleElm("#search-open", "#search-close", "#search-target");
@@ -31,13 +25,22 @@ document.querySelector("#search-sm").addEventListener("click", function () {
     document.querySelector("#menu-close").click();
     document.querySelector("#search-open").click();
 });
+// ==================== Loader ====================
+let loader = document.querySelector("#loader");
+function showLoader() {
+    loader.classList.add("active");
+}
+function closeLoader() {
+    setTimeout(function () {
+        loader.classList.remove("active");
+    }, 500);
+}
 // ==================== Cart ====================
 let cartObject = new Cart();
 let countItems = document.querySelector("#cart-count-items");
 let addCartEvent = function (elm) {
     let id = elm.getAttribute("item-id");
     if (typeof id == "undefined") window.location.href = "/error";
-    //add item
     cartObject.addItem(id);
     updateViewCount();
 };
@@ -53,7 +56,6 @@ function saveCookie() {
 function getCookie() {
     let cookie = document.cookie;
     let stringUtf = decodeURIComponent(cookie);
-    console.log(cookie);
     let asset = stringUtf.split(";");
     let cart;
     for (let i = 0; i < asset.length; i++) {
@@ -65,26 +67,21 @@ function getCookie() {
     if (cart) return JSON.parse(cart);
     return [];
 }
-cartObject.setData(getCookie());
-updateViewCount();
-// ==================== Attach Evvent ====================
-document.querySelectorAll(".add-cart").forEach((item) => {
-    item.addEventListener("click", function () {
-        addCartEvent(this);
-        showAddCartAlert();
+function attachEventProductItem() {
+    document.querySelectorAll(".add-cart").forEach((item) => {
+        item.addEventListener("click", function () {
+            addCartEvent(this);
+            swal({
+                title: "Thêm sản phẩm thành công!",
+                icon: "success",
+                buttons: ["Tiếp tục", "Giỏ hàng"],
+            }).then((act) => {
+                if (act) location.assign("/gio-hang");
+            });
+        });
     });
-});
+}
+cartObject.setData(getCookie());
 window.addEventListener("beforeunload", saveCookie);
-// window.addEventListener("load", function () {
-//     cartObject.setData(getCookie());
-// });
-
-let loader = document.querySelector("#loader");
-function showLoader() {
-    loader.classList.add("active");
-}
-function closeLoader() {
-    setTimeout(function () {
-        loader.classList.remove("active");
-    }, 500);
-}
+updateViewCount();
+attachEventProductItem();

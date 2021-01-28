@@ -32,7 +32,7 @@ namespace Web.Pages.ProductDetail
             int prodId = GetProductId(name);
             FindListImage(0, env.WebRootPath);
             if (ListProducts != null && ListProducts.Count > 0) Product = ListProducts.Find(item => item.Id == prodId);
-            else
+            if (Product == null)
             {
                 var productAsset = _productSer.GetListById(new int[] { prodId });
                 if (productAsset == null || productAsset?.Count == 0) return RedirectToPage("/error/" + ErrorType.ProductNotFound);

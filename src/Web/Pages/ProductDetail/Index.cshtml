@@ -9,7 +9,7 @@
 }
 @section scripts{
     <script src="~/js/gallary.js"></script>
-    <script src="~/js/product-detail.js"></script>
+    <script src="~/js/product-detail.page.js"></script>
 }
 @{
     var detail = Model.ProductDetail;
@@ -134,7 +134,7 @@
  <!-- ================== FEATURED - PRODUCT ================== -->
 <div class="container mb-3">
     <h2 class="text-center heading">SẢN PHẨM LIÊN QUAN</h2>
-    <div id="related-container" style="min-height:250px;">
+    <div id="related-container" class="row row-contents" style="min-height:250px;">
         <p class="text-center flex-grow-1">Đang tải dữ liệu ...</p> 
     </div>
 </div>

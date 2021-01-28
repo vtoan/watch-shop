@@ -35,7 +35,11 @@ namespace Web
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers(options =>
                 options.Filters.Add(new HttpResponseExceptionFilter()));
-            services.AddSession();
+            services.AddSession(opt =>
+            {
+                opt.Cookie.HttpOnly = true;
+                opt.Cookie.IsEssential = true;
+            });
             services.AddRazorPages();
 
         }
@@ -63,9 +67,9 @@ namespace Web
 
             // app.UseStatusCodePagesWithRedirects("/error/{0}");
 
-            app.UseSession();
-
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

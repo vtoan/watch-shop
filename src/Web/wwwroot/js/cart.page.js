@@ -143,34 +143,35 @@ function cart(config) {
     function checkPromotion(promCode) {
         options.loader.show();
 
-        if (location.href.endsWith("#!")) return;
-        let url = location.href + "?handler=checkprom&&code=" + promCode;
+        let path = location.href.replaceAll(/[#!]/g, "");
+        let url = path + "?handler=checkprom&&code=" + promCode;
         fetch(url).then(function (response) {
             if (response.ok) {
-                // response.json().
-                // let cost = promo.discount;
-                // elmPromo.textContent =
-                //     "- " + (cost % 1 == 0 ? currency(cost) : cost * 100 + " %");
-                // elmPromo.parentElement.classList.remove("d-none");
-                // options.loader.close();
-                // options.popup.show(
-                //     true,
-                //     "Thành công!",
-                //     "Đã áp dụng mã giảm giá"
-                // );
+                response.json().then(function (data) {
+                    promo = data;
+                    let cost = data.discount;
+                    elmPromo.textContent =
+                        "- " +
+                        (cost % 1 == 0 ? currency(cost) : cost * 100 + " %");
+                    elmPromo.parentElement.classList.remove("d-none");
+                    options.popup.show(
+                        true,
+                        "Thành công!",
+                        "Đã áp dụng mã giảm giá"
+                    );
+                });
             } else {
-                options.loader.close();
                 options.popup.show(
                     false,
                     "Thất bại!",
                     "Mã giảm giá không hợp lệ"
                 );
             }
+            options.loader.close();
         });
     }
     updateSummaryOrder();
 }
-//
 function showPopup(success, title, messsage) {
     swal({
         title: title,
@@ -195,13 +196,10 @@ function renderCartItem(data) {
 }
 window.addEventListener("load", function () {
     let val = JSON.stringify(cartObject.getData());
-    if (location.href.endsWith("#!")) return;
-    let url = location.href + "?handler=cartitem&&ids=" + val;
-    fetch(url)
-        .then((response) => {
-            if (response.ok) return response.text();
-            return null;
-        })
-        .then(renderCartItem)
-        .catch((er) => console.log(er));
+    let path = getPathCurrent();
+    let url = path + "?handler=cartitem&&ids=" + val;
+    fetch(url).then((response) => {
+        if (response.ok) response.text().then(renderCartItem);
+        return null;
+    });
 });

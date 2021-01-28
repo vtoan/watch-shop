@@ -25,12 +25,22 @@
 </head>
 
 <body>
-    <partial name="_HeaderPartical"></partial>
+    <cache>
+        <partial name="_HeaderPartical"></partial>
+    </cache>
     @RenderBody()
     @await Component.InvokeAsync("Footer")
+    <div id="loader">
+        <div class="loader-container">
+            <div class="dash uno"></div>
+            <div class="dash dos"></div>
+            <div class="dash tres"></div>
+            <div class="dash cuatro"></div>
+        </div>
+    </div>
     <!--script-->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="~/js/cart.site.js"></script>
+    <script src="~/js/cart.js"></script>
     <script src="~/js/main.js"></script>
     @RenderSection("scripts", required: false)
 </body>

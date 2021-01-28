@@ -23,6 +23,7 @@
 }
 .product {
     padding-bottom: 2em;
+    animation: appear 0.3s ease-in;
 }
 
 .product .product-img {

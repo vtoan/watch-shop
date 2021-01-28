@@ -142,3 +142,4 @@ C:/Users/Toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Cart/Index.cshtml.g.cs
 /home/toan/Documents/Sources/watch-shop/src/Web/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
 /home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_CartItemPartical.cshtml.g.cs
+/home/toan/Documents/Sources/watch-shop/src/Web/obj/Debug/netcoreapp3.1/Razor/Pages/Checkout/Index.cshtml.g.cs

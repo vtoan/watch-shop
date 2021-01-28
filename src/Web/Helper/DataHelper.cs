@@ -8,6 +8,7 @@ namespace Web.Helper
 {
     public static class DataHelper
     {
+
         public static string RemapVniToAsciiText(string text)
         {
             Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
