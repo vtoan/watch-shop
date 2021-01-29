@@ -82,8 +82,8 @@ namespace Infrastructure.EF.Migrations
                     b.Property<byte?>("ConditionItem")
                         .HasColumnType("tinyint");
 
-                    b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(2,2)");
+                    b.Property<double?>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<int?>("PromotionId")
                         .HasColumnType("int");
@@ -137,6 +137,9 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<double?>("Discount")
+                        .HasColumnType("float");
+
                     b.Property<int?>("PromotionId")
                         .HasColumnType("int");
 
@@ -154,8 +157,8 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal?>("Cost")
-                        .HasColumnType("decimal(2,2)");
+                    b.Property<double?>("Cost")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)")
@@ -259,8 +262,8 @@ namespace Infrastructure.EF.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(2,2)");
+                    b.Property<double?>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<int?>("Price")
                         .HasColumnType("int");
@@ -399,6 +402,9 @@ namespace Infrastructure.EF.Migrations
                         .HasColumnType("nvarchar(750)")
                         .HasMaxLength(750);
 
+                    b.Property<string>("SeoImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SeoTitle")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
@@ -441,8 +447,8 @@ namespace Infrastructure.EF.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(2,2)");
+                    b.Property<double?>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<string>("ProductIds")
                         .HasColumnType("nvarchar(250)")

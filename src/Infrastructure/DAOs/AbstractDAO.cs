@@ -16,13 +16,12 @@ namespace Infrastructure.DAOs
             _context = context;
         }
 
-        protected bool CheckConnect()
+        protected async Task<bool> CheckConnectAsync()
         {
             try
             {
-                Task<bool> re = _context.Database.CanConnectAsync();
-                re.Wait();
-                return re.Result;
+                var re = await _context.Database.CanConnectAsync();
+                return re;
             }
             catch (Exception ex)
             {

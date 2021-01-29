@@ -1,0 +1,68 @@
+﻿@page "{category?}"
+@model ProductModel
+@section seo{
+    @await Component.InvokeAsync("SeoContent", new {Type =@Model.TypeSeo, Id=@Model.ItemSeoId})
+}
+@section css{
+    <link rel="stylesheet" href="./css/dropdown.css" />
+    <link rel="stylesheet" href="./css/loader.css" />
+}
+@section scripts{
+    <script src="./js/dropdown.js"></script>
+    <script src="./js/list-product.js"></script>
+}
+<div class="banner-lg section" >
+    <p class="">banner 1920 x 300</p>
+</div>
+@await Component.InvokeAsync("Breadcrumb")
+@* ================== Product ================== *@
+<div class="container mb-3 section">
+    @* ================== Filter band================== *@
+        @await Component.InvokeAsync("ListBand",new {path= @Model.PathRequest,w= @Model.WireId, b= @Model.BandId})
+    @* ================== End Filter band ================== *@
+     @* ================== Order ================== *@
+    <div class="row row-contents align-items-center mb-3">
+        <div class="orderby mb-3">
+            <div class="row">
+                <div class="col-4">
+                    <a class="order-item" index="1" title="Phổ biến" >phổ biển</a>
+                </div>
+                <div class="col-4">
+                    <a class="order-item" index="2" title="Giá cao">giá thấp</a>
+                </div>
+                <div class="col-4">
+                    <a class="order-item" index="3" title="Giá thấp">giá cao</a>
+                </div>
+            </div>
+        </div>
+        <div class="px-3 ml-auto mb-3">
+            @await Component.InvokeAsync("ListWire",new {path= @Model.PathRequest,w= @Model.WireId, b= @Model.BandId})
+        </div>  
+    </div>
+    @* ================== End Order ================== *@
+    <div id="product-container" class="row row-contents" style="min-height: 250px;">
+        <partial name="_ProductPartical" model="@Model.ListProducts"></partial>
+    </div>
+    @if(Model.PageNumber>1){
+        <div class="pagnation contents">
+            <a class="page-item active" >1</a>
+            @for (int i = 2; i <= Model.PageNumber; i++)
+            {
+                <a class="page-item" > @i</a>
+            }        
+        </div>
+    }
+</div>
+@* ================== End Product ================== *@
+<cache>
+    <partial name="_PolicyPartical"/>
+</cache>
+@* ================== Loader ================== *@
+<div id="loader">
+    <div class="loader-container">
+        <div class="dash uno"></div>
+        <div class="dash dos"></div>
+        <div class="dash tres"></div>
+        <div class="dash cuatro"></div>
+    </div>
+</div>

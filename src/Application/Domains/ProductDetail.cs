@@ -1,6 +1,8 @@
+using Application.Interfaces.Helper;
+
 namespace Application.Domains
 {
-    public class ProductDetail
+    public class ProductDetail : ISeoDomain
     {
         public int Id { get; set; }
         public string TypeGlass { get; set; }
@@ -12,10 +14,11 @@ namespace Application.Domains
         public string Origin { get; set; }
         public string Color { get; set; }
         public string Func { get; set; }
-        //SE
+        //SEO
         public string SeoTitle { get; set; }
         public string SeoDescription { get; set; }
-        public int? ProductId {get;set;}
+        public string SeoImage { get; set; }
+        public int? ProductId { get; set; }
         //Nav property
         public Product Product { get; set; }
     }

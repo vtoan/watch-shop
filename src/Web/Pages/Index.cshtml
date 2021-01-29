@@ -1,10 +1,56 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
+@using Helper;
+@section seo{
+    @await Component.InvokeAsync("SeoContent", new {Type = SeoType.Home,Id =1})
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section css{
+    <link rel="stylesheet" href="./css/slider.site.css" />
+}
+@section scripts{
+    <script src="./js/slider.js"></script>
+}
+@* ================== Slider ==================  *@
+<div class="container-fluid section pb-4">
+    <div class="slider">
+        <div class="slider-container">
+            <div class="slider-handle">
+                 <div class="img slider-item">
+                    <img src="./images/sliders/slider_2.jpg" loading="lazy">
+                </div>
+                <div class="img slider-item">
+                    <img src="./images/sliders/slider_1.jpg" loading="lazy">
+                </div>
+                <div class="img slider-item">
+                    <img src="./images/sliders/slider_3.jpg" loading="lazy">
+                </div>
+            </div>
+        </div>
+        <a class="slider-prev white"><i class="las la-angle-left"></i></a>
+        <a class="slider-next white"><i class="las la-angle-right"></i></a>
+    </div>
 </div>
+@* ================== End-Slider ================== *@
+<partial name="_PolicyPartical"></partial>
+@* ================== Product Futured ================== *@
+<div class="container mb-3">
+    <h2 class="text-center heading">SẢN PHẨM NỔI BẬT</h2>
+     <div id="product-container" class="row row-contents" style="min-height: 300px;">
+        <partial name="_ProductPartical" model="@Model.ListProductFeatured"></partial>
+     </div>
+</div>
+@* ================== End Product Futured ================== *@
+@* ================== Product New ================== *@
+<div class="container mb-3 section">
+    <h2 class="text-center heading">SẢN PHẨM MỚI</h2>
+     <div id="product-container" class="row row-contents" style="min-height: 300px;">
+        <partial name="_ProductPartical" model="@Model.ListProductNew"></partial>
+     </div>
+    <div class="text-center">
+        <a href="/khuyen-mai" class="btn btn-sm bg-black white border">XEM THÊM</a>
+    </div>
+</div>
+@* ================== End Product New ================== *@
+<cache>
+    <partial name="_FeedbackPartical">
+</cache>

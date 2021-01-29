@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "7i20QmCcRuiJFsXox2VMtkNIH3/jSrKzsYL4BMCW4EaAJmidDxMdP826ouachk6HfCFXrqvo/Zl39M4Sbm8MHg==",
+  "dgSpecHash": "TEj2nDrLbLCn3Zlu5/VodnotFYS0kncaP09Ga67SIcRkrF3KTVYtH43jlhcm4BYgxqVnhq6JqVHCH5sDJcOqJg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Toan\\Documents\\Sources\\watch-shop\\src\\Application\\Application.csproj",
+  "projectFilePath": "/home/toan/Documents/Sources/watch-shop/src/Application/Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Toan\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\3.1.0\\microsoft.entityframeworkcore.abstractions.3.1.0.nupkg.sha512"
+    "/home/toan/.nuget/packages/microsoft.entityframeworkcore.abstractions/3.1.0/microsoft.entityframeworkcore.abstractions.3.1.0.nupkg.sha512"
   ],
   "logs": []
 }

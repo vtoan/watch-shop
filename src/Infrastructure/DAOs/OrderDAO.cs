@@ -17,7 +17,6 @@ namespace Infrastructure.DAOs
 
         public Order Add(Order newObject)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 _context.Add<Order>(newObject);
@@ -27,13 +26,12 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
         public OrderStatus AddLogStatus(OrderStatus newObject)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 _context.Add<OrderStatus>(newObject);
@@ -43,13 +41,12 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
         public Order Get(string id)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.Orders.Where(item => item.Id == id)
@@ -61,13 +58,12 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
         public ICollection<Order> GetList(DateTime start, DateTime end, int status)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.Orders.Where(item => item.DateCreated >= start && item.DateCreated <= end)
@@ -79,13 +75,12 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
         public ICollection<OrderStatus> GetListStatusOf(string orderId)
         {
-            if (!this.CheckConnect()) return null;
             try
             {
                 var re = _context.OrderStatuses.Where(item => item.OrderId == orderId)
@@ -96,13 +91,12 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
         public int GetStatus(string orderId)
         {
-            if (!this.CheckConnect()) return -1;
             try
             {
                 var re = _context.OrderStatuses.Where(item => item.OrderId == orderId)
@@ -114,7 +108,7 @@ namespace Infrastructure.DAOs
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return -1;
+                throw new Exception(ex.Message);
             }
         }
     }

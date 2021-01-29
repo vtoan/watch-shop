@@ -79,7 +79,7 @@ namespace Application.Services
         {
             if (promId == 0 || objectProm == null) return false;
             var propModifed = GetPropChangedOf(objectProm);
-            if (propModifed?.Count == 0) return true;
+            if (propModifed?.Count == 0) throw new Exception("There is nothing to Update"); ;
             switch (promType)
             {
                 case EPromo.Bill:

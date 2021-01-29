@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Application.Domains;
 using Application.Interfaces.DAOs;
+using Application.Interfaces.Helper;
 using Application.Interfaces.Services;
 
 namespace Application.Services
@@ -19,28 +20,29 @@ namespace Application.Services
             _db = dao;
         }
 
-        public ICollection<Product> FindByQuery(string query)
+        public ICollection<Product> FindByQuery(string query, int items = 0)
         {
             if (String.IsNullOrEmpty(query)) return null;
-            return _db.FindItem(query);
+            return _db.FindItem(query, items);
         }
 
-        public ICollection<Product> GetListById(int[] arrayId)
+        public ICollection<Product> GetListById(int[] arrayId, bool isAdmin = false)
         {
             if (arrayId == null || arrayId?.Length <= 0) return null;
-            return _db.GetListByIds(arrayId);
+            return _db.GetListByIds(arrayId, isAdmin);
         }
 
-        // public ICollection<Product> GetListFeatured()
-        // {
-        //     var re = _cache.GetData<List<Product>>(_CACHE_FEATURED);
-        //     if (re == null || re?.Count <= 0)
-        //     {
-        //         re = (List<Product>)_db.GetListFeatured();
-        //         if (re?.Count > 0) _cache.AddData(_CACHE_FEATURED, re, TimeSpan.FromDays(1));
-        //     }
-        //     return re;
-        // }
+        public ICollection<Product> GetListSeller(int count)
+        {
+            if (count <= 0) return null;
+            var re = _cache.GetData<List<Product>>(_CACHE_FEATURED);
+            if (re == null || re?.Count <= 0)
+            {
+                re = (List<Product>)_db.GetListSeller(count);
+                if (re?.Count > 0) _cache.AddData(_CACHE_FEATURED, re, TimeSpan.FromDays(1));
+            }
+            return re;
+        }
 
         public ICollection<Product> GetListItems(bool isAdmin = false)
         {
@@ -96,7 +98,7 @@ namespace Application.Services
         public new bool UpdateItem(int id, Product modifiedObject)
         {
             var execResult = base.UpdateItem(id, modifiedObject);
-            if (execResult == false) return false;
+            if (execResult == false) throw new Exception("There is nothing to Update"); ;
             _cache.MarkManyChanged(new string[] { _CACHE_BAND, _CACHE_CATE, _CACHE_FEATURED });
             return execResult;
         }
@@ -130,8 +132,19 @@ namespace Application.Services
         {
             if (id <= 0) return false;
             var propModified = base.GetPropChangedOf(modifiedObject);
-            if (propModified.Count < 0) return true;
+            if (propModified.Count < 0) throw new Exception("There is nothing to Update");
             return _db.Update<ProductDetail>(id, propModified);
+        }
+
+        public ISeoDomain GetSeo(int id)
+        {
+            return GetDetail(id);
+        }
+
+        public Product GetByName(string name)
+        {
+            if (String.IsNullOrEmpty(name)) return null;
+            return _db.GetByName(name);
         }
     }
 }

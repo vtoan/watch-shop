@@ -1,0 +1,84 @@
+@page "/gio-hang"
+@using Helper
+@model CartModel
+@section scripts{
+    <script src="~/js/cart.page.js"></script>
+}
+@section css{
+    <style>
+        .cart-item{
+        animation: appear 0.3s ease-in;
+    }
+    </style>
+}
+<div class="banner-sm section">
+    <p class="">Giỏ hàng</p>
+</div>
+<div class="container mb-4">
+    <div class="breadcrumb">
+        <a href="/">Trang chủ</a>/
+        <a href="javascript:void(0)">Giỏ hàng</a>
+    </div>
+</div>
+@* <!-- ================== Cart ================== --> *@
+<div class="container section">
+    <div id="cart" class="row section">
+        <div class="col-12 col-lg-7 section">
+            <!--Cart - Header List-->
+            <div class="mb-3">
+                <div class="d-flex align-items-center px-3">
+                    <h3 class="">Sản phẩm</h3>
+                    <p class="mb-0 ml-auto"> <span id="count-items">0</span> sản phẩm
+                    <p>
+                </div>
+                <hr class="bg-black mx-3" style="height: 1px;">
+            </div>
+            <!--Cart - List Item-->
+            <div id="cart-container">
+                <p class="text-center flex-grow-1 py-5">Đang tải dữ liệu ...</p> 
+            </div>
+        </div>
+        <div class="col-12 col-lg-5 section">
+            <div class="mb-3">
+                <h3 class="pl-3">Đơn hàng</h3>
+                <hr class="bg-black mx-3" style="height: 1px;">
+            </div>
+            <div class="m-3">
+                <input prom-code name="promotion" style="width:72%;" type="text" placeholder="Mã giảm giá">
+                <a prom-submit class="btn btn-sm bg-red white bold float-right" >Áp dụng</a>
+            </div>
+            <table class="table text-4" style="margin-left: 0.2em;">
+                <tbody>
+                    <tr >
+                        <td>Tạm tính</td>
+                        <td order-total="" >0 đ</td>
+                    </tr>
+                    <tr class="d-none">
+                        <td>Giảm giá</td>
+                        <td order-promotion="" >0 đ</td>
+                    </tr>
+                    @foreach (var item in Model.ListFee)
+                    {    
+                         <tr>
+                            <td>@item.Name</td>
+                            <td order-fees fee-cost="@item.Cost">@PageHelper._renderDiscount((double)item.Cost)</td>
+                        </tr>
+                    }
+                    <tr class="bold">
+                        <td>Thanh Toán</td>
+                        <td class="red" order-pay>0 đ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 text-center pt-4">
+            <form method="POST">
+                <button class="btn btn-sm bg-red white w-50 bold" style="max-width: 250px;" type="submit"> Tiếp tục</button>
+            </form>
+        </div>
+    </div>
+</div>
+@* <!-- ================== End Cart ================== -->*@
+<cache>
+    <partial name="_PolicyPartical"/>
+</cache>

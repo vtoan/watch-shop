@@ -1,0 +1,19 @@
+@model List<Application.Domains.Wire>;
+@{
+    string active = ViewData["active"].ToString();
+    string link = ViewData["link"].ToString();
+}
+<div class="dropdown ml-lg-auto pl-2 pl-lg-0">
+    <div class="select border-secondary  no-select">
+        <span> @(active == "" ? "Loại dây" : active)</span>
+        <i class="las la-angle-down"></i>
+    </div>
+    <input id="filter" type="hidden" name="filter">
+    <ul class="dropdown-menu bg-white srcoll">
+        <li value="0"><a href="@(link+"w=0")">Tất cả</a></li>
+        @foreach (var item in Model)
+        {
+            <li value="@item.Id"><a href="@(link+ "w=" + item.Id)">@item.Name</a></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,48 @@
+@using Helper
+@model ICollection<Web.Pages.Cart.CartModel.ProductInCart>
+@if (Model?.Count >0)
+{
+    @foreach (var item in Model)
+    {
+        double price = (double)item.PricePromotion;
+        double priceRoot = item.Price;
+        double total = price * item.Quantity;
+        //template
+         <div class="cart-item mb-3 " item-id="@item.ProductId">
+            <div class="row row-contents align-items-lg-center">
+                <div class="col-3 col-lg-2">
+                    <div class="img"><img width="100" class="border" src="~/images/products/img.jpg"></div>
+                </div>
+                <div class="col-7 col-lg-9">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-5 mb-2 ">
+                            <p class="text-4">@item.ProductName</p>
+                            <span class=" text-4 red bold">@PageHelper._renderCurrency(price)</span>
+                            @if (item.PricePromotion > 0){
+                                <del class="normal text-sub">@PageHelper._renderCurrency(priceRoot)</del>
+                            }
+                        </div>
+                        <div class="col-12 col-lg-3 mb-2">
+                            <div class="d-flex align-items-center">
+                                <a quantity-add class="btn btn-bg border-round btn-sm"><i class="las la-angle-up"></i></a>
+                                <span item-count item-price="@item.Price" class="px-3">@item.Quantity</span>
+                                <a quantity-subtract class="btn btn-bg border-round btn-sm"><i
+                                        class="las la-angle-down"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-2">
+                            <span class="d-block">Tổng: </span>
+                            <span item-total="@total" class="text-4 bold">@PageHelper._renderCurrency(total)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 col-lg-1 text-right">
+                    <a quantity-remove class="btn btn-no red remove" href="javascript:void(0)"><i class=" icon las la-times"></i></a>
+                </div>
+                <hr class="mx-3 white w-100">
+            </div>
+        </div> 
+    }
+}
+else{<p class="text-center flex-grow-1 py-5">Giỏ hàng trống !</p> }
+       

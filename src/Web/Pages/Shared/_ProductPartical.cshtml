@@ -1,0 +1,41 @@
+@using DTO
+@using Helper
+@model ICollection<Web.DTO.ProductDTO>;
+@{
+    string _convertPath(ProductDTO product) => DataHelper.RemapVniToAsciiText(product.BandName + "-" + product.Name + "-" + product.Id);
+}
+@if (Model?.Count >0)
+{
+    @foreach (var item in Model)
+    {
+        double price = (double)item?.Price;
+        double priceRoot = price;
+        double discount = item.Discount;
+        if (discount != 0) { price = (discount % 1 == 0) ? (price - discount) : (price - (price * discount));}
+        //template        
+        <div class="col-6 col-lg-3">
+            <div class="product @if (discount != 0){<text>sale</text>;}">
+                <div class="product-img img-anim">
+                    @if(discount >0){
+                        <span class="product-sale">-@(PageHelper._renderDiscount(discount))</span>
+                    }
+                    <div class="img">
+                        <img src="~/images/products/@item.Image" loading="lazy">
+                    </div>
+                </div>
+                <a class="add-cart mb-3" item-id="@item.Id"  href="javascript:void(0)">Thêm vào giỏ hàng</a>
+                <a href="/san-pham/@_convertPath(item)" class="product-content">
+                    <h4 class="pb-2 normal">@item.Name @item.BandName @item.WireName</h4>
+                    <div>
+                        <p class="text-4 red bold d-block d-lg-inline-block m-0">
+                            @PageHelper._renderCurrency(price)
+                        </p>
+                         @if(discount >0){
+                        <del class="normal">@PageHelper._renderCurrency(priceRoot)</del>
+                         }
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+} else{ <p class="text-center flex-grow-1 mb-5" style="line-height: 300px;">Không tìm thấy sản phẩm !</p> }

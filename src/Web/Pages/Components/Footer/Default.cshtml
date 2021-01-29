@@ -1,0 +1,83 @@
+@model Web.Pages.Components.Footer.Footer.FooterModel
+@* <!-- ================== Footer ================== --> *@
+<footer class="border-top footer text-muted">
+    <div class="container-fluid bg-black white pt-5 pb-3">
+        <div class="container">
+            <div class="row section">
+                <div class="col-12 col-lg-4 mb-3">
+                    <h4>Thông tin liên hệ</h4>
+                    <hr class="w-50 mb-3 ml-0 white">
+                    @if (Model.InfoShop?.Email !=null){
+                        <p class="middle-inline">
+                            <i class="big-icon las la-envelope pr-1"></i>
+                            <span id="email">@Model.InfoShop?.Email</span>
+                        </p>
+                    }
+                    @if (Model.Phones?.Count > 0){
+                            <p class="middle-inline">
+                            <div class="float-left pr-1">
+                                <i class="big-icon las la-phone-volume pr-1"></i>
+                            </div>
+                            <div class="float-right w-75">
+                                @foreach (var item in Model.Phones)
+                                    {
+                                    <p>@item.PhoneNumber</p>
+                                    }
+                            </div>
+                            <span class="float-clear"></span>
+                            </p>
+                    }
+                    @if (Model.Addresses?.Count > 0){
+                            <p class="middle-inline">
+                            <div class="float-left pr-2">
+                                <i class="big-icon las la-map-marked"></i>
+                            </div>
+                            <div class="float-right w-75">
+                                @foreach (var item in Model.Addresses)
+                                    {
+                                    <p>@item.AddressStore</p>
+                                    }
+                            </div>
+                            <span class="float-clear"></span>
+                            </p>
+                    }
+                </div>
+                <div class="col-12 col-lg-4 mb-3">
+                    <h4>Theo dõi chúng tôi</h4>
+                    <hr class="w-50 mb-3 ml-0 white">
+                    @if (Model.Socials?.Count > 0)
+                        {
+                            @foreach (var item in Model.Socials)
+                            {
+                                string name = item.Name.ToLower();
+                                 <p class="middle-inline">
+                                <i class="big-icon lab la-@name pr-1"></i>
+                                <a id="fb" href="@item.Link" title="@item.Name">@item.Link</a>
+                            </p>
+                        }
+                    }
+                </div>
+                <div class="col-12 col-lg-4">
+                    <h4>Google map</h4>
+                    <hr class="w-50 mb-3 ml-0 white">
+                    <iframe class="border" style="height: 80%; width: auto;"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5309563354476!2d106.66729411536586!3d10.770586092325527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752edddb818ebf%3A0xfc8c05045f47a3d8!2zVHJ1bmcgVMOibSBUaMawxqFuZyBN4bqhaSBW4bqhbiBI4bqhbmg!5e0!3m2!1svi!2s!4v1610962388345!5m2!1svi!2s"
+                        frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+            </div>
+            <div class="row section align-items-center">
+                <div class="col-12 col-lg-8 mb-3">
+                    <h3 class="mb-3">@Model.InfoShop?.Name </h3>
+                    <p class="pr-5">@Model.InfoShop?.SeoDescription</p>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="img">
+                        <img width="200" src="~/images/unnamed.png">
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-sub mb-0">&copy;Copyright, by vtoan, 2021</p>
+        </div>
+    </div>
+</footer>
+@* <!-- ==================  End-Footer ================== --> *@

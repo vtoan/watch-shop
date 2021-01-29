@@ -1,0 +1,28 @@
+﻿@page "/dat-hang-thanh-cong/{orderId?}"
+@section scripts{
+    <script>
+        cartObject.clear();
+        updateViewCount();
+    </script>
+}
+@functions{
+    public void OnGet(string orderId)
+    {
+        ViewData["orderId"] = orderId;
+    }
+}
+<div class="banner-sm section">
+    <p class="white mb-0">ĐẶT HÀNG THÀNH CÔNG</p>
+</div>
+<div class="container section">
+    <div class="img text-center mb-5">
+        <img src="~/images/thank.jpeg" width="150">
+    </div>
+    <p class="text-center">Đặt hàng <span class="bold">THÀNH CÔNG, Mã đơn hàng #@ViewData["orderId"] </span> , cảm ơn bạn đã
+        lựa chọn sản phẩm cửa hàng chúng tôi.</p>
+    <p class="text-center">Nhân viên sẽ gọi điện xác nhận đơn hàng của bạn trong thời gian sớm nhất.</p>
+    <a class="text-center link blue d-block mb-3" href="/" title="To Product"> TIẾP TỤC MUA SẮM </a>
+</div>
+<cache>
+    <partial name="_PolicyPartical"/>
+</cache>

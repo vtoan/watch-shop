@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Application.Interfaces.Helper;
 
 namespace Application.Domains
 {
-    public class Category
+    public class Category : ISeoDomain
     {
         public int Id { get; set; }
         public string Name { get; set; }
